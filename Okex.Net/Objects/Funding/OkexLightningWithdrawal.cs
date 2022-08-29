@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
+using OkxNet.Converters;
 using System;
 
-namespace Okex.Net.Objects.Funding
+namespace OkxNet.Objects.Funding
 {
-    public class OkexLightningWithdrawal
+    public class OkxLightningWithdrawal
     {
-        [JsonProperty("cTime"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("cTime"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
 
         [JsonProperty("wdId")]

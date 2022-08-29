@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.Public
+namespace OkxNet.Objects.Public
 {
-    public class OkexUnitConvert
+    public class OkxUnitConvert
     {
         [JsonProperty("instId")]
         public string Instrument { get; set; }
@@ -18,9 +18,9 @@ namespace Okex.Net.Objects.Public
         public decimal Size { get; set; }
 
         [JsonProperty("type"), JsonConverter(typeof(ConvertTypeConverter))]
-        public OkexConvertType Type { get; set; }
+        public OkxConvertType Type { get; set; }
         
         [JsonProperty("unit"), JsonConverter(typeof(ConvertUnitConverter))]
-        public OkexConvertUnit Unit { get; set; }
+        public OkxConvertUnit Unit { get; set; }
     }
 }

@@ -1,17 +1,17 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.Public
+namespace OkxNet.Objects.Public
 {
-    public class OkexInstrument
+    public class OkxInstrument
     {
         /// <summary>
         /// Instrument type
         /// </summary>
         [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
-        public OkexInstrumentType InstrumentType { get; set; }
+        public OkxInstrumentType InstrumentType { get; set; }
 
         /// <summary>
         /// Instrument ID, e.g. BTC-USD-SWAP
@@ -47,15 +47,15 @@ namespace Okex.Net.Objects.Public
         public string ContractValueCurrency { get; set; }
 
         [JsonProperty("optType"), JsonConverter(typeof(OptionTypeConverter))]
-        public OkexOptionType? OptionType { get; set; }
+        public OkxOptionType? OptionType { get; set; }
 
         [JsonProperty("stk")]
         public decimal? StrikePrice { get; set; }
 
-        [JsonProperty("listTime"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("listTime"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime? ListingTime { get; set; }
 
-        [JsonProperty("expTime"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("expTime"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime? ExpiryTime { get; set; }
 
         [JsonProperty("lever")]
@@ -71,12 +71,12 @@ namespace Okex.Net.Objects.Public
         public decimal MinimumOrderSize { get; set; }
 
         [JsonProperty("ctType"), JsonConverter(typeof(ContractTypeConverter))]
-        public OkexContractType? ContractType { get; set; }
+        public OkxContractType? ContractType { get; set; }
 
         [JsonProperty("alias"), JsonConverter(typeof(InstrumentAliasConverter))]
-        public OkexInstrumentAlias? Alias { get; set; }
+        public OkxInstrumentAlias? Alias { get; set; }
 
         [JsonProperty("state"), JsonConverter(typeof(InstrumentStateConverter))]
-        public OkexInstrumentState state { get; set; }
+        public OkxInstrumentState state { get; set; }
     }
 }

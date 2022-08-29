@@ -1,20 +1,20 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class MaintenanceStateConverter : BaseConverter<OkexMaintenanceState>
+    internal class MaintenanceStateConverter : BaseConverter<OkxMaintenanceState>
     {
         public MaintenanceStateConverter() : this(true) { }
         public MaintenanceStateConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexMaintenanceState, string>> Mapping => new List<KeyValuePair<OkexMaintenanceState, string>>
+        protected override List<KeyValuePair<OkxMaintenanceState, string>> Mapping => new List<KeyValuePair<OkxMaintenanceState, string>>
         {
-            new KeyValuePair<OkexMaintenanceState, string>(OkexMaintenanceState.Scheduled, "scheduled"),
-            new KeyValuePair<OkexMaintenanceState, string>(OkexMaintenanceState.Ongoing, "ongoing"),
-            new KeyValuePair<OkexMaintenanceState, string>(OkexMaintenanceState.Completed, "completed"),
-            new KeyValuePair<OkexMaintenanceState, string>(OkexMaintenanceState.Canceled, "canceled"),
+            new KeyValuePair<OkxMaintenanceState, string>(OkxMaintenanceState.Scheduled, "scheduled"),
+            new KeyValuePair<OkxMaintenanceState, string>(OkxMaintenanceState.Ongoing, "ongoing"),
+            new KeyValuePair<OkxMaintenanceState, string>(OkxMaintenanceState.Completed, "completed"),
+            new KeyValuePair<OkxMaintenanceState, string>(OkxMaintenanceState.Canceled, "canceled"),
         };
     }
 }

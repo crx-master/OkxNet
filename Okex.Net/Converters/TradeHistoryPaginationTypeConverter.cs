@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class TradeHistoryPaginationTypeConverter : BaseConverter<OkexTradeHistoryPaginationType>
+    internal class TradeHistoryPaginationTypeConverter : BaseConverter<OkxTradeHistoryPaginationType>
     {
         public TradeHistoryPaginationTypeConverter() : this(true) { }
         public TradeHistoryPaginationTypeConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexTradeHistoryPaginationType, string>> Mapping => new List<KeyValuePair<OkexTradeHistoryPaginationType, string>>
+        protected override List<KeyValuePair<OkxTradeHistoryPaginationType, string>> Mapping => new List<KeyValuePair<OkxTradeHistoryPaginationType, string>>
         {
-            new KeyValuePair<OkexTradeHistoryPaginationType, string>(OkexTradeHistoryPaginationType.TradeId, "1"),
-            new KeyValuePair<OkexTradeHistoryPaginationType, string>(OkexTradeHistoryPaginationType.Timestamp, "2"),
+            new KeyValuePair<OkxTradeHistoryPaginationType, string>(OkxTradeHistoryPaginationType.TradeId, "1"),
+            new KeyValuePair<OkxTradeHistoryPaginationType, string>(OkxTradeHistoryPaginationType.Timestamp, "2"),
         };
     }
 }

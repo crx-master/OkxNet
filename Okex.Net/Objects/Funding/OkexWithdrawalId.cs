@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Okex.Net.Objects.Funding
+namespace OkxNet.Objects.Funding
 {
-    public class OkexWithdrawalId
+    public class OkxWithdrawalId
     {
         [JsonProperty("wdId")]
         public string WithdrawalId { get; set; }

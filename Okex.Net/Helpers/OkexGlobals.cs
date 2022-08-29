@@ -1,11 +1,11 @@
 ﻿using System.Globalization;
 
-namespace Okex.Net.Helpers
+namespace OkxNet.Helpers
 {
-    public static class OkexGlobals
+    public static class OkxGlobals
     {
         // Local Settings
-        public static CultureInfo OkexCultureInfo = new CultureInfo("en-US");
-        public static string OkexDatetimeFormat = "yyyy-MM-ddTHH:mm:ss.fffZ";
+        public static CultureInfo OkxCultureInfo = new CultureInfo("en-US");
+        public static string OkxDatetimeFormat = "yyyy-MM-ddTHH:mm:ss.fffZ";
     }
 }

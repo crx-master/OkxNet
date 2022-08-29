@@ -1,6 +1,6 @@
-﻿namespace Okex.Net.Enums
+﻿namespace OkxNet.Enums
 {
-    public enum OkexOrderFlowType
+    public enum OkxOrderFlowType
     {
         Taker,
         Maker,

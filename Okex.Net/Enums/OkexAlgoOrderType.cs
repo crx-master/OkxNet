@@ -1,6 +1,6 @@
-﻿namespace Okex.Net.Enums
+﻿namespace OkxNet.Enums
 {
-    public enum OkexAlgoOrderType
+    public enum OkxAlgoOrderType
     {
         Conditional,
         OCO,

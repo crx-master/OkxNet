@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class MarginTransferModeConverter : BaseConverter<OkexMarginTransferMode>
+    internal class MarginTransferModeConverter : BaseConverter<OkxMarginTransferMode>
     {
         public MarginTransferModeConverter() : this(true) { }
         public MarginTransferModeConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexMarginTransferMode, string>> Mapping => new List<KeyValuePair<OkexMarginTransferMode, string>>
+        protected override List<KeyValuePair<OkxMarginTransferMode, string>> Mapping => new List<KeyValuePair<OkxMarginTransferMode, string>>
         {
-            new KeyValuePair<OkexMarginTransferMode, string>(OkexMarginTransferMode.AutoTransfer, "automatic"),
-            new KeyValuePair<OkexMarginTransferMode, string>(OkexMarginTransferMode.ManualTransfer, "autonomy"),
+            new KeyValuePair<OkxMarginTransferMode, string>(OkxMarginTransferMode.AutoTransfer, "automatic"),
+            new KeyValuePair<OkxMarginTransferMode, string>(OkxMarginTransferMode.ManualTransfer, "autonomy"),
         };
     }
 }

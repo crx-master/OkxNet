@@ -2,11 +2,11 @@
 using CryptoExchange.Net.Objects;
 using Newtonsoft.Json;
 
-namespace Okex.Net.Objects.Core
+namespace OkxNet.Objects.Core
 {
-    public class OkexRestApiError : Error
+    public class OkxRestApiError : Error
     {
-        public OkexRestApiError(int? code, string message, object data) : base(code, message, data)
+        public OkxRestApiError(int? code, string message, object data) : base(code, message, data)
         {
         }
     }

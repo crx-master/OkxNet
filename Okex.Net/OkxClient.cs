@@ -5,7 +5,7 @@ using CryptoExchange.Net.Logging;
 using CryptoExchange.Net.Objects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Okex.Net.Objects.Core;
+using OkxNet.Objects.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +13,13 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Okex.Net
+namespace OkxNet
 {
-    public partial class OkexClient : BaseRestClient
+    public partial class OkxClient : BaseRestClient
     {
         #region Internal Fields
-        internal OkexClientOptions Options { get; }
-        internal OkexClientUnifiedApi UnifiedApi { get; }
+        internal OkxClientOptions Options { get; }
+        internal OkxClientUnifiedApi UnifiedApi { get; }
         internal const string BodyParameterKey = "<BODY>";
         #endregion
 
@@ -151,14 +151,14 @@ namespace Okex.Net
         #endregion
 
         #region Constructor/Destructor
-        public OkexClient() : this(OkexClientOptions.Default)
+        public OkxClient() : this(OkxClientOptions.Default)
         {
         }
 
-        public OkexClient(OkexClientOptions options) : base("OKX Rest Api", options)
+        public OkxClient(OkxClientOptions options) : base("OKX Rest Api", options)
         {
             Options = options;
-            UnifiedApi = AddApiClient(new OkexClientUnifiedApi(log, this, options));
+            UnifiedApi = AddApiClient(new OkxClientUnifiedApi(log, this, options));
         }
         #endregion
 
@@ -167,18 +167,18 @@ namespace Okex.Net
         /// Sets the default options to use for new clients
         /// </summary>
         /// <param name="options">The options to use for new clients</param>
-        public static void SetDefaultOptions(OkexClientOptions options)
+        public static void SetDefaultOptions(OkxClientOptions options)
         {
-            OkexClientOptions.Default = options;
+            OkxClientOptions.Default = options;
         }
 
         /// <summary>
         /// Sets the API Credentials
         /// </summary>
         /// <param name="credentials">API Credentials Object</param>
-        public void SetApiCredentials(OkexApiCredentials credentials)
+        public void SetApiCredentials(OkxApiCredentials credentials)
         {
-            ((OkexClientUnifiedApi)UnifiedApi).SetApiCredentials(credentials);
+            ((OkxClientUnifiedApi)UnifiedApi).SetApiCredentials(credentials);
         }
 
         /// <summary>
@@ -189,17 +189,17 @@ namespace Okex.Net
         /// <param name="passPhrase">The passphrase you specified when creating the API key</param>
         public virtual void SetApiCredentials(string apiKey, string apiSecret, string passPhrase)
         {
-            ((OkexClientUnifiedApi)UnifiedApi).SetApiCredentials(new OkexApiCredentials(apiKey, apiSecret, passPhrase));
+            ((OkxClientUnifiedApi)UnifiedApi).SetApiCredentials(new OkxApiCredentials(apiKey, apiSecret, passPhrase));
         }
         #endregion
 
         #region Core Methods
         protected override void WriteParamBody(BaseApiClient apiClient, IRequest request, SortedDictionary<string, object> parameters, string contentType)
         {
-            OkexWriteParamBody(apiClient, request, parameters, contentType);
+            OkxWriteParamBody(apiClient, request, parameters, contentType);
         }
 
-        protected virtual void OkexWriteParamBody(BaseApiClient apiClient, IRequest request, SortedDictionary<string, object> parameters, string contentType)
+        protected virtual void OkxWriteParamBody(BaseApiClient apiClient, IRequest request, SortedDictionary<string, object> parameters, string contentType)
         {
             if (apiClient.requestBodyFormat == RequestBodyFormat.Json)
             {
@@ -226,10 +226,10 @@ namespace Okex.Net
 
         protected override Error ParseErrorResponse(JToken error)
         {
-            return OkexParseErrorResponse(error);
+            return OkxParseErrorResponse(error);
         }
 
-        protected virtual Error OkexParseErrorResponse(JToken error)
+        protected virtual Error OkxParseErrorResponse(JToken error)
         {
             if (error["code"] == null || error["msg"] == null)
                 return new ServerError(error.ToString());
@@ -256,16 +256,16 @@ namespace Okex.Net
 
     }
 
-    public class OkexClientUnifiedApi : RestApiClient
+    public class OkxClientUnifiedApi : RestApiClient
     {
         #region Internal Fields
         internal readonly Log _log;
-        internal readonly OkexClient _baseClient;
-        internal readonly OkexClientOptions _options;
+        internal readonly OkxClient _baseClient;
+        internal readonly OkxClientOptions _options;
         internal static TimeSyncState TimeSyncState = new TimeSyncState("Unified Api");
         #endregion
 
-        internal OkexClientUnifiedApi(Log log, OkexClient baseClient, OkexClientOptions options) : base(options, options.UnifiedApiOptions)
+        internal OkxClientUnifiedApi(Log log, OkxClient baseClient, OkxClientOptions options) : base(options, options.UnifiedApiOptions)
         {
             _baseClient = baseClient;
             _options = options;
@@ -273,7 +273,7 @@ namespace Okex.Net
         }
 
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new OkexAuthenticationProvider((OkexApiCredentials)credentials);
+            => new OkxAuthenticationProvider((OkxApiCredentials)credentials);
 
         internal Task<WebCallResult> ExecuteAsync(Uri uri, HttpMethod method, CancellationToken ct, Dictionary<string, object> parameters = null, bool signed = false, HttpMethodParameterPosition? parameterPosition = null)
          => _baseClient.ExecuteAsync(this, uri, method, ct, parameters, signed, parameterPosition: parameterPosition);

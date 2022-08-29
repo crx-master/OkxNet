@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class MarginAddReduceConverter : BaseConverter<OkexMarginAddReduce>
+    internal class MarginAddReduceConverter : BaseConverter<OkxMarginAddReduce>
     {
         public MarginAddReduceConverter() : this(true) { }
         public MarginAddReduceConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexMarginAddReduce, string>> Mapping => new List<KeyValuePair<OkexMarginAddReduce, string>>
+        protected override List<KeyValuePair<OkxMarginAddReduce, string>> Mapping => new List<KeyValuePair<OkxMarginAddReduce, string>>
         {
-            new KeyValuePair<OkexMarginAddReduce, string>(OkexMarginAddReduce.Add, "add"),
-            new KeyValuePair<OkexMarginAddReduce, string>(OkexMarginAddReduce.Reduce, "reduce"),
+            new KeyValuePair<OkxMarginAddReduce, string>(OkxMarginAddReduce.Add, "add"),
+            new KeyValuePair<OkxMarginAddReduce, string>(OkxMarginAddReduce.Reduce, "reduce"),
         };
     }
 }

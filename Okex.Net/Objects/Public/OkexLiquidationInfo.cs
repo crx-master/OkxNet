@@ -1,18 +1,18 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.Public
+namespace OkxNet.Objects.Public
 {
-    public class OkexLiquidationInfo
+    public class OkxLiquidationInfo
     {
         [JsonProperty("instId")]
         public string Instrument { get; set; }
 
         [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
-        public OkexInstrumentType InstrumentType { get; set; }
+        public OkxInstrumentType InstrumentType { get; set; }
 
         [JsonProperty("totalLoss")]
         public decimal? TotalLoss { get; set; }
@@ -21,16 +21,16 @@ namespace Okex.Net.Objects.Public
         public string Underlying { get; set; }
 
         [JsonProperty("details")]
-        public IEnumerable<OkexPublicLiquidationInfoDetail> Details { get; set; }
+        public IEnumerable<OkxPublicLiquidationInfoDetail> Details { get; set; }
     }
 
-    public class OkexPublicLiquidationInfoDetail
+    public class OkxPublicLiquidationInfoDetail
     {
         [JsonProperty("side"), JsonConverter(typeof(OrderSideConverter))]
-        public OkexOrderSide OrderSide { get; set; }
+        public OkxOrderSide OrderSide { get; set; }
 
         [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
-        public OkexPositionSide PositionSide { get; set; }
+        public OkxPositionSide PositionSide { get; set; }
 
         [JsonProperty("bkPx")]
         public decimal? BankruptcyPrice { get; set; }
@@ -44,7 +44,7 @@ namespace Okex.Net.Objects.Public
         [JsonProperty("ccy")]
         public string Currency { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
     }
 }

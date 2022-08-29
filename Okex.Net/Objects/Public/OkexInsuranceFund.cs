@@ -1,21 +1,21 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.Public
+namespace OkxNet.Objects.Public
 {
-    public class OkexInsuranceFund
+    public class OkxInsuranceFund
     {
         [JsonProperty("total")]
         public decimal Total { get; set; }
 
         [JsonProperty("details")]
-        public IEnumerable< OkexInsuranceFundDetail> Details { get; set; }
+        public IEnumerable< OkxInsuranceFundDetail> Details { get; set; }
     }
 
-    public class OkexInsuranceFundDetail
+    public class OkxInsuranceFundDetail
     {
         [JsonProperty("amt")]
         public decimal Amount { get; set; }
@@ -27,9 +27,9 @@ namespace Okex.Net.Objects.Public
         public string Currency { get; set; }
 
         [JsonProperty("type"), JsonConverter(typeof(InsuranceTypeConverter))]
-        public OkexInsuranceType Type { get; set; }
+        public OkxInsuranceType Type { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Timestamp { get; set; }
     }
 }

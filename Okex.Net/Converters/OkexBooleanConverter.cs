@@ -1,12 +1,12 @@
 ﻿using CryptoExchange.Net.Converters;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class OkexBooleanConverter : BaseConverter<bool>
+    internal class OkxBooleanConverter : BaseConverter<bool>
     {
-        public OkexBooleanConverter() : this(true) { }
-        public OkexBooleanConverter(bool quotes) : base(quotes) { }
+        public OkxBooleanConverter() : this(true) { }
+        public OkxBooleanConverter(bool quotes) : base(quotes) { }
 
         protected override List<KeyValuePair<bool, string>> Mapping => new List<KeyValuePair<bool, string>>
         {

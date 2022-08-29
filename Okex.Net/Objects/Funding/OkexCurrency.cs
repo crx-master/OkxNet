@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Okex.Net.Objects.Funding
+namespace OkxNet.Objects.Funding
 {
-    public class OkexCurrency
+    public class OkxCurrency
     {
         [JsonProperty("ccy")]
         public string Currency { get; set; }

@@ -1,59 +1,64 @@
-﻿using CryptoExchange.Net.Objects;
+﻿#nullable enable
+using CryptoExchange.Net.Objects;
 
-namespace Okex.Net.Objects.Core
+namespace OkxNet.Objects.Core
 {
-    public class OkexSocketClientOptions : BaseSocketClientOptions
+    public class OkxSocketClientOptions : BaseSocketClientOptions
     {
         public bool DemoTradingService { get; set; } = false;
 
-        public static OkexSocketClientOptions Default { get; set; } = new OkexSocketClientOptions()
+        public static OkxSocketClientOptions Default { get; set; } = new OkxSocketClientOptions()
         {
             SocketSubscriptionsCombineTarget = 100,
             MaxSocketConnections = 50
         };
 
-        public new OkexApiCredentials ApiCredentials
+        public new OkxApiCredentials? ApiCredentials
         {
-            get => (OkexApiCredentials)base.ApiCredentials;
+            get
+            {
+                return (OkxApiCredentials?)base.ApiCredentials;
+            }
+
             set => base.ApiCredentials = value;
         }
 
-        private OkexSocketApiClientOptions _unifiedStreamsOptions = new OkexSocketApiClientOptions();
-        public OkexSocketApiClientOptions UnifiedStreamsOptions
+        private OkxSocketApiClientOptions _unifiedStreamsOptions = new OkxSocketApiClientOptions();
+        public OkxSocketApiClientOptions UnifiedStreamsOptions
         {
             get => _unifiedStreamsOptions;
-            set => _unifiedStreamsOptions = new OkexSocketApiClientOptions(_unifiedStreamsOptions, value);
+            set => _unifiedStreamsOptions = new OkxSocketApiClientOptions(_unifiedStreamsOptions, value);
         }
 
-        public OkexSocketClientOptions() : this(Default)
+        public OkxSocketClientOptions() : this(Default)
         {
         }
 
-        internal OkexSocketClientOptions(OkexSocketClientOptions baseOn) : base(baseOn)
+        internal OkxSocketClientOptions(OkxSocketClientOptions baseOn) : base(baseOn)
         {
             if (baseOn == null)
                 return;
 
-            ApiCredentials = (OkexApiCredentials?)baseOn.ApiCredentials?.Copy();
-            _unifiedStreamsOptions = new OkexSocketApiClientOptions(baseOn.UnifiedStreamsOptions, null);
+            ApiCredentials = baseOn.ApiCredentials?.Copy() as OkxApiCredentials;
+            _unifiedStreamsOptions = new OkxSocketApiClientOptions(baseOn.UnifiedStreamsOptions, null);
         }
     }
 
-    public class OkexSocketApiClientOptions : ApiClientOptions
+    public class OkxSocketApiClientOptions : ApiClientOptions
     {
-        public new OkexApiCredentials ApiCredentials
+        public new OkxApiCredentials? ApiCredentials
         {
-            get => (OkexApiCredentials)base.ApiCredentials;
+            get => (OkxApiCredentials?)base.ApiCredentials;
             set => base.ApiCredentials = value;
         }
 
-        public OkexSocketApiClientOptions()
+        public OkxSocketApiClientOptions()
         {
         }
 
-        internal OkexSocketApiClientOptions(OkexSocketApiClientOptions baseOn, OkexSocketApiClientOptions? newValues) : base(baseOn, newValues)
+        internal OkxSocketApiClientOptions(OkxSocketApiClientOptions baseOn, OkxSocketApiClientOptions? newValues) : base(baseOn, newValues)
         {
-            ApiCredentials = (OkexApiCredentials?)newValues?.ApiCredentials?.Copy() ?? (OkexApiCredentials?)baseOn.ApiCredentials?.Copy();
+            ApiCredentials = (OkxApiCredentials?)newValues?.ApiCredentials?.Copy() ?? (OkxApiCredentials?)baseOn.ApiCredentials?.Copy();
         }
     }
 

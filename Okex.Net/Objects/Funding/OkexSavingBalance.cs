@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 
-namespace Okex.Net.Objects.Funding
+namespace OkxNet.Objects.Funding
 {
-    public class OkexSavingBalance
+    public class OkxSavingBalance
     {
         [JsonProperty("earnings")]
         public decimal? Earnings { get; set; }

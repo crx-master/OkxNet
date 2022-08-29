@@ -1,58 +1,58 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class AccountBillSubTypeConverter : BaseConverter<OkexAccountBillSubType>
+    internal class AccountBillSubTypeConverter : BaseConverter<OkxAccountBillSubType>
     {
         public AccountBillSubTypeConverter() : this(true) { }
         public AccountBillSubTypeConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexAccountBillSubType, string>> Mapping => new List<KeyValuePair<OkexAccountBillSubType, string>>
+        protected override List<KeyValuePair<OkxAccountBillSubType, string>> Mapping => new List<KeyValuePair<OkxAccountBillSubType, string>>
         {
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.Buy, "1"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.Sell, "2"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.OpenLong, "3"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.OpenShort, "4"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.CloseLong, "5"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.CloseShort, "6"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.InterestDeduction, "9"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.TransferIn, "11"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.TransferOut, "12"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.ManualMarginIncrease, "160"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.ManualMarginDecrease, "161"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.AutoMarginIncrease, "162"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.AutoBuy, "110"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.AutoSell, "111"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.SystemTokenConversionTransferIn, "118"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.SystemTokenConversionTransferOut, "119"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.PartialLiquidationCloseLong, "100"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.PartialLiquidationCloseShort, "101"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.PartialLiquidationBuy, "102"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.PartialLiquidationSell, "103"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.LiquidationLong, "104"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.LiquidationShort, "105"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.LiquidationBuy, "106"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.LiquidationSell, "107"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.LiquidationTransferIn, "110"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.LiquidationTransferOut, "111"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.ADLCloseLong, "125"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.ADLCloseShort, "126"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.ADLBuy, "127"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.ADLSell, "128"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.Exercised, "170"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.CounterpartyExercised, "171"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.ExpiredOTM, "172"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.DeliveryLong, "112"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.DeliveryShort, "113"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.DeliveryExerciseClawback, "117"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.FundingFeeExpense, "173"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.FundingFeeIncome, "174"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.SystemTransferIn, "200"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.ManuallyTransferIn, "201"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.SystemTransferOut, "202"),
-            new KeyValuePair<OkexAccountBillSubType, string>(OkexAccountBillSubType.ManuallyTransferOut, "203"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.Buy, "1"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.Sell, "2"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.OpenLong, "3"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.OpenShort, "4"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.CloseLong, "5"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.CloseShort, "6"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.InterestDeduction, "9"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.TransferIn, "11"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.TransferOut, "12"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.ManualMarginIncrease, "160"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.ManualMarginDecrease, "161"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.AutoMarginIncrease, "162"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.AutoBuy, "110"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.AutoSell, "111"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.SystemTokenConversionTransferIn, "118"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.SystemTokenConversionTransferOut, "119"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.PartialLiquidationCloseLong, "100"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.PartialLiquidationCloseShort, "101"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.PartialLiquidationBuy, "102"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.PartialLiquidationSell, "103"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.LiquidationLong, "104"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.LiquidationShort, "105"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.LiquidationBuy, "106"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.LiquidationSell, "107"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.LiquidationTransferIn, "110"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.LiquidationTransferOut, "111"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.ADLCloseLong, "125"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.ADLCloseShort, "126"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.ADLBuy, "127"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.ADLSell, "128"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.Exercised, "170"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.CounterpartyExercised, "171"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.ExpiredOTM, "172"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.DeliveryLong, "112"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.DeliveryShort, "113"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.DeliveryExerciseClawback, "117"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.FundingFeeExpense, "173"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.FundingFeeIncome, "174"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.SystemTransferIn, "200"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.ManuallyTransferIn, "201"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.SystemTransferOut, "202"),
+            new KeyValuePair<OkxAccountBillSubType, string>(OkxAccountBillSubType.ManuallyTransferOut, "203"),
         };
     }
 }

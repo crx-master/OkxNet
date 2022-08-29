@@ -1,11 +1,11 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
-using Okex.Net.Helpers;
-using Okex.Net.Objects.Account;
-using Okex.Net.Objects.Core;
+using OkxNet.Converters;
+using OkxNet.Enums;
+using OkxNet.Helpers;
+using OkxNet.Objects.Account;
+using OkxNet.Objects.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +13,9 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Okex.Net
+namespace OkxNet
 {
-    public partial class OkexClient
+    public partial class OkxClient
     {
         #region Account API Endpoints
         /// <summary>
@@ -24,7 +24,7 @@ namespace Okex.Net
         /// <param name="currency">Currency</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkexAccountBalance> GetAccountBalance(string currency = null, CancellationToken ct = default) 
+        public virtual WebCallResult<OkxAccountBalance> GetAccountBalance(string currency = null, CancellationToken ct = default) 
             => GetAccountBalance_Async(currency, ct).Result;
         /// <summary>
         /// Retrieve a list of assets (with non-zero balance), remaining balance, and available amount in the account.
@@ -32,14 +32,14 @@ namespace Okex.Net
         /// <param name="currency">Currency</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<OkexAccountBalance>> GetAccountBalance_Async(string currency = null, CancellationToken ct = default)
+        public virtual async Task<WebCallResult<OkxAccountBalance>> GetAccountBalance_Async(string currency = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("ccy", currency);
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexAccountBalance>>>(UnifiedApi.GetUri(Endpoints_V5_Account_Balance), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<OkexAccountBalance>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<OkexAccountBalance>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountBalance>>>(UnifiedApi.GetUri(Endpoints_V5_Account_Balance), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<OkxAccountBalance>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<OkxAccountBalance>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data.FirstOrDefault());
         }
@@ -52,8 +52,8 @@ namespace Okex.Net
         /// <param name="positionId">Position ID</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkexPosition>> GetAccountPositions(
-            OkexInstrumentType? instrumentType = null,
+        public virtual WebCallResult<IEnumerable<OkxPosition>> GetAccountPositions(
+            OkxInstrumentType? instrumentType = null,
             string instrumentId = null,
             string positionId = null,
             CancellationToken ct = default) 
@@ -66,8 +66,8 @@ namespace Okex.Net
         /// <param name="positionId">Position ID</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkexPosition>>> GetAccountPositions_Async(
-            OkexInstrumentType? instrumentType = null,
+        public virtual async Task<WebCallResult<IEnumerable<OkxPosition>>> GetAccountPositions_Async(
+            OkxInstrumentType? instrumentType = null,
             string instrumentId = null,
             string positionId = null,
             CancellationToken ct = default)
@@ -78,9 +78,9 @@ namespace Okex.Net
             parameters.AddOptionalParameter("instId", instrumentId);
             parameters.AddOptionalParameter("posId", positionId);
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexPosition>>>(UnifiedApi.GetUri(Endpoints_V5_Account_Positions), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkexPosition>>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkexPosition>>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxPosition>>>(UnifiedApi.GetUri(Endpoints_V5_Account_Positions), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxPosition>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxPosition>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }
@@ -95,7 +95,7 @@ namespace Okex.Net
         /// <param name="instrumentType">Instrument Type</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkexPositionRisk>> GetAccountPositionRisk(OkexInstrumentType? instrumentType = null, CancellationToken ct = default) 
+        public virtual WebCallResult<IEnumerable<OkxPositionRisk>> GetAccountPositionRisk(OkxInstrumentType? instrumentType = null, CancellationToken ct = default) 
             => GetAccountPositionRisk_Async(instrumentType, ct).Result;
         /// <summary>
         /// Get account and position risk
@@ -103,15 +103,15 @@ namespace Okex.Net
         /// <param name="instrumentType">Instrument Type</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkexPositionRisk>>> GetAccountPositionRisk_Async(OkexInstrumentType? instrumentType = null, CancellationToken ct = default)
+        public virtual async Task<WebCallResult<IEnumerable<OkxPositionRisk>>> GetAccountPositionRisk_Async(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             if (instrumentType.HasValue)
                 parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexPositionRisk>>>(UnifiedApi.GetUri(Endpoints_V5_Account_PositionRisk), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkexPositionRisk>>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkexPositionRisk>>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxPositionRisk>>>(UnifiedApi.GetUri(Endpoints_V5_Account_PositionRisk), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxPositionRisk>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxPositionRisk>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }
@@ -130,13 +130,13 @@ namespace Okex.Net
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkexAccountBill>> GetBillHistory(
-            OkexInstrumentType? instrumentType = null,
+        public virtual WebCallResult<IEnumerable<OkxAccountBill>> GetBillHistory(
+            OkxInstrumentType? instrumentType = null,
             string currency = null,
-            OkexMarginMode? marginMode = null,
-            OkexContractType? contractType = null,
-            OkexAccountBillType? billType = null,
-            OkexAccountBillSubType? billSubType = null,
+            OkxMarginMode? marginMode = null,
+            OkxContractType? contractType = null,
+            OkxAccountBillType? billType = null,
+            OkxAccountBillSubType? billSubType = null,
             long? after = null,
             long? before = null,
             int limit = 100,
@@ -166,13 +166,13 @@ namespace Okex.Net
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkexAccountBill>>> GetBillHistory_Async(
-            OkexInstrumentType? instrumentType = null,
+        public virtual async Task<WebCallResult<IEnumerable<OkxAccountBill>>> GetBillHistory_Async(
+            OkxInstrumentType? instrumentType = null,
             string currency = null,
-            OkexMarginMode? marginMode = null,
-            OkexContractType? contractType = null,
-            OkexAccountBillType? billType = null,
-            OkexAccountBillSubType? billSubType = null,
+            OkxMarginMode? marginMode = null,
+            OkxContractType? contractType = null,
+            OkxAccountBillType? billType = null,
+            OkxAccountBillSubType? billSubType = null,
             long? after = null,
             long? before = null,
             int limit = 100,
@@ -198,9 +198,9 @@ namespace Okex.Net
             if (billSubType.HasValue)
                 parameters.AddOptionalParameter("subType", JsonConvert.SerializeObject(billSubType, new AccountBillSubTypeConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexAccountBill>>>(UnifiedApi.GetUri(Endpoints_V5_Account_Bills), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkexAccountBill>>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkexAccountBill>>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountBill>>>(UnifiedApi.GetUri(Endpoints_V5_Account_Bills), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxAccountBill>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxAccountBill>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }
@@ -219,13 +219,13 @@ namespace Okex.Net
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkexAccountBill>> GetBillArchive(
-            OkexInstrumentType? instrumentType = null,
+        public virtual WebCallResult<IEnumerable<OkxAccountBill>> GetBillArchive(
+            OkxInstrumentType? instrumentType = null,
             string currency = null,
-            OkexMarginMode? marginMode = null,
-            OkexContractType? contractType = null,
-            OkexAccountBillType? billType = null,
-            OkexAccountBillSubType? billSubType = null,
+            OkxMarginMode? marginMode = null,
+            OkxContractType? contractType = null,
+            OkxAccountBillType? billType = null,
+            OkxAccountBillSubType? billSubType = null,
             long? after = null,
             long? before = null,
             int limit = 100,
@@ -255,13 +255,13 @@ namespace Okex.Net
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkexAccountBill>>> GetBillArchive_Async(
-            OkexInstrumentType? instrumentType = null,
+        public virtual async Task<WebCallResult<IEnumerable<OkxAccountBill>>> GetBillArchive_Async(
+            OkxInstrumentType? instrumentType = null,
             string currency = null,
-            OkexMarginMode? marginMode = null,
-            OkexContractType? contractType = null,
-            OkexAccountBillType? billType = null,
-            OkexAccountBillSubType? billSubType = null,
+            OkxMarginMode? marginMode = null,
+            OkxContractType? contractType = null,
+            OkxAccountBillType? billType = null,
+            OkxAccountBillSubType? billSubType = null,
             long? after = null,
             long? before = null,
             int limit = 100,
@@ -287,9 +287,9 @@ namespace Okex.Net
             if (billSubType.HasValue)
                 parameters.AddOptionalParameter("subType", JsonConvert.SerializeObject(billSubType, new AccountBillSubTypeConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexAccountBill>>>(UnifiedApi.GetUri(Endpoints_V5_Account_BillsArchive), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkexAccountBill>>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkexAccountBill>>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountBill>>>(UnifiedApi.GetUri(Endpoints_V5_Account_BillsArchive), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxAccountBill>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxAccountBill>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }
@@ -299,18 +299,18 @@ namespace Okex.Net
         /// </summary>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkexAccountConfiguration> GetAccountConfiguration(CancellationToken ct = default) 
+        public virtual WebCallResult<OkxAccountConfiguration> GetAccountConfiguration(CancellationToken ct = default) 
             => GetAccountConfiguration_Async(ct).Result;
         /// <summary>
         /// Retrieve current account configuration.
         /// </summary>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<OkexAccountConfiguration>> GetAccountConfiguration_Async(CancellationToken ct = default)
+        public virtual async Task<WebCallResult<OkxAccountConfiguration>> GetAccountConfiguration_Async(CancellationToken ct = default)
         {
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexAccountConfiguration>>>(UnifiedApi.GetUri(Endpoints_V5_Account_Config), HttpMethod.Get, ct, null, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<OkexAccountConfiguration>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<OkexAccountConfiguration>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountConfiguration>>>(UnifiedApi.GetUri(Endpoints_V5_Account_Config), HttpMethod.Get, ct, null, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<OkxAccountConfiguration>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<OkxAccountConfiguration>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data.FirstOrDefault());
         }
@@ -321,7 +321,7 @@ namespace Okex.Net
         /// <param name="positionMode"></param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkexAccountPositionMode> SetAccountPositionMode(Enums.OkexPositionMode positionMode, CancellationToken ct = default) 
+        public virtual WebCallResult<OkxAccountPositionMode> SetAccountPositionMode(Enums.OkxPositionMode positionMode, CancellationToken ct = default) 
             => SetAccountPositionMode_Async(positionMode, ct).Result;
         /// <summary>
         /// FUTURES and SWAP support both long/short mode and net mode. In net mode, users can only have positions in one direction; In long/short mode, users can hold positions in long and short directions.
@@ -329,15 +329,15 @@ namespace Okex.Net
         /// <param name="positionMode"></param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<OkexAccountPositionMode>> SetAccountPositionMode_Async(Enums.OkexPositionMode positionMode, CancellationToken ct = default)
+        public virtual async Task<WebCallResult<OkxAccountPositionMode>> SetAccountPositionMode_Async(Enums.OkxPositionMode positionMode, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object> {
                 {"posMode", JsonConvert.SerializeObject(positionMode, new PositionModeConverter(false)) },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexAccountPositionMode>>>(UnifiedApi.GetUri(Endpoints_V5_Account_SetPositionMode), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<OkexAccountPositionMode>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<OkexAccountPositionMode>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountPositionMode>>>(UnifiedApi.GetUri(Endpoints_V5_Account_SetPositionMode), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<OkxAccountPositionMode>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<OkxAccountPositionMode>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data.FirstOrDefault());
         }
@@ -349,9 +349,9 @@ namespace Okex.Net
         /// <param name="marginMode">Margin Mode</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkexLeverage>> GetAccountLeverage(
+        public virtual WebCallResult<IEnumerable<OkxLeverage>> GetAccountLeverage(
             string instrumentIds,
-            OkexMarginMode marginMode,
+            OkxMarginMode marginMode,
             CancellationToken ct = default) 
             => GetAccountLeverage_Async(instrumentIds, marginMode, ct).Result;
         /// <summary>
@@ -361,9 +361,9 @@ namespace Okex.Net
         /// <param name="marginMode">Margin Mode</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkexLeverage>>> GetAccountLeverage_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxLeverage>>> GetAccountLeverage_Async(
             string instrumentIds,
-            OkexMarginMode marginMode,
+            OkxMarginMode marginMode,
             CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object> {
@@ -371,9 +371,9 @@ namespace Okex.Net
                 {"mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)) },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexLeverage>>>(UnifiedApi.GetUri(Endpoints_V5_Account_LeverageInfo), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkexLeverage>>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkexLeverage>>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxLeverage>>>(UnifiedApi.GetUri(Endpoints_V5_Account_LeverageInfo), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxLeverage>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxLeverage>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }
@@ -392,12 +392,12 @@ namespace Okex.Net
         /// <param name="positionSide">Position Side</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkexLeverage>> SetAccountLeverage(
+        public virtual WebCallResult<IEnumerable<OkxLeverage>> SetAccountLeverage(
             int leverage,
             string currency = null,
             string instrumentId = null,
-            OkexMarginMode? marginMode = null,
-            OkexPositionSide? positionSide = null,
+            OkxMarginMode? marginMode = null,
+            OkxPositionSide? positionSide = null,
             CancellationToken ct = default) 
             => SetAccountLeverage_Async(leverage, currency, instrumentId, marginMode, positionSide, ct).Result;
         /// <summary>
@@ -414,12 +414,12 @@ namespace Okex.Net
         /// <param name="positionSide">Position Side</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkexLeverage>>> SetAccountLeverage_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxLeverage>>> SetAccountLeverage_Async(
             int leverage,
             string currency = null,
             string instrumentId = null,
-            OkexMarginMode? marginMode = null,
-            OkexPositionSide? positionSide = null,
+            OkxMarginMode? marginMode = null,
+            OkxPositionSide? positionSide = null,
             CancellationToken ct = default)
         {
             if (leverage < 1)
@@ -440,9 +440,9 @@ namespace Okex.Net
             if (positionSide.HasValue)
                 parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new PositionSideConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexLeverage>>>(UnifiedApi.GetUri(Endpoints_V5_Account_SetLeverage), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkexLeverage>>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkexLeverage>>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxLeverage>>>(UnifiedApi.GetUri(Endpoints_V5_Account_SetLeverage), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxLeverage>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxLeverage>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }
@@ -456,9 +456,9 @@ namespace Okex.Net
         /// <param name="price">Price</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkexMaximumAmount>> GetMaximumAmount(
+        public virtual WebCallResult<IEnumerable<OkxMaximumAmount>> GetMaximumAmount(
             string instrumentId,
-            OkexTradeMode tradeMode,
+            OkxTradeMode tradeMode,
             string currency = null,
             decimal? price = null,
             CancellationToken ct = default) 
@@ -472,9 +472,9 @@ namespace Okex.Net
         /// <param name="price">Price</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkexMaximumAmount>>> GetMaximumAmount_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxMaximumAmount>>> GetMaximumAmount_Async(
             string instrumentId,
-            OkexTradeMode tradeMode,
+            OkxTradeMode tradeMode,
             string currency = null,
             decimal? price = null,
             CancellationToken ct = default)
@@ -484,11 +484,11 @@ namespace Okex.Net
                 {"tdMode", JsonConvert.SerializeObject(tradeMode, new TradeModeConverter(false)) },
             };
             parameters.AddOptionalParameter("ccy", currency);
-            parameters.AddOptionalParameter("px", price?.ToString(OkexGlobals.OkexCultureInfo));
+            parameters.AddOptionalParameter("px", price?.ToString(OkxGlobals.OkxCultureInfo));
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexMaximumAmount>>>(UnifiedApi.GetUri(Endpoints_V5_Account_MaxSize), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkexMaximumAmount>>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkexMaximumAmount>>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxMaximumAmount>>>(UnifiedApi.GetUri(Endpoints_V5_Account_MaxSize), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxMaximumAmount>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxMaximumAmount>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }
@@ -502,9 +502,9 @@ namespace Okex.Net
         /// <param name="reduceOnly">Reduce Only</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkexMaximumAvailableAmount>> GetMaximumAvailableAmount(
+        public virtual WebCallResult<IEnumerable<OkxMaximumAvailableAmount>> GetMaximumAvailableAmount(
             string instrumentId,
-            OkexTradeMode tradeMode,
+            OkxTradeMode tradeMode,
             string currency = null,
             bool? reduceOnly = null,
             CancellationToken ct = default) 
@@ -518,9 +518,9 @@ namespace Okex.Net
         /// <param name="reduceOnly">Reduce Only</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkexMaximumAvailableAmount>>> GetMaximumAvailableAmount_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxMaximumAvailableAmount>>> GetMaximumAvailableAmount_Async(
             string instrumentId,
-            OkexTradeMode tradeMode,
+            OkxTradeMode tradeMode,
             string currency = null,
             bool? reduceOnly = null,
             CancellationToken ct = default)
@@ -532,9 +532,9 @@ namespace Okex.Net
             parameters.AddOptionalParameter("ccy", currency);
             parameters.AddOptionalParameter("reduceOnly", reduceOnly);
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexMaximumAvailableAmount>>>(UnifiedApi.GetUri(Endpoints_V5_Account_MaxAvailSize), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkexMaximumAvailableAmount>>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkexMaximumAvailableAmount>>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxMaximumAvailableAmount>>>(UnifiedApi.GetUri(Endpoints_V5_Account_MaxAvailSize), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxMaximumAvailableAmount>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxMaximumAvailableAmount>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }
@@ -548,10 +548,10 @@ namespace Okex.Net
         /// <param name="amount">Amount</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkexMarginAmount>> SetMarginAmount(
+        public virtual WebCallResult<IEnumerable<OkxMarginAmount>> SetMarginAmount(
             string instrumentId,
-            OkexPositionSide positionSide,
-            OkexMarginAddReduce marginAddReduce,
+            OkxPositionSide positionSide,
+            OkxMarginAddReduce marginAddReduce,
             decimal amount,
             CancellationToken ct = default) 
             => SetMarginAmount_Async(instrumentId, positionSide, marginAddReduce, amount, ct).Result;
@@ -564,10 +564,10 @@ namespace Okex.Net
         /// <param name="amount">Amount</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkexMarginAmount>>> SetMarginAmount_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxMarginAmount>>> SetMarginAmount_Async(
             string instrumentId,
-            OkexPositionSide positionSide,
-            OkexMarginAddReduce marginAddReduce,
+            OkxPositionSide positionSide,
+            OkxMarginAddReduce marginAddReduce,
             decimal amount,
             CancellationToken ct = default)
         {
@@ -575,12 +575,12 @@ namespace Okex.Net
                 {"instId", instrumentId },
                 {"posSide", JsonConvert.SerializeObject(positionSide, new PositionSideConverter(false)) },
                 {"type", JsonConvert.SerializeObject(marginAddReduce, new MarginAddReduceConverter(false)) },
-                {"amt", amount.ToString(OkexGlobals.OkexCultureInfo) },
+                {"amt", amount.ToString(OkxGlobals.OkxCultureInfo) },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexMarginAmount>>>(UnifiedApi.GetUri(Endpoints_V5_Account_PositionMarginBalance), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkexMarginAmount>>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkexMarginAmount>>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxMarginAmount>>>(UnifiedApi.GetUri(Endpoints_V5_Account_PositionMarginBalance), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxMarginAmount>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxMarginAmount>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }
@@ -593,9 +593,9 @@ namespace Okex.Net
         /// <param name="marginCurrency">Margin Currency</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkexMaximumLoanAmount>> GetMaximumLoanAmount(
+        public virtual WebCallResult<IEnumerable<OkxMaximumLoanAmount>> GetMaximumLoanAmount(
             string instrumentId,
-            OkexMarginMode marginMode,
+            OkxMarginMode marginMode,
             string marginCurrency = null,
             CancellationToken ct = default) 
             => GetMaximumLoanAmount_Async(instrumentId, marginMode, marginCurrency, ct).Result;
@@ -607,9 +607,9 @@ namespace Okex.Net
         /// <param name="marginCurrency">Margin Currency</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkexMaximumLoanAmount>>> GetMaximumLoanAmount_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxMaximumLoanAmount>>> GetMaximumLoanAmount_Async(
             string instrumentId,
-            OkexMarginMode marginMode,
+            OkxMarginMode marginMode,
             string marginCurrency = null,
             CancellationToken ct = default)
         {
@@ -619,9 +619,9 @@ namespace Okex.Net
             };
             parameters.AddOptionalParameter("mgnCcy", marginCurrency);
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexMaximumLoanAmount>>>(UnifiedApi.GetUri(Endpoints_V5_Account_MaxLoan), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkexMaximumLoanAmount>>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkexMaximumLoanAmount>>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxMaximumLoanAmount>>>(UnifiedApi.GetUri(Endpoints_V5_Account_MaxLoan), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxMaximumLoanAmount>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxMaximumLoanAmount>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }
@@ -635,11 +635,11 @@ namespace Okex.Net
         /// <param name="category">Category</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkexFeeRate> GetFeeRates(
-            OkexInstrumentType instrumentType,
+        public virtual WebCallResult<OkxFeeRate> GetFeeRates(
+            OkxInstrumentType instrumentType,
             string instrumentId = null,
             string underlying = null,
-            OkexFeeRateCategory? category = null,
+            OkxFeeRateCategory? category = null,
             CancellationToken ct = default) 
             => GetFeeRates_Async(instrumentType, instrumentId, underlying, category, ct).Result;
         /// <summary>
@@ -651,11 +651,11 @@ namespace Okex.Net
         /// <param name="category">Category</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<OkexFeeRate>> GetFeeRates_Async(
-            OkexInstrumentType instrumentType,
+        public virtual async Task<WebCallResult<OkxFeeRate>> GetFeeRates_Async(
+            OkxInstrumentType instrumentType,
             string instrumentId = null,
             string underlying = null,
-            OkexFeeRateCategory? category = null,
+            OkxFeeRateCategory? category = null,
             CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object> {
@@ -665,9 +665,9 @@ namespace Okex.Net
             parameters.AddOptionalParameter("uly", underlying);
             parameters.AddOptionalParameter("category", JsonConvert.SerializeObject(category, new FeeRateCategoryConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexFeeRate>>>(UnifiedApi.GetUri(Endpoints_V5_Account_TradeFee), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<OkexFeeRate>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<OkexFeeRate>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxFeeRate>>>(UnifiedApi.GetUri(Endpoints_V5_Account_TradeFee), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<OkxFeeRate>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<OkxFeeRate>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data.FirstOrDefault());
         }
@@ -683,10 +683,10 @@ namespace Okex.Net
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkexInterestAccrued>> GetInterestAccrued(
+        public virtual WebCallResult<IEnumerable<OkxInterestAccrued>> GetInterestAccrued(
             string instrumentId = null,
             string currency = null,
-            OkexMarginMode? marginMode = null,
+            OkxMarginMode? marginMode = null,
             long? after = null,
             long? before = null,
             int limit = 100,
@@ -710,10 +710,10 @@ namespace Okex.Net
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkexInterestAccrued>>> GetInterestAccrued_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxInterestAccrued>>> GetInterestAccrued_Async(
             string instrumentId = null,
             string currency = null,
-            OkexMarginMode? marginMode = null,
+            OkxMarginMode? marginMode = null,
             long? after = null,
             long? before = null,
             int limit = 100,
@@ -732,9 +732,9 @@ namespace Okex.Net
             if (marginMode.HasValue)
                 parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexInterestAccrued>>>(UnifiedApi.GetUri(Endpoints_V5_Account_InterestAccrued), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkexInterestAccrued>>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkexInterestAccrued>>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxInterestAccrued>>>(UnifiedApi.GetUri(Endpoints_V5_Account_InterestAccrued), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxInterestAccrued>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxInterestAccrued>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }
@@ -745,7 +745,7 @@ namespace Okex.Net
         /// <param name="currency">Currency</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkexInterestRate>> GetInterestRate(
+        public virtual WebCallResult<IEnumerable<OkxInterestRate>> GetInterestRate(
             string currency = null,
             CancellationToken ct = default) 
             => GetInterestRate_Async(
@@ -757,16 +757,16 @@ namespace Okex.Net
         /// <param name="currency">Currency</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkexInterestRate>>> GetInterestRate_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxInterestRate>>> GetInterestRate_Async(
             string currency = null,
             CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("ccy", currency);
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexInterestRate>>>(UnifiedApi.GetUri(Endpoints_V5_Account_InterestRate), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkexInterestRate>>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkexInterestRate>>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxInterestRate>>>(UnifiedApi.GetUri(Endpoints_V5_Account_InterestRate), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxInterestRate>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxInterestRate>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }
@@ -779,7 +779,7 @@ namespace Okex.Net
         /// <param name="greeksType">Display type of Greeks.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkexAccountGreeksType> SetGreeks(Enums.OkexGreeksType greeksType, CancellationToken ct = default) 
+        public virtual WebCallResult<OkxAccountGreeksType> SetGreeks(Enums.OkxGreeksType greeksType, CancellationToken ct = default) 
             => SetGreeks_Async(greeksType, ct).Result;
         /// <summary>
         /// Set the display type of Greeks.
@@ -787,15 +787,15 @@ namespace Okex.Net
         /// <param name="greeksType">Display type of Greeks.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<OkexAccountGreeksType>> SetGreeks_Async(Enums.OkexGreeksType greeksType, CancellationToken ct = default)
+        public virtual async Task<WebCallResult<OkxAccountGreeksType>> SetGreeks_Async(Enums.OkxGreeksType greeksType, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object> {
                 {"greeksType", JsonConvert.SerializeObject(greeksType, new GreeksTypeConverter(false)) },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexAccountGreeksType>>>(UnifiedApi.GetUri(Endpoints_V5_Account_SetGreeks), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<OkexAccountGreeksType>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<OkexAccountGreeksType>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountGreeksType>>>(UnifiedApi.GetUri(Endpoints_V5_Account_SetGreeks), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<OkxAccountGreeksType>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<OkxAccountGreeksType>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data.FirstOrDefault());
         }
@@ -808,7 +808,7 @@ namespace Okex.Net
         /// <param name="currency">Currency</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkexWithdrawalAmount>> GetMaximumWithdrawals(
+        public virtual WebCallResult<IEnumerable<OkxWithdrawalAmount>> GetMaximumWithdrawals(
             string currency = null,
             CancellationToken ct = default) 
             => GetMaximumWithdrawals_Async(
@@ -820,16 +820,16 @@ namespace Okex.Net
         /// <param name="currency">Currency</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkexWithdrawalAmount>>> GetMaximumWithdrawals_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxWithdrawalAmount>>> GetMaximumWithdrawals_Async(
             string currency = null,
             CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("ccy", currency);
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexWithdrawalAmount>>>(UnifiedApi.GetUri(Endpoints_V5_Account_MaxWithdrawal), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkexWithdrawalAmount>>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkexWithdrawalAmount>>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxWithdrawalAmount>>>(UnifiedApi.GetUri(Endpoints_V5_Account_MaxWithdrawal), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxWithdrawalAmount>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxWithdrawalAmount>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }

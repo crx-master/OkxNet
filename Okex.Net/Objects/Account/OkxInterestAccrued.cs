@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.Account
+namespace OkxNet.Objects.Account
 {
-    public class OkexInterestAccrued
+    public class OkxInterestAccrued
     {
         [JsonProperty("instId")]
         public string Instrument { get; set; }
@@ -14,7 +14,7 @@ namespace Okex.Net.Objects.Account
         public string Currency { get; set; }
 
         [JsonProperty("mgnMode"), JsonConverter(typeof(MarginModeConverter))]
-        public OkexMarginMode MarginMode { get; set; }
+        public OkxMarginMode MarginMode { get; set; }
 
         [JsonProperty("interest")]
         public decimal? Interest { get; set; }
@@ -25,7 +25,7 @@ namespace Okex.Net.Objects.Account
         [JsonProperty("liab")]
         public decimal? Liabilities { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
     }
 }

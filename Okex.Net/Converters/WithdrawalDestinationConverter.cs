@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class WithdrawalDestinationConverter : BaseConverter<OkexWithdrawalDestination>
+    internal class WithdrawalDestinationConverter : BaseConverter<OkxWithdrawalDestination>
     {
         public WithdrawalDestinationConverter() : this(true) { }
         public WithdrawalDestinationConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexWithdrawalDestination, string>> Mapping => new List<KeyValuePair<OkexWithdrawalDestination, string>>
+        protected override List<KeyValuePair<OkxWithdrawalDestination, string>> Mapping => new List<KeyValuePair<OkxWithdrawalDestination, string>>
         {
-            new KeyValuePair<OkexWithdrawalDestination, string>(OkexWithdrawalDestination.OKEx, "3"),
-            new KeyValuePair<OkexWithdrawalDestination, string>(OkexWithdrawalDestination.DigitalCurrencyAddress, "4"),
+            new KeyValuePair<OkxWithdrawalDestination, string>(OkxWithdrawalDestination.OKEx, "3"),
+            new KeyValuePair<OkxWithdrawalDestination, string>(OkxWithdrawalDestination.DigitalCurrencyAddress, "4"),
 
         };
     }

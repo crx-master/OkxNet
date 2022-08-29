@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.Funding
+namespace OkxNet.Objects.Funding
 {
-    public class OkexDepositHistory
+    public class OkxDepositHistory
     {
         [JsonProperty("ccy")]
         public string Currency { get; set; }
@@ -25,13 +25,13 @@ namespace Okex.Net.Objects.Funding
         [JsonProperty("txId")]
         public string TransactionId { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
 
         [JsonProperty("depId")]
         public string DepositId { get; set; }
 
         [JsonProperty("state"), JsonConverter(typeof(DepositStateConverter))]
-        public OkexDepositState State { get; set; }
+        public OkxDepositState State { get; set; }
     }
 }

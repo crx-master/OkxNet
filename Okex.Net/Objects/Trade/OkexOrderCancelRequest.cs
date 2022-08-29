@@ -1,9 +1,9 @@
 ﻿using CryptoExchange.Net.Attributes;
 using Newtonsoft.Json;
 
-namespace Okex.Net.Objects.Trade
+namespace OkxNet.Objects.Trade
 {
-    public class OkexOrderCancelRequest
+    public class OkxOrderCancelRequest
     {
         [JsonProperty("instId")]
         public string InstrumentId { get; set; }

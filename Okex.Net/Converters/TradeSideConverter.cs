@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class TradeSideConverter : BaseConverter<OkexTradeSide>
+    internal class TradeSideConverter : BaseConverter<OkxTradeSide>
     {
         public TradeSideConverter() : this(true) { }
         public TradeSideConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexTradeSide, string>> Mapping => new List<KeyValuePair<OkexTradeSide, string>>
+        protected override List<KeyValuePair<OkxTradeSide, string>> Mapping => new List<KeyValuePair<OkxTradeSide, string>>
         {
-            new KeyValuePair<OkexTradeSide, string>(OkexTradeSide.Buy, "buy"),
-            new KeyValuePair<OkexTradeSide, string>(OkexTradeSide.Sell, "sell"),
+            new KeyValuePair<OkxTradeSide, string>(OkxTradeSide.Buy, "buy"),
+            new KeyValuePair<OkxTradeSide, string>(OkxTradeSide.Sell, "sell"),
         };
     }
 }

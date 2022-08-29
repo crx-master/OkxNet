@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.Trading
+namespace OkxNet.Objects.Trading
 {
-    public class OkexSupportCoins
+    public class OkxSupportCoins
     {
         [JsonProperty("contract")]
         public IEnumerable<string> Contract { get; set; }

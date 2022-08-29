@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.Trade
+namespace OkxNet.Objects.Trade
 {
-    public class OkexTransaction
+    public class OkxTransaction
     {
         [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
-        public OkexInstrumentType InstrumentType { get; set; }
+        public OkxInstrumentType InstrumentType { get; set; }
 
         [JsonProperty("instId")]
         public string Instrument { get; set; }
@@ -35,13 +35,13 @@ namespace Okex.Net.Objects.Trade
         public decimal? FillQuantity { get; set; }
 
         [JsonProperty("side"), JsonConverter(typeof(OrderSideConverter))]
-        public OkexOrderSide OrderSide { get; set; }
+        public OkxOrderSide OrderSide { get; set; }
 
         [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
-        public OkexPositionSide PositionSide { get; set; }
+        public OkxPositionSide PositionSide { get; set; }
 
         [JsonProperty("execType"), JsonConverter(typeof(OrderFlowTypeConverter))]
-        public OkexOrderFlowType OrderFlowType { get; set; }
+        public OkxOrderFlowType OrderFlowType { get; set; }
 
         [JsonProperty("feeCcy")]
         public string FeeCurrency { get; set; }
@@ -49,7 +49,7 @@ namespace Okex.Net.Objects.Trade
         [JsonProperty("fee")]
         public decimal? Fee { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
     }
 }

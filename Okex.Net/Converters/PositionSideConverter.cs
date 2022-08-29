@@ -1,19 +1,19 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class PositionSideConverter : BaseConverter<OkexPositionSide>
+    internal class PositionSideConverter : BaseConverter<OkxPositionSide>
     {
         public PositionSideConverter() : this(true) { }
         public PositionSideConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexPositionSide, string>> Mapping => new List<KeyValuePair<OkexPositionSide, string>>
+        protected override List<KeyValuePair<OkxPositionSide, string>> Mapping => new List<KeyValuePair<OkxPositionSide, string>>
         {
-            new KeyValuePair<OkexPositionSide, string>(OkexPositionSide.Long, "long"),
-            new KeyValuePair<OkexPositionSide, string>(OkexPositionSide.Short, "short"),
-            new KeyValuePair<OkexPositionSide, string>(OkexPositionSide.Net, "net"),
+            new KeyValuePair<OkxPositionSide, string>(OkxPositionSide.Long, "long"),
+            new KeyValuePair<OkxPositionSide, string>(OkxPositionSide.Short, "short"),
+            new KeyValuePair<OkxPositionSide, string>(OkxPositionSide.Net, "net"),
         };
     }
 }

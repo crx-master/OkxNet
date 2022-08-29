@@ -1,19 +1,19 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class DeliveryExerciseHistoryTypeConverter : BaseConverter<OkexDeliveryExerciseHistoryType>
+    internal class DeliveryExerciseHistoryTypeConverter : BaseConverter<OkxDeliveryExerciseHistoryType>
     {
         public DeliveryExerciseHistoryTypeConverter() : this(true) { }
         public DeliveryExerciseHistoryTypeConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexDeliveryExerciseHistoryType, string>> Mapping => new List<KeyValuePair<OkexDeliveryExerciseHistoryType, string>>
+        protected override List<KeyValuePair<OkxDeliveryExerciseHistoryType, string>> Mapping => new List<KeyValuePair<OkxDeliveryExerciseHistoryType, string>>
         {
-            new KeyValuePair<OkexDeliveryExerciseHistoryType, string>(OkexDeliveryExerciseHistoryType.Delivery, "delivery"),
-            new KeyValuePair<OkexDeliveryExerciseHistoryType, string>(OkexDeliveryExerciseHistoryType.Exercised, "exercised"),
-            new KeyValuePair<OkexDeliveryExerciseHistoryType, string>(OkexDeliveryExerciseHistoryType.ExpiredOtm, "expired_otm"),
+            new KeyValuePair<OkxDeliveryExerciseHistoryType, string>(OkxDeliveryExerciseHistoryType.Delivery, "delivery"),
+            new KeyValuePair<OkxDeliveryExerciseHistoryType, string>(OkxDeliveryExerciseHistoryType.Exercised, "exercised"),
+            new KeyValuePair<OkxDeliveryExerciseHistoryType, string>(OkxDeliveryExerciseHistoryType.ExpiredOtm, "expired_otm"),
         };
     }
 }

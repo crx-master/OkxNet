@@ -1,6 +1,6 @@
-﻿namespace Okex.Net.Enums
+﻿namespace OkxNet.Enums
 {
-    public enum OkexMaintenanceService
+    public enum OkxMaintenanceService
     {
         WebSocket,
         SpotMargin,

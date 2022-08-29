@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.Market
+namespace OkxNet.Objects.Market
 {
-    public class OkexBlockTicker
+    public class OkxBlockTicker
     {
         [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
-        public OkexInstrumentType InstrumentType { get; set; }
+        public OkxInstrumentType InstrumentType { get; set; }
 
         [JsonProperty("instId")]
         public string Instrument { get; set; }
@@ -25,7 +25,7 @@ namespace Okex.Net.Objects.Market
         [JsonProperty("volCcy24h")]
         public decimal VolumeCurrency { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
     }
 }

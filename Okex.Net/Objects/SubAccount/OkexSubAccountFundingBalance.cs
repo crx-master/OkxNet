@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
+using OkxNet.Converters;
 using System;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.SubAccount
+namespace OkxNet.Objects.SubAccount
 {
-    public class OkexSubAccountFundingBalance
+    public class OkxSubAccountFundingBalance
     {
         [JsonProperty("availBal")]
         public decimal? AvailableBalance { get; set; }

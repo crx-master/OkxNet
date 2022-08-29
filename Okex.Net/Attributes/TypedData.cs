@@ -5,16 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Okex.Net.Attributes
+namespace OkxNet.Attributes
 {
-
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-#pragma warning disable CS8603 // Possible null reference return.
-#pragma warning disable CS8604 // Possible null reference argument.
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-#pragma warning disable CS8631 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match constraint type.
-#pragma warning disable CS8765 // Nullability of type of parameter doesn't match overridden member (possibly because of nullability attributes).
     public static class JsonExtensions
     {
         public static TJToken RemoveFromLowestPossibleParent<TJToken>(this TJToken node) where TJToken : JToken
@@ -25,8 +17,8 @@ namespace Okex.Net.Attributes
             if (contained != null)
                 contained.Remove();
             // Also detach the node from its immediate containing property -- Remove() does not do this even though it seems like it should
-            if (node.Parent is JProperty)
-                ((JProperty)node.Parent).Value = null;
+            if (node.Parent is JProperty property)
+                property.Value = null;
             return node;
         }
 
@@ -140,18 +132,9 @@ namespace Okex.Net.Attributes
         // By using a disposable struct we avoid the overhead of allocating and freeing an instance of a finalizable class.
         public void Dispose()
         {
-            if (setValue != null)
-                setValue(oldValue);
+            setValue?.Invoke(oldValue);
         }
 
         #endregion
     }
-#pragma warning restore CS8765 // Nullability of type of parameter doesn't match overridden member (possibly because of nullability attributes).
-#pragma warning restore CS8631 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match constraint type.
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
-#pragma warning restore CS8604 // Possible null reference argument.
-#pragma warning restore CS8603 // Possible null reference return.
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-
 }

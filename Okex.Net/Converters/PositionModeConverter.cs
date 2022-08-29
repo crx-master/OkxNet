@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class PositionModeConverter : BaseConverter<OkexPositionMode>
+    internal class PositionModeConverter : BaseConverter<OkxPositionMode>
     {
         public PositionModeConverter() : this(true) { }
         public PositionModeConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexPositionMode, string>> Mapping => new List<KeyValuePair<OkexPositionMode, string>>
+        protected override List<KeyValuePair<OkxPositionMode, string>> Mapping => new List<KeyValuePair<OkxPositionMode, string>>
         {
-            new KeyValuePair<OkexPositionMode, string>(OkexPositionMode.LongShortMode, "long_short_mode"),
-            new KeyValuePair<OkexPositionMode, string>(OkexPositionMode.NetMode, "net_mode"),
+            new KeyValuePair<OkxPositionMode, string>(OkxPositionMode.LongShortMode, "long_short_mode"),
+            new KeyValuePair<OkxPositionMode, string>(OkxPositionMode.NetMode, "net_mode"),
         };
     }
 }

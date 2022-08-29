@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class ContractTypeConverter : BaseConverter<OkexContractType>
+    internal class ContractTypeConverter : BaseConverter<OkxContractType>
     {
         public ContractTypeConverter() : this(true) { }
         public ContractTypeConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexContractType, string>> Mapping => new List<KeyValuePair<OkexContractType, string>>
+        protected override List<KeyValuePair<OkxContractType, string>> Mapping => new List<KeyValuePair<OkxContractType, string>>
         {
-            new KeyValuePair<OkexContractType, string>(OkexContractType.Linear, "linear"),
-            new KeyValuePair<OkexContractType, string>(OkexContractType.Inverse, "inverse"),
+            new KeyValuePair<OkxContractType, string>(OkxContractType.Linear, "linear"),
+            new KeyValuePair<OkxContractType, string>(OkxContractType.Inverse, "inverse"),
         };
     }
 }

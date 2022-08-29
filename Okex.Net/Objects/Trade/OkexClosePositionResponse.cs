@@ -1,15 +1,15 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 
-namespace Okex.Net.Objects.Trade
+namespace OkxNet.Objects.Trade
 {
-    public class OkexClosePositionResponse
+    public class OkxClosePositionResponse
     {
         [JsonProperty("instId")]
         public string Instrument { get; set; }
 
         [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
-        public OkexPositionSide PositionSide { get; set; }
+        public OkxPositionSide PositionSide { get; set; }
     }
 }

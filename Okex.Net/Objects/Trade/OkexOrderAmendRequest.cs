@@ -1,9 +1,9 @@
 ﻿using CryptoExchange.Net.Attributes;
 using Newtonsoft.Json;
 
-namespace Okex.Net.Objects.Trade
+namespace OkxNet.Objects.Trade
 {
-    public class OkexOrderAmendRequest
+    public class OkxOrderAmendRequest
     {
         [JsonProperty("ordId", NullValueHandling = NullValueHandling.Ignore)]
         public long? OrderId { get; set; }

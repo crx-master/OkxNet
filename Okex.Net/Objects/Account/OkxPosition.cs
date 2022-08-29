@@ -1,19 +1,19 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.Account
+namespace OkxNet.Objects.Account
 {
-    public class OkexPosition
+    public class OkxPosition
     {
-        [JsonProperty("cTime"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("cTime"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime CreateTime { get; set; }
 
-        [JsonProperty("uTime"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("uTime"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime UpdateTime { get; set; }
 
-        [JsonProperty("pTime"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("pTime"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime pTime { get; set; }
 
         [JsonProperty("ccy")]
@@ -32,13 +32,13 @@ namespace Okex.Net.Objects.Account
         public long? TradeId { get; set; }
 
         [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
-        public OkexInstrumentType InstrumentType { get; set; }
+        public OkxInstrumentType InstrumentType { get; set; }
 
         [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
-        public OkexPositionSide PositionSide { get; set; }
+        public OkxPositionSide PositionSide { get; set; }
 
         [JsonProperty("mgnMode"), JsonConverter(typeof(MarginModeConverter))]
-        public OkexMarginMode MarginMode { get; set; }
+        public OkxMarginMode MarginMode { get; set; }
 
         [JsonProperty("liab")]
         public decimal? Liabilities { get; set; }

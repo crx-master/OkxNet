@@ -1,19 +1,19 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class TransferTypeConverter : BaseConverter<OkexTransferType>
+    internal class TransferTypeConverter : BaseConverter<OkxTransferType>
     {
         public TransferTypeConverter() : this(true) { }
         public TransferTypeConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexTransferType, string>> Mapping => new List<KeyValuePair<OkexTransferType, string>>
+        protected override List<KeyValuePair<OkxTransferType, string>> Mapping => new List<KeyValuePair<OkxTransferType, string>>
         {
-            new KeyValuePair<OkexTransferType, string>(OkexTransferType.TransferWithinAccount, "0"),
-            new KeyValuePair<OkexTransferType, string>(OkexTransferType.MasterAccountToSubAccount, "1"),
-            new KeyValuePair<OkexTransferType, string>(OkexTransferType.SubAccountToMasterAccount, "2"),
+            new KeyValuePair<OkxTransferType, string>(OkxTransferType.TransferWithinAccount, "0"),
+            new KeyValuePair<OkxTransferType, string>(OkxTransferType.MasterAccountToSubAccount, "1"),
+            new KeyValuePair<OkxTransferType, string>(OkxTransferType.SubAccountToMasterAccount, "2"),
         };
     }
 }

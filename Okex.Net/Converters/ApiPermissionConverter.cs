@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class ApiPermissionConverter : BaseConverter<OkexApiPermission>
+    internal class ApiPermissionConverter : BaseConverter<OkxApiPermission>
     {
         public ApiPermissionConverter() : this(true) { }
         public ApiPermissionConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexApiPermission, string>> Mapping => new List<KeyValuePair<OkexApiPermission, string>>
+        protected override List<KeyValuePair<OkxApiPermission, string>> Mapping => new List<KeyValuePair<OkxApiPermission, string>>
         {
-            new KeyValuePair<OkexApiPermission, string>(OkexApiPermission.ReadOnly, "read_only"),
-            new KeyValuePair<OkexApiPermission, string>(OkexApiPermission.Trade, "trade"),
+            new KeyValuePair<OkxApiPermission, string>(OkxApiPermission.ReadOnly, "read_only"),
+            new KeyValuePair<OkxApiPermission, string>(OkxApiPermission.Trade, "trade"),
         };
     }
 }

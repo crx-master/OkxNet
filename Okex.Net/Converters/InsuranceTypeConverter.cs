@@ -1,20 +1,20 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class InsuranceTypeConverter : BaseConverter<OkexInsuranceType>
+    internal class InsuranceTypeConverter : BaseConverter<OkxInsuranceType>
     {
         public InsuranceTypeConverter() : this(true) { }
         public InsuranceTypeConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexInsuranceType, string>> Mapping => new List<KeyValuePair<OkexInsuranceType, string>>
+        protected override List<KeyValuePair<OkxInsuranceType, string>> Mapping => new List<KeyValuePair<OkxInsuranceType, string>>
         {
-            new KeyValuePair<OkexInsuranceType, string>(OkexInsuranceType.All, "all"),
-            new KeyValuePair<OkexInsuranceType, string>(OkexInsuranceType.LiquidationBalanceDeposit, "liquidation_balance_deposit"),
-            new KeyValuePair<OkexInsuranceType, string>(OkexInsuranceType.BankruptcyLoss, "bankruptcy_loss"),
-            new KeyValuePair<OkexInsuranceType, string>(OkexInsuranceType.PlatformRevenue, "platform_revenue"),
+            new KeyValuePair<OkxInsuranceType, string>(OkxInsuranceType.All, "all"),
+            new KeyValuePair<OkxInsuranceType, string>(OkxInsuranceType.LiquidationBalanceDeposit, "liquidation_balance_deposit"),
+            new KeyValuePair<OkxInsuranceType, string>(OkxInsuranceType.BankruptcyLoss, "bankruptcy_loss"),
+            new KeyValuePair<OkxInsuranceType, string>(OkxInsuranceType.PlatformRevenue, "platform_revenue"),
         };
     }
 }

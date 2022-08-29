@@ -1,6 +1,6 @@
-﻿namespace Okex.Net.Enums
+﻿namespace OkxNet.Enums
 {
-    public enum OkexPeriod
+    public enum OkxPeriod
     {
         /// <summary>
         /// 1m

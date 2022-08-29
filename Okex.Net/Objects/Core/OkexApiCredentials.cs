@@ -6,20 +6,20 @@ using System.Text;
 using CryptoExchange.Net;
 using Newtonsoft.Json.Linq;
 
-namespace Okex.Net.Objects.Core
+namespace OkxNet.Objects.Core
 {
-    public class OkexApiCredentials : ApiCredentials
+    public class OkxApiCredentials : ApiCredentials
     {
         public SecureString PassPhrase { get; }
 
-        public OkexApiCredentials(string apiKey, string apiSecret, string apiPassPhrase) : base(apiKey, apiSecret)
+        public OkxApiCredentials(string apiKey, string apiSecret, string apiPassPhrase) : base(apiKey, apiSecret)
         {
             PassPhrase = apiPassPhrase.ToSecureString();
         }
 
         public override ApiCredentials Copy()
         {
-            return new OkexApiCredentials(Key!.GetString(), Secret!.GetString(), PassPhrase!.GetString());
+            return new OkxApiCredentials(Key!.GetString(), Secret!.GetString(), PassPhrase!.GetString());
         }
     }
 }

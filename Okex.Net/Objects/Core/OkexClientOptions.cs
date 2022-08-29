@@ -3,17 +3,17 @@ using CryptoExchange.Net.Objects;
 using System.Collections.Generic;
 using System;
 
-namespace Okex.Net.Objects.Core
+namespace OkxNet.Objects.Core
 {
-    public class OkexClientOptions : BaseRestClientOptions
+    public class OkxClientOptions : BaseRestClientOptions
     {
         public bool DemoTradingService { get; set; } = false;
         public bool SignPublicRequests { get; set; } = false;
 
-        public static OkexClientOptions Default { get; set; } = new OkexClientOptions();
+        public static OkxClientOptions Default { get; set; } = new OkxClientOptions();
 
 
-        private OkexRestApiClientOptions _unifiedApiOptions = new OkexRestApiClientOptions(OkexApiAddresses.Default.UnifiedAddress)
+        private OkxRestApiClientOptions _unifiedApiOptions = new OkxRestApiClientOptions(OkxApiAddresses.Default.UnifiedAddress)
         {
             RateLimiters = new List<IRateLimiter>
             {
@@ -22,23 +22,23 @@ namespace Okex.Net.Objects.Core
             }
         };
 
-        public new OkexApiCredentials ApiCredentials
+        public new OkxApiCredentials ApiCredentials
         {
-            get => (OkexApiCredentials)base.ApiCredentials;
+            get => (OkxApiCredentials)base.ApiCredentials;
             set => base.ApiCredentials = value;
         }
 
-        public OkexRestApiClientOptions UnifiedApiOptions
+        public OkxRestApiClientOptions UnifiedApiOptions
         {
             get => _unifiedApiOptions;
-            set => _unifiedApiOptions = new OkexRestApiClientOptions(_unifiedApiOptions, value);
+            set => _unifiedApiOptions = new OkxRestApiClientOptions(_unifiedApiOptions, value);
         }
 
-        public OkexClientOptions() : this(Default)
+        public OkxClientOptions() : this(Default)
         {
         }
 
-        internal OkexClientOptions(OkexClientOptions baseOn) : base(baseOn)
+        internal OkxClientOptions(OkxClientOptions baseOn) : base(baseOn)
         {
             if (baseOn == null)
                 return;
@@ -46,30 +46,30 @@ namespace Okex.Net.Objects.Core
             DemoTradingService = baseOn.DemoTradingService;
             SignPublicRequests = baseOn.SignPublicRequests;
 
-            ApiCredentials = (OkexApiCredentials)baseOn.ApiCredentials?.Copy();
-            _unifiedApiOptions = new OkexRestApiClientOptions(baseOn.UnifiedApiOptions, null);
+            ApiCredentials = (OkxApiCredentials)baseOn.ApiCredentials?.Copy();
+            _unifiedApiOptions = new OkxRestApiClientOptions(baseOn.UnifiedApiOptions, null);
         }
     }
 
-    public class OkexRestApiClientOptions : RestApiClientOptions
+    public class OkxRestApiClientOptions : RestApiClientOptions
     {
-        public new OkexApiCredentials ApiCredentials
+        public new OkxApiCredentials ApiCredentials
         {
-            get => (OkexApiCredentials)base.ApiCredentials;
+            get => (OkxApiCredentials)base.ApiCredentials;
             set => base.ApiCredentials = value;
         }
 
-        public OkexRestApiClientOptions()
+        public OkxRestApiClientOptions()
         {
         }
 
-        internal OkexRestApiClientOptions(string baseAddress) : base(baseAddress)
+        internal OkxRestApiClientOptions(string baseAddress) : base(baseAddress)
         {
         }
 
-        internal OkexRestApiClientOptions(OkexRestApiClientOptions baseOn, OkexRestApiClientOptions newValues) : base(baseOn, newValues)
+        internal OkxRestApiClientOptions(OkxRestApiClientOptions baseOn, OkxRestApiClientOptions newValues) : base(baseOn, newValues)
         {
-            ApiCredentials = (OkexApiCredentials)newValues?.ApiCredentials?.Copy() ?? (OkexApiCredentials)baseOn.ApiCredentials?.Copy();
+            ApiCredentials = (OkxApiCredentials)newValues?.ApiCredentials?.Copy() ?? (OkxApiCredentials)baseOn.ApiCredentials?.Copy();
         }
     }
 

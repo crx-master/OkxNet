@@ -1,20 +1,20 @@
 ﻿using CryptoExchange.Net.Objects;
 using CryptoExchange.Net.Sockets;
 using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
-using Okex.Net.Objects.Core;
-using Okex.Net.Objects.Market;
-using Okex.Net.Objects.Public;
-using Okex.Net.Objects.System;
+using OkxNet.Converters;
+using OkxNet.Enums;
+using OkxNet.Objects.Core;
+using OkxNet.Objects.Market;
+using OkxNet.Objects.Public;
+using OkxNet.Objects.System;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Okex.Net
+namespace OkxNet
 {
-    public partial class OkexSocketClient
+    public partial class OkxSocketClient
     {
         #region Public Channels
         /// <summary>
@@ -23,7 +23,7 @@ namespace Okex.Net
         /// <param name="instrumentType">Instrument Type</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual CallResult<UpdateSubscription> SubscribeToInstruments(OkexInstrumentType instrumentType, Action<OkexInstrument> onData)
+        public virtual CallResult<UpdateSubscription> SubscribeToInstruments(OkxInstrumentType instrumentType, Action<OkxInstrument> onData)
             => SubscribeToInstrumentsAsync(instrumentType, onData).Result;
         /// <summary>
         /// The full instrument list will be pushed for the first time after subscription. Subsequently, the instruments will be pushed if there's any change to the instrument’s state (such as delivery of FUTURES, exercise of OPTION, listing of new contracts / trading pairs, trading suspension, etc.).
@@ -31,15 +31,15 @@ namespace Okex.Net
         /// <param name="instrumentType">Instrument Type</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToInstrumentsAsync(OkexInstrumentType instrumentType, Action<OkexInstrument> onData, CancellationToken ct = default)
+        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToInstrumentsAsync(OkxInstrumentType instrumentType, Action<OkxInstrument> onData, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DataEvent<OkexSocketUpdateResponse<IEnumerable<OkexInstrument>>>>(data =>
+            var internalHandler = new Action<DataEvent<OkxSocketUpdateResponse<IEnumerable<OkxInstrument>>>>(data =>
             {
                 foreach (var d in data.Data.Data)
                     onData(d);
             });
 
-            var request = new OkexSocketRequest(OkexSocketOperation.Subscribe, "instruments", instrumentType);
+            var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, "instruments", instrumentType);
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -49,22 +49,22 @@ namespace Okex.Net
         /// <param name="intrumentId">Instrument ID</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual CallResult<UpdateSubscription> SubscribeToTickers(string intrumentId, Action<OkexTicker> onData)
+        public virtual CallResult<UpdateSubscription> SubscribeToTickers(string intrumentId, Action<OkxTicker> onData)
             => SubscribeToTickersAsync(intrumentId, onData).Result;
         /// Retrieve the last traded price, bid price, ask price and 24-hour trading volume of instruments. Data will be pushed every 100 ms.
         /// </summary>
         /// <param name="intrumentId">Instrument ID</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToTickersAsync(string intrumentId, Action<OkexTicker> onData, CancellationToken ct = default)
+        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToTickersAsync(string intrumentId, Action<OkxTicker> onData, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DataEvent<OkexSocketUpdateResponse<IEnumerable<OkexTicker>>>>(data =>
+            var internalHandler = new Action<DataEvent<OkxSocketUpdateResponse<IEnumerable<OkxTicker>>>>(data =>
             {
                 foreach (var d in data.Data.Data)
                     onData(d);
             });
 
-            var request = new OkexSocketRequest(OkexSocketOperation.Subscribe, "tickers", intrumentId);
+            var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, "tickers", intrumentId);
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -74,7 +74,7 @@ namespace Okex.Net
         /// <param name="intrumentId">Instrument ID</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual CallResult<UpdateSubscription> SubscribeToInterests(string intrumentId, Action<OkexOpenInterest> onData)
+        public virtual CallResult<UpdateSubscription> SubscribeToInterests(string intrumentId, Action<OkxOpenInterest> onData)
             => SubscribeToInterestsAsync(intrumentId, onData).Result;
         /// <summary>
         /// Retrieve the open interest. Data will by pushed every 3 seconds.
@@ -82,15 +82,15 @@ namespace Okex.Net
         /// <param name="intrumentId">Instrument ID</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToInterestsAsync(string intrumentId, Action<OkexOpenInterest> onData, CancellationToken ct = default)
+        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToInterestsAsync(string intrumentId, Action<OkxOpenInterest> onData, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DataEvent<OkexSocketUpdateResponse<IEnumerable<OkexOpenInterest>>>>(data =>
+            var internalHandler = new Action<DataEvent<OkxSocketUpdateResponse<IEnumerable<OkxOpenInterest>>>>(data =>
             {
                 foreach (var d in data.Data.Data)
                     onData(d);
             });
 
-            var request = new OkexSocketRequest(OkexSocketOperation.Subscribe, "open-interest", intrumentId);
+            var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, "open-interest", intrumentId);
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -101,7 +101,7 @@ namespace Okex.Net
         /// <param name="period"></param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual CallResult<UpdateSubscription> SubscribeToCandlesticks(string intrumentId, OkexPeriod period, Action<OkexCandlestick> onData)
+        public virtual CallResult<UpdateSubscription> SubscribeToCandlesticks(string intrumentId, OkxPeriod period, Action<OkxCandlestick> onData)
             => SubscribeToCandlesticksAsync(intrumentId, period, onData).Result;
         /// <summary>
         /// Retrieve the candlesticks data of an instrument. Data will be pushed every 500 ms.
@@ -110,9 +110,9 @@ namespace Okex.Net
         /// <param name="period"></param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToCandlesticksAsync(string intrumentId, OkexPeriod period, Action<OkexCandlestick> onData, CancellationToken ct = default)
+        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToCandlesticksAsync(string intrumentId, OkxPeriod period, Action<OkxCandlestick> onData, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DataEvent<OkexSocketUpdateResponse<IEnumerable<OkexCandlestick>>>>(data =>
+            var internalHandler = new Action<DataEvent<OkxSocketUpdateResponse<IEnumerable<OkxCandlestick>>>>(data =>
             {
                 foreach (var d in data.Data.Data)
                 {
@@ -122,7 +122,7 @@ namespace Okex.Net
             });
 
             var jc = JsonConvert.SerializeObject(period, new PeriodConverter(false));
-            var request = new OkexSocketRequest(OkexSocketOperation.Subscribe, "candle" + jc, intrumentId);
+            var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, "candle" + jc, intrumentId);
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -132,7 +132,7 @@ namespace Okex.Net
         /// <param name="intrumentId">Instrument ID</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual CallResult<UpdateSubscription> SubscribeToTrades(string intrumentId, Action<OkexTrade> onData)
+        public virtual CallResult<UpdateSubscription> SubscribeToTrades(string intrumentId, Action<OkxTrade> onData)
             => SubscribeToTradesAsync(intrumentId, onData).Result;
         /// <summary>
         /// Retrieve the recent trades data. Data will be pushed whenever there is a trade.
@@ -140,15 +140,15 @@ namespace Okex.Net
         /// <param name="intrumentId">Instrument ID</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToTradesAsync(string intrumentId, Action<OkexTrade> onData, CancellationToken ct = default)
+        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToTradesAsync(string intrumentId, Action<OkxTrade> onData, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DataEvent<OkexSocketUpdateResponse<IEnumerable<OkexTrade>>>>(data =>
+            var internalHandler = new Action<DataEvent<OkxSocketUpdateResponse<IEnumerable<OkxTrade>>>>(data =>
             {
                 foreach (var d in data.Data.Data)
                     onData(d);
             });
 
-            var request = new OkexSocketRequest(OkexSocketOperation.Subscribe, "trades", intrumentId);
+            var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, "trades", intrumentId);
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -160,7 +160,7 @@ namespace Okex.Net
         /// <param name="underlying">Underlying</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual CallResult<UpdateSubscription> SubscribeToEstimatedPrice(OkexInstrumentType instrumentType, string underlying, Action<OkexEstimatedPrice> onData)
+        public virtual CallResult<UpdateSubscription> SubscribeToEstimatedPrice(OkxInstrumentType instrumentType, string underlying, Action<OkxEstimatedPrice> onData)
             => SubscribeToEstimatedPriceAsync(instrumentType, underlying, onData).Result;
         /// <summary>
         /// Retrieve the estimated delivery/exercise price of FUTURES contracts and OPTION.
@@ -170,15 +170,15 @@ namespace Okex.Net
         /// <param name="underlying">Underlying</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToEstimatedPriceAsync(OkexInstrumentType instrumentType, string underlying, Action<OkexEstimatedPrice> onData, CancellationToken ct = default)
+        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToEstimatedPriceAsync(OkxInstrumentType instrumentType, string underlying, Action<OkxEstimatedPrice> onData, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DataEvent<OkexSocketUpdateResponse<IEnumerable<OkexEstimatedPrice>>>>(data =>
+            var internalHandler = new Action<DataEvent<OkxSocketUpdateResponse<IEnumerable<OkxEstimatedPrice>>>>(data =>
             {
                 foreach (var d in data.Data.Data)
                     onData(d);
             });
 
-            var request = new OkexSocketRequest(OkexSocketOperation.Subscribe, "estimated-price", instrumentType, underlying);
+            var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, "estimated-price", instrumentType, underlying);
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -188,7 +188,7 @@ namespace Okex.Net
         /// <param name="intrumentId">Instrument ID</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual CallResult<UpdateSubscription> SubscribeToMarkPrice(string intrumentId, Action<OkexMarkPrice> onData)
+        public virtual CallResult<UpdateSubscription> SubscribeToMarkPrice(string intrumentId, Action<OkxMarkPrice> onData)
             => SubscribeToMarkPriceAsync(intrumentId, onData).Result;
         /// <summary>
         /// Retrieve the mark price. Data will be pushed every 200 ms when the mark price changes, and will be pushed every 10 seconds when the mark price does not change.
@@ -196,15 +196,15 @@ namespace Okex.Net
         /// <param name="intrumentId">Instrument ID</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceAsync(string intrumentId, Action<OkexMarkPrice> onData, CancellationToken ct = default)
+        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceAsync(string intrumentId, Action<OkxMarkPrice> onData, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DataEvent<OkexSocketUpdateResponse<IEnumerable<OkexMarkPrice>>>>(data =>
+            var internalHandler = new Action<DataEvent<OkxSocketUpdateResponse<IEnumerable<OkxMarkPrice>>>>(data =>
             {
                 foreach (var d in data.Data.Data)
                     onData(d);
             });
 
-            var request = new OkexSocketRequest(OkexSocketOperation.Subscribe, "mark-price", intrumentId);
+            var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, "mark-price", intrumentId);
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -215,7 +215,7 @@ namespace Okex.Net
         /// <param name="period">Period</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual CallResult<UpdateSubscription> SubscribeToMarkPriceCandlesticks(string intrumentId, OkexPeriod period, Action<OkexCandlestick> onData)
+        public virtual CallResult<UpdateSubscription> SubscribeToMarkPriceCandlesticks(string intrumentId, OkxPeriod period, Action<OkxCandlestick> onData)
             => SubscribeToMarkPriceCandlesticksAsync(intrumentId, period, onData).Result;
         /// <summary>
         /// Retrieve the candlesticks data of the mark price. Data will be pushed every 500 ms.
@@ -224,9 +224,9 @@ namespace Okex.Net
         /// <param name="period">Period</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceCandlesticksAsync(string intrumentId, OkexPeriod period, Action<OkexCandlestick> onData, CancellationToken ct = default)
+        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToMarkPriceCandlesticksAsync(string intrumentId, OkxPeriod period, Action<OkxCandlestick> onData, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DataEvent<OkexSocketUpdateResponse<IEnumerable<OkexCandlestick>>>>(data =>
+            var internalHandler = new Action<DataEvent<OkxSocketUpdateResponse<IEnumerable<OkxCandlestick>>>>(data =>
             {
                 foreach (var d in data.Data.Data)
                 {
@@ -236,7 +236,7 @@ namespace Okex.Net
             });
 
             var jc = JsonConvert.SerializeObject(period, new PeriodConverter(false));
-            var request = new OkexSocketRequest(OkexSocketOperation.Subscribe, "mark-price-candle" + jc, intrumentId);
+            var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, "mark-price-candle" + jc, intrumentId);
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -246,7 +246,7 @@ namespace Okex.Net
         /// <param name="intrumentId">Instrument ID</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual CallResult<UpdateSubscription> SubscribeToPriceLimit(string intrumentId, Action<OkexLimitPrice> onData)
+        public virtual CallResult<UpdateSubscription> SubscribeToPriceLimit(string intrumentId, Action<OkxLimitPrice> onData)
             => SubscribeToPriceLimitAsync(intrumentId, onData).Result;
         /// <summary>
         /// Retrieve the maximum buy price and minimum sell price of the instrument. Data will be pushed every 5 seconds when there are changes in limits, and will not be pushed when there is no changes on limit.
@@ -254,15 +254,15 @@ namespace Okex.Net
         /// <param name="intrumentId">Instrument ID</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToPriceLimitAsync(string intrumentId, Action<OkexLimitPrice> onData, CancellationToken ct = default)
+        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToPriceLimitAsync(string intrumentId, Action<OkxLimitPrice> onData, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DataEvent<OkexSocketUpdateResponse<IEnumerable<OkexLimitPrice>>>>(data =>
+            var internalHandler = new Action<DataEvent<OkxSocketUpdateResponse<IEnumerable<OkxLimitPrice>>>>(data =>
             {
                 foreach (var d in data.Data.Data)
                     onData(d);
             });
 
-            var request = new OkexSocketRequest(OkexSocketOperation.Subscribe, "price-limit", intrumentId);
+            var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, "price-limit", intrumentId);
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -278,7 +278,7 @@ namespace Okex.Net
         /// <param name="orderBookType">Order Book Type</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual CallResult<UpdateSubscription> SubscribeToOrderBook(string intrumentId, OkexOrderBookType orderBookType, Action<OkexOrderBook> onData)
+        public virtual CallResult<UpdateSubscription> SubscribeToOrderBook(string intrumentId, OkxOrderBookType orderBookType, Action<OkxOrderBook> onData)
             => SubscribeToOrderBookAsync(intrumentId, orderBookType, onData).Result;
         /// <summary>
         /// Retrieve order book data.
@@ -292,9 +292,9 @@ namespace Okex.Net
         /// <param name="orderBookType">Order Book Type</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookAsync(string intrumentId, OkexOrderBookType orderBookType, Action<OkexOrderBook> onData, CancellationToken ct = default)
+        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToOrderBookAsync(string intrumentId, OkxOrderBookType orderBookType, Action<OkxOrderBook> onData, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DataEvent<OkexOrderBookUpdate>>(data =>
+            var internalHandler = new Action<DataEvent<OkxOrderBookUpdate>>(data =>
             {
                 foreach (var d in data.Data.Data)
                 {
@@ -305,7 +305,7 @@ namespace Okex.Net
             });
 
             var jc = JsonConvert.SerializeObject(orderBookType, new OrderBookTypeConverter(false));
-            var request = new OkexSocketRequest(OkexSocketOperation.Subscribe, jc, intrumentId);
+            var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, jc, intrumentId);
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -315,7 +315,7 @@ namespace Okex.Net
         /// <param name="underlying">Underlying</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual CallResult<UpdateSubscription> SubscribeToOptionSummary(string underlying, Action<OkexOptionSummary> onData)
+        public virtual CallResult<UpdateSubscription> SubscribeToOptionSummary(string underlying, Action<OkxOptionSummary> onData)
             => SubscribeToOptionSummaryAsync(underlying, onData).Result;
         /// <summary>
         /// Retrieve detailed pricing information of all OPTION contracts. Data will be pushed at once.
@@ -323,15 +323,15 @@ namespace Okex.Net
         /// <param name="underlying">Underlying</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToOptionSummaryAsync(string underlying, Action<OkexOptionSummary> onData, CancellationToken ct = default)
+        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToOptionSummaryAsync(string underlying, Action<OkxOptionSummary> onData, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DataEvent<OkexSocketUpdateResponse<IEnumerable<OkexOptionSummary>>>>(data =>
+            var internalHandler = new Action<DataEvent<OkxSocketUpdateResponse<IEnumerable<OkxOptionSummary>>>>(data =>
             {
                 foreach (var d in data.Data.Data)
                     onData(d);
             });
 
-            var request = new OkexSocketRequest(OkexSocketOperation.Subscribe, "opt-summary", string.Empty, underlying);
+            var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, "opt-summary", string.Empty, underlying);
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -341,7 +341,7 @@ namespace Okex.Net
         /// <param name="intrumentId">Instrument ID</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual CallResult<UpdateSubscription> SubscribeToFundingRates(string intrumentId, Action<OkexFundingRate> onData)
+        public virtual CallResult<UpdateSubscription> SubscribeToFundingRates(string intrumentId, Action<OkxFundingRate> onData)
             => SubscribeToFundingRatesAsync(intrumentId, onData).Result;
         /// <summary>
         /// Retrieve funding rate. Data will be pushed every minute.
@@ -349,15 +349,15 @@ namespace Okex.Net
         /// <param name="intrumentId">Instrument ID</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToFundingRatesAsync(string intrumentId, Action<OkexFundingRate> onData, CancellationToken ct = default)
+        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToFundingRatesAsync(string intrumentId, Action<OkxFundingRate> onData, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DataEvent<OkexSocketUpdateResponse<IEnumerable<OkexFundingRate>>>>(data =>
+            var internalHandler = new Action<DataEvent<OkxSocketUpdateResponse<IEnumerable<OkxFundingRate>>>>(data =>
             {
                 foreach (var d in data.Data.Data)
                     onData(d);
             });
 
-            var request = new OkexSocketRequest(OkexSocketOperation.Subscribe, "funding-rate", intrumentId);
+            var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, "funding-rate", intrumentId);
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -368,7 +368,7 @@ namespace Okex.Net
         /// <param name="period">Period</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual CallResult<UpdateSubscription> SubscribeToIndexCandlesticks(string intrumentId, OkexPeriod period, Action<OkexCandlestick> onData)
+        public virtual CallResult<UpdateSubscription> SubscribeToIndexCandlesticks(string intrumentId, OkxPeriod period, Action<OkxCandlestick> onData)
             => SubscribeToIndexCandlesticksAsync(intrumentId, period, onData).Result;
         /// <summary>
         /// Retrieve the candlesticks data of the index. Data will be pushed every 500 ms.
@@ -377,9 +377,9 @@ namespace Okex.Net
         /// <param name="period">Period</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToIndexCandlesticksAsync(string intrumentId, OkexPeriod period, Action<OkexCandlestick> onData, CancellationToken ct = default)
+        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToIndexCandlesticksAsync(string intrumentId, OkxPeriod period, Action<OkxCandlestick> onData, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DataEvent<OkexSocketUpdateResponse<IEnumerable<OkexCandlestick>>>>(data =>
+            var internalHandler = new Action<DataEvent<OkxSocketUpdateResponse<IEnumerable<OkxCandlestick>>>>(data =>
             {
                 foreach (var d in data.Data.Data)
                 {
@@ -389,7 +389,7 @@ namespace Okex.Net
             });
 
             var jc = JsonConvert.SerializeObject(period, new PeriodConverter(false));
-            var request = new OkexSocketRequest(OkexSocketOperation.Subscribe, "index-candle" + jc, intrumentId);
+            var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, "index-candle" + jc, intrumentId);
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -399,7 +399,7 @@ namespace Okex.Net
         /// <param name="intrumentId">Instrument ID</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual CallResult<UpdateSubscription> SubscribeToIndexTickers(string intrumentId, Action<OkexIndexTicker> onData)
+        public virtual CallResult<UpdateSubscription> SubscribeToIndexTickers(string intrumentId, Action<OkxIndexTicker> onData)
             => SubscribeToIndexTickersAsync(intrumentId, onData).Result;
         /// <summary>
         /// Retrieve index tickers data
@@ -407,15 +407,15 @@ namespace Okex.Net
         /// <param name="intrumentId">Instrument ID</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToIndexTickersAsync(string intrumentId, Action<OkexIndexTicker> onData, CancellationToken ct = default)
+        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToIndexTickersAsync(string intrumentId, Action<OkxIndexTicker> onData, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DataEvent<OkexSocketUpdateResponse<IEnumerable<OkexIndexTicker>>>>(data =>
+            var internalHandler = new Action<DataEvent<OkxSocketUpdateResponse<IEnumerable<OkxIndexTicker>>>>(data =>
             {
                 foreach (var d in data.Data.Data)
                     onData(d);
             });
 
-            var request = new OkexSocketRequest(OkexSocketOperation.Subscribe, "index-tickers", intrumentId);
+            var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, "index-tickers", intrumentId);
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
@@ -424,22 +424,22 @@ namespace Okex.Net
         /// </summary>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual CallResult<UpdateSubscription> SubscribeToSystemStatus(Action<OkexStatus> onData)
+        public virtual CallResult<UpdateSubscription> SubscribeToSystemStatus(Action<OkxStatus> onData)
             => SubscribeToSystemStatusAsync(onData).Result;
         /// <summary>
         /// Get the status of system maintenance and push when the system maintenance status changes. First subscription: "Push the latest change data"; every time there is a state change, push the changed content
         /// </summary>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToSystemStatusAsync(Action<OkexStatus> onData, CancellationToken ct = default)
+        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToSystemStatusAsync(Action<OkxStatus> onData, CancellationToken ct = default)
         {
-            var internalHandler = new Action<DataEvent<OkexSocketUpdateResponse<IEnumerable<OkexStatus>>>>(data =>
+            var internalHandler = new Action<DataEvent<OkxSocketUpdateResponse<IEnumerable<OkxStatus>>>>(data =>
             {
                 foreach (var d in data.Data.Data)
                     onData(d);
             });
 
-            var request = new OkexSocketRequest(OkexSocketOperation.Subscribe, "status", string.Empty, string.Empty);
+            var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, "status", string.Empty, string.Empty);
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 

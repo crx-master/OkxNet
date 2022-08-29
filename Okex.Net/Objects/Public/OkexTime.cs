@@ -1,15 +1,15 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
+using OkxNet.Converters;
 using System;
 
-namespace Okex.Net.Objects.Public
+namespace OkxNet.Objects.Public
 {
-    public class OkexTime
+    public class OkxTime
     {
         /// <summary>
         /// System time, Unix timestamp format in milliseconds, e.g. 1597026383085
         /// </summary>
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
     }
 }

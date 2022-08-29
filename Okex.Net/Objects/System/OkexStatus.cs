@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.System
+namespace OkxNet.Objects.System
 {
-    public class OkexStatus
+    public class OkxStatus
     {
         /// <summary>
         /// The title of system maintenance instructions
@@ -17,18 +17,18 @@ namespace Okex.Net.Objects.System
         /// System maintenance status
         /// </summary>
         [JsonProperty("state"), JsonConverter(typeof(MaintenanceStateConverter))]
-        public OkexMaintenanceState Status { get; set; }
+        public OkxMaintenanceState Status { get; set; }
 
         /// <summary>
         /// Begin time of system maintenance, Unix timestamp format in milliseconds, e.g. 1617788463867
         /// </summary>
-        [JsonProperty("begin"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("begin"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime? Begin { get; set; }
 
         /// <summary>
         /// End time of system maintenance, Unix timestamp format in milliseconds, e.g. 1617788463867
         /// </summary>
-        [JsonProperty("end"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("end"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime? End { get; set; }
 
         /// <summary>
@@ -41,13 +41,13 @@ namespace Okex.Net.Objects.System
         /// Service type, 0：WebSocket ; 1：Spot/Margin ; 2：Futures ; 3：Perpetual ; 4：Options ; 5：Trading service
         /// </summary>
         [JsonProperty("serviceType"), JsonConverter(typeof(MaintenanceServiceConverter))]
-        public OkexMaintenanceService Product { get; set; }
+        public OkxMaintenanceService Product { get; set; }
 
         /// <summary>
         /// Service type, 0：WebSocket ; 1：Spot/Margin ; 2：Futures ; 3：Perpetual ; 4：Options ; 5：Trading service
         /// </summary>
         [JsonProperty("system"), JsonConverter(typeof(MaintenanceSystemConverter))]
-        public OkexMaintenanceSystem System { get; set; }
+        public OkxMaintenanceSystem System { get; set; }
 
         /// <summary>
         /// Rescheduled description，e.g. Rescheduled from 2021-01-26T16:30:00.000Z to 2021-01-28T16:30:00.000Z

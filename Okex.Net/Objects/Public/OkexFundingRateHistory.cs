@@ -1,19 +1,19 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.Public
+namespace OkxNet.Objects.Public
 {
-    public class OkexFundingRateHistory
+    public class OkxFundingRateHistory
     {
         [JsonProperty("instId")]
         public string Instrument { get; set; }
 
         [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
-        public OkexInstrumentType InstrumentType { get; set; }
+        public OkxInstrumentType InstrumentType { get; set; }
 
-        [JsonProperty("fundingTime"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("fundingTime"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime FundingTime { get; set; }
 
         [JsonProperty("fundingRate")]

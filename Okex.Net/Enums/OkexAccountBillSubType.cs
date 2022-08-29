@@ -1,6 +1,6 @@
-﻿namespace Okex.Net.Enums
+﻿namespace OkxNet.Enums
 {
-    public enum OkexAccountBillSubType
+    public enum OkxAccountBillSubType
     {
         Buy,
         Sell,

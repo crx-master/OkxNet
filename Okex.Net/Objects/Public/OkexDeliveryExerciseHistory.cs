@@ -1,24 +1,24 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.Public
+namespace OkxNet.Objects.Public
 {
-    public class OkexDeliveryExerciseHistory
+    public class OkxDeliveryExerciseHistory
     {
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
 
         [JsonProperty("details")]
-        public IEnumerable<OkexPublicDeliveryExerciseHistoryDetail> Details { get; set; }
+        public IEnumerable<OkxPublicDeliveryExerciseHistoryDetail> Details { get; set; }
     }
 
-    public class OkexPublicDeliveryExerciseHistoryDetail
+    public class OkxPublicDeliveryExerciseHistoryDetail
     {
         [JsonProperty("type"), JsonConverter(typeof(DeliveryExerciseHistoryTypeConverter))]
-        public OkexDeliveryExerciseHistoryType Type { get; set; }
+        public OkxDeliveryExerciseHistoryType Type { get; set; }
 
         [JsonProperty("insId")]
         public string Instrument { get; set; }

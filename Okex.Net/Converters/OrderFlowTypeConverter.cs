@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class OrderFlowTypeConverter : BaseConverter<OkexOrderFlowType>
+    internal class OrderFlowTypeConverter : BaseConverter<OkxOrderFlowType>
     {
         public OrderFlowTypeConverter() : this(true) { }
         public OrderFlowTypeConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexOrderFlowType, string>> Mapping => new List<KeyValuePair<OkexOrderFlowType, string>>
+        protected override List<KeyValuePair<OkxOrderFlowType, string>> Mapping => new List<KeyValuePair<OkxOrderFlowType, string>>
         {
-            new KeyValuePair<OkexOrderFlowType, string>(OkexOrderFlowType.Taker, "T"),
-            new KeyValuePair<OkexOrderFlowType, string>(OkexOrderFlowType.Maker, "M"),
+            new KeyValuePair<OkxOrderFlowType, string>(OkxOrderFlowType.Taker, "T"),
+            new KeyValuePair<OkxOrderFlowType, string>(OkxOrderFlowType.Maker, "M"),
         };
     }
 }

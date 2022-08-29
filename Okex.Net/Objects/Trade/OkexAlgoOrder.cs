@@ -1,16 +1,16 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.Trade
+namespace OkxNet.Objects.Trade
 {
-    public class OkexAlgoOrder
+    public class OkxAlgoOrder
     {
-        [JsonProperty("cTime"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("cTime"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime CreateTime { get; set; }
 
-        [JsonProperty("triggerTime"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("triggerTime"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime TriggerTime { get; set; }
 
         [JsonProperty("algoId")]
@@ -26,19 +26,19 @@ namespace Okex.Net.Objects.Trade
         public string Instrument { get; set; }
 
         [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
-        public OkexInstrumentType InstrumentType { get; set; }
+        public OkxInstrumentType InstrumentType { get; set; }
 
         [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
-        public OkexPositionSide PositionSide { get; set; }
+        public OkxPositionSide PositionSide { get; set; }
 
         [JsonProperty("side"), JsonConverter(typeof(OrderSideConverter))]
-        public OkexOrderSide OrderSide { get; set; }
+        public OkxOrderSide OrderSide { get; set; }
 
         [JsonProperty("tdMode"), JsonConverter(typeof(TradeModeConverter))]
-        public OkexTradeMode TradeMode { get; set; }
+        public OkxTradeMode TradeMode { get; set; }
 
         [JsonProperty("ordType"), JsonConverter(typeof(AlgoOrderTypeConverter))]
-        public OkexAlgoOrderType OrderType { get; set; }
+        public OkxAlgoOrderType OrderType { get; set; }
 
         [JsonProperty("sz")]
         public decimal? Quantity { get; set; }
@@ -86,12 +86,12 @@ namespace Okex.Net.Objects.Trade
         public long? TimeInterval { get; set; }
 
         [JsonProperty("tgtCcy"), JsonConverter(typeof(QuantityTypeConverter))]
-        public OkexQuantityType QuantityType { get; set; }
+        public OkxQuantityType QuantityType { get; set; }
 
         [JsonProperty("state"), JsonConverter(typeof(AlgoOrderStateConverter))]
-        public OkexAlgoOrderState State { get; set; }
+        public OkxAlgoOrderState State { get; set; }
 
         [JsonProperty("actualSide"), JsonConverter(typeof(AlgoActualSideConverter))]
-        public OkexAlgoActualSide? ActualSide { get; set; }
+        public OkxAlgoActualSide? ActualSide { get; set; }
     }
 }

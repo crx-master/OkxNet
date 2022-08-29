@@ -1,6 +1,6 @@
-﻿namespace Okex.Net.Enums
+﻿namespace OkxNet.Enums
 {
-    public enum OkexInstrumentType
+    public enum OkxInstrumentType
     {
         Any,
         Spot,

@@ -1,19 +1,19 @@
 ﻿using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Helpers;
+using OkxNet.Converters;
+using OkxNet.Helpers;
 using System;
 
-namespace Okex.Net.Objects.Market
+namespace OkxNet.Objects.Market
 {
     [JsonConverter(typeof(ArrayConverter))]
-    public class OkexCandlestick
+    public class OkxCandlestick
     {
         [JsonIgnore]
         public string Instrument { get; set; }
 
-        [ArrayProperty(0), JsonConverter(typeof(OkexTimestampConverter))]
+        [ArrayProperty(0), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Okex.Net.Objects.Market
                 return false;
 
             // Equal Check
-            var stick = (OkexCandlestick)obj;
+            var stick = (OkxCandlestick)obj;
             return (this.Time == stick.Time)
                 && (this.Instrument == stick.Instrument)
                 && (this.Open == stick.Open)

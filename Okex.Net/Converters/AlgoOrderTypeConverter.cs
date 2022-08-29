@@ -1,21 +1,21 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class AlgoOrderTypeConverter : BaseConverter<OkexAlgoOrderType>
+    internal class AlgoOrderTypeConverter : BaseConverter<OkxAlgoOrderType>
     {
         public AlgoOrderTypeConverter() : this(true) { }
         public AlgoOrderTypeConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexAlgoOrderType, string>> Mapping => new List<KeyValuePair<OkexAlgoOrderType, string>>
+        protected override List<KeyValuePair<OkxAlgoOrderType, string>> Mapping => new List<KeyValuePair<OkxAlgoOrderType, string>>
         {
-            new KeyValuePair<OkexAlgoOrderType, string>(OkexAlgoOrderType.Conditional, "conditional"),
-            new KeyValuePair<OkexAlgoOrderType, string>(OkexAlgoOrderType.OCO, "oco"),
-            new KeyValuePair<OkexAlgoOrderType, string>(OkexAlgoOrderType.Trigger, "trigger"),
-            new KeyValuePair<OkexAlgoOrderType, string>(OkexAlgoOrderType.Iceberg, "iceberg"),
-            new KeyValuePair<OkexAlgoOrderType, string>(OkexAlgoOrderType.TWAP, "twap"),
+            new KeyValuePair<OkxAlgoOrderType, string>(OkxAlgoOrderType.Conditional, "conditional"),
+            new KeyValuePair<OkxAlgoOrderType, string>(OkxAlgoOrderType.OCO, "oco"),
+            new KeyValuePair<OkxAlgoOrderType, string>(OkxAlgoOrderType.Trigger, "trigger"),
+            new KeyValuePair<OkxAlgoOrderType, string>(OkxAlgoOrderType.Iceberg, "iceberg"),
+            new KeyValuePair<OkxAlgoOrderType, string>(OkxAlgoOrderType.TWAP, "twap"),
         };
     }
 }

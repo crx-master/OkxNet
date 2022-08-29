@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
+using OkxNet.Converters;
 using System;
 
-namespace Okex.Net.Objects.Market
+namespace OkxNet.Objects.Market
 {
-    public class Okex24HourVolume
+    public class Okx24HourVolume
     {
         [JsonProperty("volUsd")]
         public decimal VolumeUsd { get; set; }
@@ -12,7 +12,7 @@ namespace Okex.Net.Objects.Market
         [JsonProperty("volCny")]
         public decimal VolumeCny { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
     }
 }

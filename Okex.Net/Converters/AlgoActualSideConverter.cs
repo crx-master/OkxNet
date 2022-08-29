@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class AlgoActualSideConverter : BaseConverter<OkexAlgoActualSide>
+    internal class AlgoActualSideConverter : BaseConverter<OkxAlgoActualSide>
     {
         public AlgoActualSideConverter() : this(true) { }
         public AlgoActualSideConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexAlgoActualSide, string>> Mapping => new List<KeyValuePair<OkexAlgoActualSide, string>>
+        protected override List<KeyValuePair<OkxAlgoActualSide, string>> Mapping => new List<KeyValuePair<OkxAlgoActualSide, string>>
         {
-            new KeyValuePair<OkexAlgoActualSide, string>(OkexAlgoActualSide.StopLoss, "sl"),
-            new KeyValuePair<OkexAlgoActualSide, string>(OkexAlgoActualSide.TakeProfit, "tp"),
+            new KeyValuePair<OkxAlgoActualSide, string>(OkxAlgoActualSide.StopLoss, "sl"),
+            new KeyValuePair<OkxAlgoActualSide, string>(OkxAlgoActualSide.TakeProfit, "tp"),
         };
     }
 }

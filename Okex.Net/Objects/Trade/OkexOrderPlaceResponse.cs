@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Okex.Net.Objects.Trade
+namespace OkxNet.Objects.Trade
 {
-    public class OkexOrderPlaceResponse
+    public class OkxOrderPlaceResponse
     {
         [JsonProperty("ordId")]
         public long? OrderId { get; set; }

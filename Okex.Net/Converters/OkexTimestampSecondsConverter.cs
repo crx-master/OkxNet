@@ -2,12 +2,12 @@
 using System;
 using System.Globalization;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
     /// <summary>
     /// Converter for seconds to datetime
     /// </summary>
-    public class OkexTimestampSecondsConverter : JsonConverter
+    public class OkxTimestampSecondsConverter : JsonConverter
     {
         /// <inheritdoc />
         public override bool CanConvert(Type objectType)

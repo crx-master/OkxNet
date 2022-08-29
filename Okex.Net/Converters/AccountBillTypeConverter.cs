@@ -1,28 +1,28 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class AccountBillTypeConverter : BaseConverter<OkexAccountBillType>
+    internal class AccountBillTypeConverter : BaseConverter<OkxAccountBillType>
     {
         public AccountBillTypeConverter() : this(true) { }
         public AccountBillTypeConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexAccountBillType, string>> Mapping => new List<KeyValuePair<OkexAccountBillType, string>>
+        protected override List<KeyValuePair<OkxAccountBillType, string>> Mapping => new List<KeyValuePair<OkxAccountBillType, string>>
         {
-            new KeyValuePair<OkexAccountBillType, string>(OkexAccountBillType.Transfer, "1"),
-            new KeyValuePair<OkexAccountBillType, string>(OkexAccountBillType.Trade, "2"),
-            new KeyValuePair<OkexAccountBillType, string>(OkexAccountBillType.Delivery, "3"),
-            new KeyValuePair<OkexAccountBillType, string>(OkexAccountBillType.AutoTokenConversion, "4"),
-            new KeyValuePair<OkexAccountBillType, string>(OkexAccountBillType.Liquidation, "5"),
-            new KeyValuePair<OkexAccountBillType, string>(OkexAccountBillType.MarginTransfer, "6"),
-            new KeyValuePair<OkexAccountBillType, string>(OkexAccountBillType.InterestDeduction, "7"),
-            new KeyValuePair<OkexAccountBillType, string>(OkexAccountBillType.FundingFee, "8"),
-            new KeyValuePair<OkexAccountBillType, string>(OkexAccountBillType.ADL, "9"),
-            new KeyValuePair<OkexAccountBillType, string>(OkexAccountBillType.Clawback, "10"),
-            new KeyValuePair<OkexAccountBillType, string>(OkexAccountBillType.SystemTokenConversion, "11"),
-            new KeyValuePair<OkexAccountBillType, string>(OkexAccountBillType.StrategyTransfer, "12"),
+            new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.Transfer, "1"),
+            new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.Trade, "2"),
+            new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.Delivery, "3"),
+            new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.AutoTokenConversion, "4"),
+            new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.Liquidation, "5"),
+            new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.MarginTransfer, "6"),
+            new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.InterestDeduction, "7"),
+            new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.FundingFee, "8"),
+            new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.ADL, "9"),
+            new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.Clawback, "10"),
+            new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.SystemTokenConversion, "11"),
+            new KeyValuePair<OkxAccountBillType, string>(OkxAccountBillType.StrategyTransfer, "12"),
         };
     }
 }

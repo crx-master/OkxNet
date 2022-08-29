@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Attributes;
-using Okex.Net.Converters;
+using OkxNet.Attributes;
+using OkxNet.Converters;
 using System;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.Market
+namespace OkxNet.Objects.Market
 {
-    [JsonConverter(typeof(TypedDataConverter<OkexOracle>))]
-    public class OkexOracle
+    [JsonConverter(typeof(TypedDataConverter<OkxOracle>))]
+    public class OkxOracle
     {
         [JsonProperty("messages")]
         public IEnumerable<string> Messages { get; set; }
@@ -15,7 +15,7 @@ namespace Okex.Net.Objects.Market
         [JsonProperty("signatures")]
         public IEnumerable<string> Signatures { get; set; }
 
-        [JsonProperty("timestamp"), JsonConverter(typeof(OkexTimestampSecondsConverter))]
+        [JsonProperty("timestamp"), JsonConverter(typeof(OkxTimestampSecondsConverter))]
         public DateTime Time { get; set; }
 
         [TypedData]

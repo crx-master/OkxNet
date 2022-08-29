@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 
-namespace Okex.Net.Objects.Funding
+namespace OkxNet.Objects.Funding
 {
-    public class OkexTransferResponse
+    public class OkxTransferResponse
     {
         [JsonProperty("ccy")]
         public string Currency { get; set; }
@@ -16,9 +16,9 @@ namespace Okex.Net.Objects.Funding
         public decimal Amount { get; set; }
 
         [JsonProperty("from"), JsonConverter(typeof(AccountConverter))]
-        public OkexAccount From { get; set; }
+        public OkxAccount From { get; set; }
 
         [JsonProperty("to"), JsonConverter(typeof(AccountConverter))]
-        public OkexAccount To { get; set; }
+        public OkxAccount To { get; set; }
     }
 }

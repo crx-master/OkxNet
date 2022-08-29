@@ -1,22 +1,22 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class AlgoOrderStateConverter : BaseConverter<OkexAlgoOrderState>
+    internal class AlgoOrderStateConverter : BaseConverter<OkxAlgoOrderState>
     {
         public AlgoOrderStateConverter() : this(true) { }
         public AlgoOrderStateConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexAlgoOrderState, string>> Mapping => new List<KeyValuePair<OkexAlgoOrderState, string>>
+        protected override List<KeyValuePair<OkxAlgoOrderState, string>> Mapping => new List<KeyValuePair<OkxAlgoOrderState, string>>
         {
-            new KeyValuePair<OkexAlgoOrderState, string>(OkexAlgoOrderState.Live, "live"),
-            new KeyValuePair<OkexAlgoOrderState, string>(OkexAlgoOrderState.Pause, "pause"),
-            new KeyValuePair<OkexAlgoOrderState, string>(OkexAlgoOrderState.Effective, "effective"),
-            new KeyValuePair<OkexAlgoOrderState, string>(OkexAlgoOrderState.PartiallyEffective, "partially_effective"),
-            new KeyValuePair<OkexAlgoOrderState, string>(OkexAlgoOrderState.Canceled, "canceled"),
-            new KeyValuePair<OkexAlgoOrderState, string>(OkexAlgoOrderState.Failed, "order_failed"),
+            new KeyValuePair<OkxAlgoOrderState, string>(OkxAlgoOrderState.Live, "live"),
+            new KeyValuePair<OkxAlgoOrderState, string>(OkxAlgoOrderState.Pause, "pause"),
+            new KeyValuePair<OkxAlgoOrderState, string>(OkxAlgoOrderState.Effective, "effective"),
+            new KeyValuePair<OkxAlgoOrderState, string>(OkxAlgoOrderState.PartiallyEffective, "partially_effective"),
+            new KeyValuePair<OkxAlgoOrderState, string>(OkxAlgoOrderState.Canceled, "canceled"),
+            new KeyValuePair<OkxAlgoOrderState, string>(OkxAlgoOrderState.Failed, "order_failed"),
         };
     }
 }

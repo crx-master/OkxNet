@@ -1,6 +1,6 @@
-﻿namespace Okex.Net.Enums
+﻿namespace OkxNet.Enums
 {
-    public enum OkexOrderBookType
+    public enum OkxOrderBookType
     {
         OrderBook,
         OrderBook_5,

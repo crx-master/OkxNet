@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class LiquidationStateConverter : BaseConverter<OkexLiquidationState>
+    internal class LiquidationStateConverter : BaseConverter<OkxLiquidationState>
     {
         public LiquidationStateConverter() : this(true) { }
         public LiquidationStateConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexLiquidationState, string>> Mapping => new List<KeyValuePair<OkexLiquidationState, string>>
+        protected override List<KeyValuePair<OkxLiquidationState, string>> Mapping => new List<KeyValuePair<OkxLiquidationState, string>>
         {
-            new KeyValuePair<OkexLiquidationState, string>(OkexLiquidationState.Unfilled, "unfilled"),
-            new KeyValuePair<OkexLiquidationState, string>(OkexLiquidationState.Filled, "filled"),
+            new KeyValuePair<OkxLiquidationState, string>(OkxLiquidationState.Unfilled, "unfilled"),
+            new KeyValuePair<OkxLiquidationState, string>(OkxLiquidationState.Filled, "filled"),
         };
     }
 }

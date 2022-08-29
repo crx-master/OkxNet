@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.SubAccount
+namespace OkxNet.Objects.SubAccount
 {
-    public class OkexSubAccount
+    public class OkxSubAccount
     {
         [JsonProperty("enable")]
         public bool Enable { get; set; }
@@ -25,10 +25,10 @@ namespace Okex.Net.Objects.SubAccount
         [JsonProperty("canTransOut")]
         public bool CanTransOut { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
         
         [JsonProperty("type"), JsonConverter(typeof(SubAccountTypeConverter))]
-        public OkexSubAccountType Type { get; set; }
+        public OkxSubAccountType Type { get; set; }
     }
 }

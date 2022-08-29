@@ -1,11 +1,11 @@
 ﻿using CryptoExchange.Net;
 using CryptoExchange.Net.Objects;
 using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
-using Okex.Net.Helpers;
-using Okex.Net.Objects.Core;
-using Okex.Net.Objects.SubAccount;
+using OkxNet.Converters;
+using OkxNet.Enums;
+using OkxNet.Helpers;
+using OkxNet.Objects.Core;
+using OkxNet.Objects.SubAccount;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +14,9 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Okex.Net
+namespace OkxNet
 {
-    public partial class OkexClient
+    public partial class OkxClient
     {
         #region Sub-Account API Endpoints
         /// <summary>
@@ -29,7 +29,7 @@ namespace Okex.Net
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkexSubAccount>> GetSubAccounts(
+        public virtual WebCallResult<IEnumerable<OkxSubAccount>> GetSubAccounts(
             bool? enable = null,
             string subAccountName = null,
             long? after = null,
@@ -47,7 +47,7 @@ namespace Okex.Net
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkexSubAccount>>> GetSubAccountsAsync(
+        public virtual async Task<WebCallResult<IEnumerable<OkxSubAccount>>> GetSubAccountsAsync(
             bool? enable = null,
             string subAccountName = null,
             long? after = null,
@@ -61,13 +61,13 @@ namespace Okex.Net
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("enable", enable);
             parameters.AddOptionalParameter("subAcct", subAccountName);
-            parameters.AddOptionalParameter("after", after?.ToString(OkexGlobals.OkexCultureInfo));
-            parameters.AddOptionalParameter("before", before?.ToString(OkexGlobals.OkexCultureInfo));
-            parameters.AddOptionalParameter("limit", limit.ToString(OkexGlobals.OkexCultureInfo));
+            parameters.AddOptionalParameter("after", after?.ToString(OkxGlobals.OkxCultureInfo));
+            parameters.AddOptionalParameter("before", before?.ToString(OkxGlobals.OkxCultureInfo));
+            parameters.AddOptionalParameter("limit", limit.ToString(OkxGlobals.OkxCultureInfo));
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexSubAccount>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_List), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkexSubAccount>>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkexSubAccount>>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccount>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_List), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxSubAccount>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxSubAccount>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }
@@ -83,7 +83,7 @@ namespace Okex.Net
         /// <param name="ipAddresses">Link IP addresses, separate with commas if more than one. Support up to 20 IP addresses.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkexSubAccountApiKey> ResetSubAccountApiKey(
+        public virtual WebCallResult<OkxSubAccountApiKey> ResetSubAccountApiKey(
             string subAccountName,
             string apiKey,
             string apiLabel = null,
@@ -103,7 +103,7 @@ namespace Okex.Net
         /// <param name="ipAddresses">Link IP addresses, separate with commas if more than one. Support up to 20 IP addresses.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<OkexSubAccountApiKey>> ResetSubAccountApiKeyAsync(
+        public virtual async Task<WebCallResult<OkxSubAccountApiKey>> ResetSubAccountApiKeyAsync(
             string subAccountName,
             string apiKey,
             string apiLabel = null,
@@ -127,9 +127,9 @@ namespace Okex.Net
             if (permissions.Count > 0)
                 parameters.AddOptionalParameter("perm", string.Join(",", permissions));
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexSubAccountApiKey>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_ResetApiKey), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<OkexSubAccountApiKey>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<OkexSubAccountApiKey>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccountApiKey>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_ResetApiKey), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<OkxSubAccountApiKey>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<OkxSubAccountApiKey>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data.FirstOrDefault());
         }
@@ -140,7 +140,7 @@ namespace Okex.Net
         /// <param name="subAccountName">Sub Account Name</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkexSubAccountTradingBalance> GetSubAccountTradingBalances(
+        public virtual WebCallResult<OkxSubAccountTradingBalance> GetSubAccountTradingBalances(
             string subAccountName,
             CancellationToken ct = default) 
             => GetSubAccountTradingBalancesAsync(subAccountName, ct).Result;
@@ -150,7 +150,7 @@ namespace Okex.Net
         /// <param name="subAccountName">Sub Account Name</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<OkexSubAccountTradingBalance>> GetSubAccountTradingBalancesAsync(
+        public virtual async Task<WebCallResult<OkxSubAccountTradingBalance>> GetSubAccountTradingBalancesAsync(
             string subAccountName,
             CancellationToken ct = default)
         {
@@ -159,9 +159,9 @@ namespace Okex.Net
                 {"subAcct", subAccountName },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexSubAccountTradingBalance>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_TradingBalances), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<OkexSubAccountTradingBalance>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<OkexSubAccountTradingBalance>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccountTradingBalance>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_TradingBalances), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<OkxSubAccountTradingBalance>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<OkxSubAccountTradingBalance>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data.FirstOrDefault());
         }
@@ -174,7 +174,7 @@ namespace Okex.Net
         /// <param name="currency">Single currency or multiple currencies (no more than 20) separated with comma, e.g. BTC or BTC,ETH.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkexSubAccountFundingBalance> GetSubAccountFundingBalances(
+        public virtual WebCallResult<OkxSubAccountFundingBalance> GetSubAccountFundingBalances(
             string subAccountName,
             string currency = null,
             CancellationToken ct = default)
@@ -187,7 +187,7 @@ namespace Okex.Net
         /// <param name="currency">Single currency or multiple currencies (no more than 20) separated with comma, e.g. BTC or BTC,ETH.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<OkexSubAccountFundingBalance>> GetSubAccountFundingBalancesAsync(
+        public virtual async Task<WebCallResult<OkxSubAccountFundingBalance>> GetSubAccountFundingBalancesAsync(
             string subAccountName,
             string currency = null,
             CancellationToken ct = default)
@@ -200,9 +200,9 @@ namespace Okex.Net
             if (!string.IsNullOrEmpty(currency))
                 parameters.AddOptionalParameter("ccy", currency);
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexSubAccountFundingBalance>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_FundingBalances), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<OkexSubAccountFundingBalance>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<OkexSubAccountFundingBalance>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccountFundingBalance>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_FundingBalances), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<OkxSubAccountFundingBalance>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<OkxSubAccountFundingBalance>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data.FirstOrDefault());
         }
@@ -218,10 +218,10 @@ namespace Okex.Net
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkexSubAccountBill>> GetSubAccountBills(
+        public virtual WebCallResult<IEnumerable<OkxSubAccountBill>> GetSubAccountBills(
             string subAccountName = null,
             string currency = null,
-            OkexSubAccountTransferType? type = null,
+            OkxSubAccountTransferType? type = null,
             long? after = null,
             long? before = null,
             int limit = 100,
@@ -238,10 +238,10 @@ namespace Okex.Net
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkexSubAccountBill>>> GetSubAccountBillsAsync(
+        public virtual async Task<WebCallResult<IEnumerable<OkxSubAccountBill>>> GetSubAccountBillsAsync(
             string subAccountName = null,
             string currency = null,
-            OkexSubAccountTransferType? type = null,
+            OkxSubAccountTransferType? type = null,
             long? after = null,
             long? before = null,
             int limit = 100,
@@ -254,14 +254,14 @@ namespace Okex.Net
             parameters.AddOptionalParameter("subAcct", subAccountName);
             parameters.AddOptionalParameter("ccy", currency);
             parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new SubAccountTransferTypeConverter(false)));
-            parameters.AddOptionalParameter("after", after?.ToString(OkexGlobals.OkexCultureInfo));
-            parameters.AddOptionalParameter("before", before?.ToString(OkexGlobals.OkexCultureInfo));
-            parameters.AddOptionalParameter("limit", limit.ToString(OkexGlobals.OkexCultureInfo));
+            parameters.AddOptionalParameter("after", after?.ToString(OkxGlobals.OkxCultureInfo));
+            parameters.AddOptionalParameter("before", before?.ToString(OkxGlobals.OkxCultureInfo));
+            parameters.AddOptionalParameter("limit", limit.ToString(OkxGlobals.OkxCultureInfo));
 
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexSubAccountBill>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_Bills), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkexSubAccountBill>>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkexSubAccountBill>>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccountBill>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_Bills), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxSubAccountBill>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxSubAccountBill>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }
@@ -277,11 +277,11 @@ namespace Okex.Net
         /// <param name="toSubAccountName">Sub-account name of the account that transfers funds in.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkexSubAccountTransfer> TransferBetweenSubAccounts(
+        public virtual WebCallResult<OkxSubAccountTransfer> TransferBetweenSubAccounts(
             string currency,
             decimal amount,
-            OkexAccount fromAccount,
-            OkexAccount toAccount,
+            OkxAccount fromAccount,
+            OkxAccount toAccount,
             string fromSubAccountName,
             string toSubAccountName,
             CancellationToken ct = default) 
@@ -297,11 +297,11 @@ namespace Okex.Net
         /// <param name="toSubAccountName">Sub-account name of the account that transfers funds in.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<OkexSubAccountTransfer>> TransferBetweenSubAccountsAsync(
+        public virtual async Task<WebCallResult<OkxSubAccountTransfer>> TransferBetweenSubAccountsAsync(
             string currency,
             decimal amount,
-            OkexAccount fromAccount,
-            OkexAccount toAccount,
+            OkxAccount fromAccount,
+            OkxAccount toAccount,
             string fromSubAccountName,
             string toSubAccountName,
             CancellationToken ct = default)
@@ -309,16 +309,16 @@ namespace Okex.Net
             var parameters = new Dictionary<string, object>
             {
                 {"ccy", currency },
-                {"amt", amount.ToString(OkexGlobals.OkexCultureInfo) },
+                {"amt", amount.ToString(OkxGlobals.OkxCultureInfo) },
                 {"from", JsonConvert.SerializeObject(fromAccount, new AccountConverter(false)) },
                 {"to", JsonConvert.SerializeObject(toAccount, new AccountConverter(false)) },
                 {"fromSubAccount", fromSubAccountName },
                 {"toSubAccount", toSubAccountName },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkexRestApiResponse<IEnumerable<OkexSubAccountTransfer>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_Transfer), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<OkexSubAccountTransfer>(new OkexRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<OkexSubAccountTransfer>(new OkexRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccountTransfer>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_Transfer), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<OkxSubAccountTransfer>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<OkxSubAccountTransfer>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data.FirstOrDefault());
         }

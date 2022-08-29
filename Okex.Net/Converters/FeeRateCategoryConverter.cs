@@ -1,20 +1,20 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class FeeRateCategoryConverter : BaseConverter<OkexFeeRateCategory>
+    internal class FeeRateCategoryConverter : BaseConverter<OkxFeeRateCategory>
     {
         public FeeRateCategoryConverter() : this(true) { }
         public FeeRateCategoryConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexFeeRateCategory, string>> Mapping => new List<KeyValuePair<OkexFeeRateCategory, string>>
+        protected override List<KeyValuePair<OkxFeeRateCategory, string>> Mapping => new List<KeyValuePair<OkxFeeRateCategory, string>>
         {
-            new KeyValuePair<OkexFeeRateCategory, string>(OkexFeeRateCategory.ClassA, "1"),
-            new KeyValuePair<OkexFeeRateCategory, string>(OkexFeeRateCategory.ClassB, "2"),
-            new KeyValuePair<OkexFeeRateCategory, string>(OkexFeeRateCategory.ClassC, "3"),
-            new KeyValuePair<OkexFeeRateCategory, string>(OkexFeeRateCategory.ClassD, "4"),
+            new KeyValuePair<OkxFeeRateCategory, string>(OkxFeeRateCategory.ClassA, "1"),
+            new KeyValuePair<OkxFeeRateCategory, string>(OkxFeeRateCategory.ClassB, "2"),
+            new KeyValuePair<OkxFeeRateCategory, string>(OkxFeeRateCategory.ClassC, "3"),
+            new KeyValuePair<OkxFeeRateCategory, string>(OkxFeeRateCategory.ClassD, "4"),
         };
     }
 }

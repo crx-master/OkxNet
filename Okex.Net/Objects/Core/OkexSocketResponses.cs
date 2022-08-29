@@ -1,11 +1,11 @@
 ﻿using CryptoExchange.Net.Attributes;
 using Newtonsoft.Json;
-using Okex.Net.Objects.Market;
+using OkxNet.Objects.Market;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.Core
+namespace OkxNet.Objects.Core
 {
-    public class OkexSocketResponse
+    public class OkxSocketResponse
     {
         public bool Success
         {
@@ -27,7 +27,7 @@ namespace Okex.Net.Objects.Core
         public string ErrorMessage { get; set; }
     }
 
-    public class OkexSocketUpdateResponse<T> : OkexSocketResponse
+    public class OkxSocketUpdateResponse<T> : OkxSocketResponse
     {
         /*
         [JsonOptionalProperty]
@@ -40,12 +40,12 @@ namespace Okex.Net.Objects.Core
         public T Data { get; set; } = default!;
     }
 
-    public class OkexOrderBookUpdate
+    public class OkxOrderBookUpdate
     {
         [JsonProperty("action")]
         public string Action { get; set; }
 
         [JsonProperty("data")]
-        public IEnumerable<OkexOrderBook> Data { get; set; } = default!;
+        public IEnumerable<OkxOrderBook> Data { get; set; } = default!;
     }
 }

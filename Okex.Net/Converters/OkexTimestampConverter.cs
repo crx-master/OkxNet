@@ -1,12 +1,12 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
     /// <summary>
     /// converter for milliseconds to datetime
     /// </summary>
-    internal class OkexTimestampConverter : JsonConverter
+    internal class OkxTimestampConverter : JsonConverter
     {
         /// <inheritdoc />
         public override bool CanConvert(Type objectType)

@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 
-namespace Okex.Net.Objects.Funding
+namespace OkxNet.Objects.Funding
 {
-    public class OkexSavingActionResponse
+    public class OkxSavingActionResponse
     {
         [JsonProperty("ccy")]
         public string Currency { get; set; }
@@ -16,6 +16,6 @@ namespace Okex.Net.Objects.Funding
         public decimal? PurchaseRate { get; set; }
 
         [JsonProperty("side"), JsonConverter(typeof(SavingActionSideConverter))]
-        public OkexSavingActionSide Side { get; set; }
+        public OkxSavingActionSide Side { get; set; }
     }
 }

@@ -1,25 +1,25 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 
-namespace Okex.Net.Objects.Account
+namespace OkxNet.Objects.Account
 {
-    public class OkexAccountConfiguration
+    public class OkxAccountConfiguration
     {
         [JsonProperty("uid")]
         public long UserId { get; set; }
 
         [JsonProperty("acctLv"), JsonConverter(typeof(AccountLevelConverter))]
-        public OkexAccountLevel AccountLevel { get; set; }
+        public OkxAccountLevel AccountLevel { get; set; }
 
         [JsonProperty("posMode"), JsonConverter(typeof(PositionModeConverter))]
-        public OkexPositionMode PositionMode { get; set; }
+        public OkxPositionMode PositionMode { get; set; }
 
-        [JsonProperty("autoLoan"), JsonConverter(typeof(OkexBooleanConverter))]
+        [JsonProperty("autoLoan"), JsonConverter(typeof(OkxBooleanConverter))]
         public bool AutoLoan { get; set; }
 
         [JsonProperty("greeksType"), JsonConverter(typeof(GreeksTypeConverter))]
-        public OkexGreeksType GreeksType { get; set; }
+        public OkxGreeksType GreeksType { get; set; }
 
         [JsonProperty("level")]
         public string Level { get; set; }
@@ -28,10 +28,10 @@ namespace Okex.Net.Objects.Account
         public string LevelTemporary { get; set; }
 
         [JsonProperty("ctIsoMode"), JsonConverter(typeof(MarginTransferModeConverter))]
-        public OkexMarginTransferMode ContractIsolatedMarginTradingMode { get; set; }
+        public OkxMarginTransferMode ContractIsolatedMarginTradingMode { get; set; }
 
         [JsonProperty("mgnIsoMode"), JsonConverter(typeof(MarginTransferModeConverter))]
-        public OkexMarginTransferMode MarginIsolatedMarginTradingMode { get; set; }
+        public OkxMarginTransferMode MarginIsolatedMarginTradingMode { get; set; }
 
         [JsonProperty("liquidationGear")]
         public string liquidationGear { get; set; }

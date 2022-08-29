@@ -1,20 +1,20 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.Funding
+namespace OkxNet.Objects.Funding
 {
-    public class OkexWithdrawalHistory
+    public class OkxWithdrawalHistory
     {
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
 
         [JsonProperty("wdId")]
         public long WithdrawalId { get; set; }
 
         [JsonProperty("state"), JsonConverter(typeof(WithdrawalStateConverter))]
-        public OkexWithdrawalState State { get; set; }
+        public OkxWithdrawalState State { get; set; }
 
         [JsonProperty("ccy")]
         public string Currency { get; set; }

@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.Public
+namespace OkxNet.Objects.Public
 {
-    public class OkexDiscountInfo
+    public class OkxDiscountInfo
     {
         [JsonProperty("ccy")]
         public string Currency { get; set; }
@@ -15,10 +15,10 @@ namespace Okex.Net.Objects.Public
         public int DiscountLevel { get; set; }
 
         [JsonProperty("discountInfo")]
-        public IEnumerable<OkexPublicDiscountInfoDetail> Details { get; set; }
+        public IEnumerable<OkxPublicDiscountInfoDetail> Details { get; set; }
     }
 
-    public class OkexPublicDiscountInfoDetail
+    public class OkxPublicDiscountInfoDetail
     {
         [JsonProperty("discountRate")]
         public decimal? DiscountRate { get; set; }

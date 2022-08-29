@@ -1,32 +1,32 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class PeriodConverter : BaseConverter<OkexPeriod>
+    internal class PeriodConverter : BaseConverter<OkxPeriod>
     {
         public PeriodConverter() : this(true) { }
         public PeriodConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexPeriod, string>> Mapping => new List<KeyValuePair<OkexPeriod, string>>
+        protected override List<KeyValuePair<OkxPeriod, string>> Mapping => new List<KeyValuePair<OkxPeriod, string>>
         {
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.OneMinute, "1m"),
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.ThreeMinutes, "3m"),
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.FiveMinutes, "5m"),
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.FifteenMinutes, "15m"),
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.ThirtyMinutes, "30m"),
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.OneHour, "1H"),
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.TwoHours, "2H"),
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.FourHours, "4H"),
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.SixHours, "6H"),
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.TwelveHours, "12H"),
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.OneDay, "1D"),
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.OneWeek, "1W"),
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.OneMonth, "1M"),
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.ThreeMonths, "3M"),
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.SixMonths, "6M"),
-            new KeyValuePair<OkexPeriod, string>(OkexPeriod.OneYear, "1Y"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.OneMinute, "1m"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.ThreeMinutes, "3m"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.FiveMinutes, "5m"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.FifteenMinutes, "15m"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.ThirtyMinutes, "30m"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.OneHour, "1H"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.TwoHours, "2H"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.FourHours, "4H"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.SixHours, "6H"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.TwelveHours, "12H"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.OneDay, "1D"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.OneWeek, "1W"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.OneMonth, "1M"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.ThreeMonths, "3M"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.SixMonths, "6M"),
+            new KeyValuePair<OkxPeriod, string>(OkxPeriod.OneYear, "1Y"),
         };
     }
 }

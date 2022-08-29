@@ -1,20 +1,20 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class OrderStateConverter : BaseConverter<OkexOrderState>
+    internal class OrderStateConverter : BaseConverter<OkxOrderState>
     {
         public OrderStateConverter() : this(true) { }
         public OrderStateConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexOrderState, string>> Mapping => new List<KeyValuePair<OkexOrderState, string>>
+        protected override List<KeyValuePair<OkxOrderState, string>> Mapping => new List<KeyValuePair<OkxOrderState, string>>
         {
-            new KeyValuePair<OkexOrderState, string>(OkexOrderState.Live, "live"),
-            new KeyValuePair<OkexOrderState, string>(OkexOrderState.Canceled, "canceled"),
-            new KeyValuePair<OkexOrderState, string>(OkexOrderState.PartiallyFilled, "partially_filled"),
-            new KeyValuePair<OkexOrderState, string>(OkexOrderState.Filled, "filled"),
+            new KeyValuePair<OkxOrderState, string>(OkxOrderState.Live, "live"),
+            new KeyValuePair<OkxOrderState, string>(OkxOrderState.Canceled, "canceled"),
+            new KeyValuePair<OkxOrderState, string>(OkxOrderState.PartiallyFilled, "partially_filled"),
+            new KeyValuePair<OkxOrderState, string>(OkxOrderState.Filled, "filled"),
         };
     }
 }

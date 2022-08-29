@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Okex.Net.Objects.Account
+namespace OkxNet.Objects.Account
 {
-    public class OkexMaximumAvailableAmount
+    public class OkxMaximumAvailableAmount
     {
         [JsonProperty("instId")]
         public string Instrument { get; set; }

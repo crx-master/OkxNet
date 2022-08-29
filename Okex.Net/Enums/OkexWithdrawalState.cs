@@ -1,6 +1,6 @@
-﻿namespace Okex.Net.Enums
+﻿namespace OkxNet.Enums
 {
-    public enum OkexWithdrawalState
+    public enum OkxWithdrawalState
     {
         PendingCancel,
         Canceled,

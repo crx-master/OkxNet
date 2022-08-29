@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
+using OkxNet.Converters;
 using System;
 
-namespace Okex.Net.Objects.Market
+namespace OkxNet.Objects.Market
 {
-    public class OkexIndexTicker
+    public class OkxIndexTicker
     {
         [JsonProperty("instId")]
         public string Instrument { get; set; }
@@ -27,7 +27,7 @@ namespace Okex.Net.Objects.Market
         [JsonProperty("sodUtc8")]
         public decimal OpenPriceUtc8 { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
     }
 }

@@ -1,16 +1,16 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 
-namespace Okex.Net.Objects.Account
+namespace OkxNet.Objects.Account
 {
-    public class OkexMaximumLoanAmount
+    public class OkxMaximumLoanAmount
     {
         [JsonProperty("instId")]
         public string Instrument { get; set; }
 
         [JsonProperty("mgnMode"), JsonConverter(typeof(MarginModeConverter))]
-        public OkexMarginMode? MarginMode { get; set; }
+        public OkxMarginMode? MarginMode { get; set; }
 
         [JsonProperty("mgnCcy")]
         public string MarginCurrency { get; set; }
@@ -22,6 +22,6 @@ namespace Okex.Net.Objects.Account
         public string Currency { get; set; }
 
         [JsonProperty("side"), JsonConverter(typeof(OrderSideConverter))]
-        public OkexOrderSide? OrderSide { get; set; }
+        public OkxOrderSide? OrderSide { get; set; }
     }
 }

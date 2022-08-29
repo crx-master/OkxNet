@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.SubAccount
+namespace OkxNet.Objects.SubAccount
 {
-    public class OkexSubAccountApiKey
+    public class OkxSubAccountApiKey
     {
         [JsonProperty("subAcct")]
         public string SubAccountName { get; set; }
@@ -24,7 +24,7 @@ namespace Okex.Net.Objects.SubAccount
         public string Passphrase { get; set; }
 
         [JsonProperty("perm"), JsonConverter(typeof(ApiPermissionConverter))]
-        public OkexApiPermission Permission { get; set; }
+        public OkxApiPermission Permission { get; set; }
         */
 
         [JsonProperty("perm")]
@@ -33,7 +33,7 @@ namespace Okex.Net.Objects.SubAccount
         [JsonProperty("ip")]
         public string IpAddresses { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
     }
 }

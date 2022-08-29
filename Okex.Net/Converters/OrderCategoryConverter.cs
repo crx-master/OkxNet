@@ -1,21 +1,21 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class OrderCategoryConverter : BaseConverter<OkexOrderCategory>
+    internal class OrderCategoryConverter : BaseConverter<OkxOrderCategory>
     {
         public OrderCategoryConverter() : this(true) { }
         public OrderCategoryConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexOrderCategory, string>> Mapping => new List<KeyValuePair<OkexOrderCategory, string>>
+        protected override List<KeyValuePair<OkxOrderCategory, string>> Mapping => new List<KeyValuePair<OkxOrderCategory, string>>
         {
-            new KeyValuePair<OkexOrderCategory, string>(OkexOrderCategory.TWAP, "twap"),
-            new KeyValuePair<OkexOrderCategory, string>(OkexOrderCategory.ADL, "adl"),
-            new KeyValuePair<OkexOrderCategory, string>(OkexOrderCategory.FullLiquidation, "full_liquidation"),
-            new KeyValuePair<OkexOrderCategory, string>(OkexOrderCategory.PartialLiquidation, "partial_liquidation"),
-            new KeyValuePair<OkexOrderCategory, string>(OkexOrderCategory.Delivery, "delivery"),
+            new KeyValuePair<OkxOrderCategory, string>(OkxOrderCategory.TWAP, "twap"),
+            new KeyValuePair<OkxOrderCategory, string>(OkxOrderCategory.ADL, "adl"),
+            new KeyValuePair<OkxOrderCategory, string>(OkxOrderCategory.FullLiquidation, "full_liquidation"),
+            new KeyValuePair<OkxOrderCategory, string>(OkxOrderCategory.PartialLiquidation, "partial_liquidation"),
+            new KeyValuePair<OkxOrderCategory, string>(OkxOrderCategory.Delivery, "delivery"),
         };
     }
 }

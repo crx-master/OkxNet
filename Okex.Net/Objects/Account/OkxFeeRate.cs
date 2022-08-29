@@ -1,16 +1,16 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.Account
+namespace OkxNet.Objects.Account
 {
-    public class OkexFeeRate
+    public class OkxFeeRate
     {
         [JsonProperty("category"), JsonConverter(typeof(FeeRateCategoryConverter))]
-        public OkexFeeRateCategory? Category { get; set; }
+        public OkxFeeRateCategory? Category { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
 
         [JsonProperty("level")]
@@ -23,7 +23,7 @@ namespace Okex.Net.Objects.Account
         public decimal? Taker { get; set; }
 
         [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
-        public OkexInstrumentType InstrumentType { get; set; }
+        public OkxInstrumentType InstrumentType { get; set; }
 
         [JsonProperty("delivery")]
         public decimal? Delivery { get; set; }

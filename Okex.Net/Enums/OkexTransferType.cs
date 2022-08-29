@@ -1,6 +1,6 @@
-﻿namespace Okex.Net.Enums
+﻿namespace OkxNet.Enums
 {
-    public enum OkexTransferType
+    public enum OkxTransferType
     {
         TransferWithinAccount,
         MasterAccountToSubAccount,

@@ -2,9 +2,9 @@
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace Okex.Net.Helpers
+namespace OkxNet.Helpers
 {
-    public static class OkexExtensions
+    public static class OkxExtensions
     {
         /// <summary>
         /// Validate the string is a valid spot symbol.
@@ -17,7 +17,7 @@ namespace Okex.Net.Helpers
 
             // symbol = symbol.ToLower(CultureInfo.InvariantCulture);
             if (!Regex.IsMatch(symbol, "^(([a-z]|[A-Z]|-|[0-9]){4,})$"))
-                throw new ArgumentException($"{messagePrefix}{(messagePrefix.Length > 0 ? " " : "")}{symbol} is not a valid Okex Symbol. Should be [QuoteCurrency]-[BaseCurrency], e.g. ETH-BTC{(messageSuffix.Length > 0 ? " " : "")}{messageSuffix}");
+                throw new ArgumentException($"{messagePrefix}{(messagePrefix.Length > 0 ? " " : "")}{symbol} is not a valid Okx Symbol. Should be [QuoteCurrency]-[BaseCurrency], e.g. ETH-BTC{(messageSuffix.Length > 0 ? " " : "")}{messageSuffix}");
 
             return symbol;
         }
@@ -33,7 +33,7 @@ namespace Okex.Net.Helpers
                 throw new ArgumentException($"{messagePrefix}{(messagePrefix.Length > 0 ? " " : "")}Symbol is not provided{(messageSuffix.Length > 0 ? " " : "")}{messageSuffix}");
 
             if (!Regex.IsMatch(currency, "^(([a-z]|[A-Z]){2,})$"))
-                throw new ArgumentException($"{messagePrefix}{(messagePrefix.Length > 0 ? " " : "")}{currency} is not a valid Okex Currency. Should be [Currency] only, e.g. BTC{(messageSuffix.Length > 0 ? " " : "")}{messageSuffix}");
+                throw new ArgumentException($"{messagePrefix}{(messagePrefix.Length > 0 ? " " : "")}{currency} is not a valid Okx Currency. Should be [Currency] only, e.g. BTC{(messageSuffix.Length > 0 ? " " : "")}{messageSuffix}");
 
             return currency;
         }
@@ -165,12 +165,12 @@ namespace Okex.Net.Helpers
         #region ISO 8601 DateTime
         public static string DateTimeToIso8601String(this DateTime @this)
         {
-            return @this.ToString(OkexGlobals.OkexDatetimeFormat);
+            return @this.ToString(OkxGlobals.OkxDatetimeFormat);
         }
 
         public static DateTime Iso8601StringToDateTime(this string @this)
         {
-            return DateTime.ParseExact(@this, OkexGlobals.OkexDatetimeFormat, CultureInfo.InvariantCulture);
+            return DateTime.ParseExact(@this, OkxGlobals.OkxDatetimeFormat, CultureInfo.InvariantCulture);
         }
         #endregion
 

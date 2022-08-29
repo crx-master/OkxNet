@@ -9,13 +9,13 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Okex.Net.Objects.Core
+namespace OkxNet.Objects.Core
 {
-    public class OkexAuthenticationProvider : AuthenticationProvider
+    public class OkxAuthenticationProvider : AuthenticationProvider
     {
         private readonly HMACSHA256 encryptor;
 
-        public OkexAuthenticationProvider(OkexApiCredentials credentials) : base(credentials)
+        public OkxAuthenticationProvider(OkxApiCredentials credentials) : base(credentials)
         {
             if (credentials == null || credentials.Secret == null)
                 throw new ArgumentException("No valid API credentials provided. Key/Secret needed.");
@@ -30,14 +30,14 @@ namespace Okex.Net.Objects.Core
             headers = new Dictionary<string, string>();
 
             // Get Clients
-            var baseClient = ((OkexClientUnifiedApi)apiClient)._baseClient;
+            var baseClient = ((OkxClientUnifiedApi)apiClient)._baseClient;
 
             // Check Point
             if (!(auth || baseClient.Options.SignPublicRequests))
                 return;
 
             // Check Point
-            if (Credentials == null || Credentials.Key == null || Credentials.Secret == null || ((OkexApiCredentials)Credentials).PassPhrase == null)
+            if (Credentials == null || Credentials.Key == null || Credentials.Secret == null || ((OkxApiCredentials)Credentials).PassPhrase == null)
                 throw new ArgumentException("No valid API credentials provided. Key/Secret/PassPhrase needed.");
 
             // Set Parameters
@@ -50,8 +50,8 @@ namespace Okex.Net.Objects.Core
 
             if (method == HttpMethod.Post)
             {
-                if (bodyParameters.Count == 1 && bodyParameters.Keys.First() == OkexClient.BodyParameterKey)
-                    signtext += JsonConvert.SerializeObject(bodyParameters[OkexClient.BodyParameterKey]);
+                if (bodyParameters.Count == 1 && bodyParameters.Keys.First() == OkxClient.BodyParameterKey)
+                    signtext += JsonConvert.SerializeObject(bodyParameters[OkxClient.BodyParameterKey]);
                 else
                     // signtext += JsonConvert.SerializeObject(bodyParameters.OrderBy(p => p.Key).ToDictionary(p => p.Key, p => p.Value));
                     signtext += JsonConvert.SerializeObject(bodyParameters);
@@ -64,7 +64,7 @@ namespace Okex.Net.Objects.Core
             headers.Add("OK-ACCESS-KEY", Credentials.Key.GetString());
             headers.Add("OK-ACCESS-SIGN", signature);
             headers.Add("OK-ACCESS-TIMESTAMP", time);
-            headers.Add("OK-ACCESS-PASSPHRASE", ((OkexApiCredentials)Credentials).PassPhrase.GetString());
+            headers.Add("OK-ACCESS-PASSPHRASE", ((OkxApiCredentials)Credentials).PassPhrase.GetString());
 
             // Demo Trading Flag
             if (baseClient.Options.DemoTradingService)

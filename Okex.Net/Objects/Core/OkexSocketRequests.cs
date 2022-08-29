@@ -1,71 +1,71 @@
 ﻿using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Okex.Net.Objects.Core
+namespace OkxNet.Objects.Core
 {
-    public class OkexSocketRequest
+    public class OkxSocketRequest
     {
-        [JsonProperty("op"), JsonConverter(typeof(OkexSocketOperationConverter))]
-        public OkexSocketOperation Operation { get; set; }
+        [JsonProperty("op"), JsonConverter(typeof(OkxSocketOperationConverter))]
+        public OkxSocketOperation Operation { get; set; }
 
         [JsonProperty("args")]
-        public List<OkexSocketRequestArgument> Arguments { get; set; }
+        public List<OkxSocketRequestArgument> Arguments { get; set; }
 
-        public OkexSocketRequest(OkexSocketOperation op, params OkexSocketRequestArgument[] args)
+        public OkxSocketRequest(OkxSocketOperation op, params OkxSocketRequestArgument[] args)
         {
             Operation = op;
             Arguments = args.ToList();
         }
 
-        public OkexSocketRequest(OkexSocketOperation op, IEnumerable<OkexSocketRequestArgument> args)
+        public OkxSocketRequest(OkxSocketOperation op, IEnumerable<OkxSocketRequestArgument> args)
         {
             Operation = op;
             Arguments = args.ToList();
         }
 
-        public OkexSocketRequest(OkexSocketOperation op, string channel)
+        public OkxSocketRequest(OkxSocketOperation op, string channel)
         {
             Operation = op;
-            Arguments = new List<OkexSocketRequestArgument>();
-            Arguments.Add(new OkexSocketRequestArgument(channel));
+            Arguments = new List<OkxSocketRequestArgument>();
+            Arguments.Add(new OkxSocketRequestArgument(channel));
         }
 
-        public OkexSocketRequest(OkexSocketOperation op, string channel, string instrumentId)
+        public OkxSocketRequest(OkxSocketOperation op, string channel, string instrumentId)
         {
             Operation = op;
-            Arguments = new List<OkexSocketRequestArgument>();
-            Arguments.Add(new OkexSocketRequestArgument(channel, instrumentId));
+            Arguments = new List<OkxSocketRequestArgument>();
+            Arguments.Add(new OkxSocketRequestArgument(channel, instrumentId));
         }
 
-        public OkexSocketRequest(OkexSocketOperation op, string channel, string underlying, string instrumentId)
+        public OkxSocketRequest(OkxSocketOperation op, string channel, string underlying, string instrumentId)
         {
             Operation = op;
-            Arguments = new List<OkexSocketRequestArgument>();
-            Arguments.Add(new OkexSocketRequestArgument(channel, underlying, instrumentId));
+            Arguments = new List<OkxSocketRequestArgument>();
+            Arguments.Add(new OkxSocketRequestArgument(channel, underlying, instrumentId));
         }
 
-        public OkexSocketRequest(OkexSocketOperation op, string channel, OkexInstrumentType instrumentType)
+        public OkxSocketRequest(OkxSocketOperation op, string channel, OkxInstrumentType instrumentType)
         {
             Operation = op;
-            Arguments = new List<OkexSocketRequestArgument>();
-            Arguments.Add(new OkexSocketRequestArgument(channel, instrumentType));
+            Arguments = new List<OkxSocketRequestArgument>();
+            Arguments.Add(new OkxSocketRequestArgument(channel, instrumentType));
         }
 
-        public OkexSocketRequest(OkexSocketOperation op, string channel, OkexInstrumentType instrumentType, string underlying)
+        public OkxSocketRequest(OkxSocketOperation op, string channel, OkxInstrumentType instrumentType, string underlying)
         {
             Operation = op;
-            Arguments = new List<OkexSocketRequestArgument>();
-            Arguments.Add(new OkexSocketRequestArgument(channel, instrumentType, underlying));
+            Arguments = new List<OkxSocketRequestArgument>();
+            Arguments.Add(new OkxSocketRequestArgument(channel, instrumentType, underlying));
         }
 
     }
 
-    public class OkexSocketRequestArgument
+    public class OkxSocketRequestArgument
     {
         [JsonProperty("channel")]
         public string Channel { get; set; }
@@ -77,37 +77,37 @@ namespace Okex.Net.Objects.Core
         public string InstrumentId { get; set; }
 
         [JsonProperty("instType", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(InstrumentTypeConverter))]
-        public OkexInstrumentType? InstrumentType { get; set; }
+        public OkxInstrumentType? InstrumentType { get; set; }
 
-        public OkexSocketRequestArgument()
+        public OkxSocketRequestArgument()
         {
         }
 
-        public OkexSocketRequestArgument(string channel)
+        public OkxSocketRequestArgument(string channel)
         {
             if (!string.IsNullOrEmpty(channel)) Channel = channel;
         }
 
-        public OkexSocketRequestArgument(string channel, string instrumentId)
+        public OkxSocketRequestArgument(string channel, string instrumentId)
         {
             if (!string.IsNullOrEmpty(channel)) Channel = channel;
             if (!string.IsNullOrEmpty(instrumentId)) InstrumentId = instrumentId;
         }
 
-        public OkexSocketRequestArgument(string channel, string underlying, string instrumentId)
+        public OkxSocketRequestArgument(string channel, string underlying, string instrumentId)
         {
             if (!string.IsNullOrEmpty(channel)) Channel = channel;
             if (!string.IsNullOrEmpty(underlying)) Underlying = underlying;
             if (!string.IsNullOrEmpty(instrumentId)) InstrumentId = instrumentId;
         }
 
-        public OkexSocketRequestArgument(string channel, OkexInstrumentType? instrumentType)
+        public OkxSocketRequestArgument(string channel, OkxInstrumentType? instrumentType)
         {
             if (!string.IsNullOrEmpty(channel)) Channel = channel;
             if (instrumentType != null) InstrumentType = instrumentType;
         }
 
-        public OkexSocketRequestArgument(string channel, OkexInstrumentType? instrumentType, string underlying)
+        public OkxSocketRequestArgument(string channel, OkxInstrumentType? instrumentType, string underlying)
         {
             if (!string.IsNullOrEmpty(channel)) Channel = channel;
             if (!string.IsNullOrEmpty(underlying)) Underlying = underlying;
@@ -115,32 +115,32 @@ namespace Okex.Net.Objects.Core
         }
     }
 
-    public class OkexSocketAuthRequest
+    public class OkxSocketAuthRequest
     {
-        [JsonProperty("op"), JsonConverter(typeof(OkexSocketOperationConverter))]
-        public OkexSocketOperation Operation { get; set; }
+        [JsonProperty("op"), JsonConverter(typeof(OkxSocketOperationConverter))]
+        public OkxSocketOperation Operation { get; set; }
 
         [JsonProperty("args")]
-        public List<OkexSocketAuthRequestArgument> Arguments { get; set; }
+        public List<OkxSocketAuthRequestArgument> Arguments { get; set; }
 
-        public OkexSocketAuthRequest()
+        public OkxSocketAuthRequest()
         {
         }
 
-        public OkexSocketAuthRequest(OkexSocketOperation op, params OkexSocketAuthRequestArgument[] args)
+        public OkxSocketAuthRequest(OkxSocketOperation op, params OkxSocketAuthRequestArgument[] args)
         {
             Operation = op;
             Arguments = args.ToList();
         }
 
-        public OkexSocketAuthRequest(OkexSocketOperation op, IEnumerable<OkexSocketAuthRequestArgument> args)
+        public OkxSocketAuthRequest(OkxSocketOperation op, IEnumerable<OkxSocketAuthRequestArgument> args)
         {
             Operation = op;
             Arguments = args.ToList();
         }
     }
 
-    public class OkexSocketAuthRequestArgument
+    public class OkxSocketAuthRequestArgument
     {
         [JsonProperty("apiKey", NullValueHandling = NullValueHandling.Ignore)]
         public string ApiKey { get; set; }
@@ -154,28 +154,28 @@ namespace Okex.Net.Objects.Core
         [JsonProperty("sign", NullValueHandling = NullValueHandling.Ignore)]
         public string Signature { get; set; }
 
-        public OkexSocketAuthRequestArgument()
+        public OkxSocketAuthRequestArgument()
         {
         }
     }
 
-    public enum OkexSocketOperation
+    public enum OkxSocketOperation
     {
         Subscribe,
         Unsubscribe,
         Login,
     }
 
-    public class OkexSocketOperationConverter : BaseConverter<OkexSocketOperation>
+    public class OkxSocketOperationConverter : BaseConverter<OkxSocketOperation>
     {
-        public OkexSocketOperationConverter() : this(true) { }
-        public OkexSocketOperationConverter(bool quotes) : base(quotes) { }
+        public OkxSocketOperationConverter() : this(true) { }
+        public OkxSocketOperationConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexSocketOperation, string>> Mapping => new List<KeyValuePair<OkexSocketOperation, string>>
+        protected override List<KeyValuePair<OkxSocketOperation, string>> Mapping => new List<KeyValuePair<OkxSocketOperation, string>>
         {
-            new KeyValuePair<OkexSocketOperation, string>(OkexSocketOperation.Subscribe, "subscribe"),
-            new KeyValuePair<OkexSocketOperation, string>(OkexSocketOperation.Unsubscribe, "unsubscribe"),
-            new KeyValuePair<OkexSocketOperation, string>(OkexSocketOperation.Login, "login"),
+            new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.Subscribe, "subscribe"),
+            new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.Unsubscribe, "unsubscribe"),
+            new KeyValuePair<OkxSocketOperation, string>(OkxSocketOperation.Login, "login"),
         };
     }
 }

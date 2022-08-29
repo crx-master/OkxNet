@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class MaintenanceSystemConverter : BaseConverter<OkexMaintenanceSystem>
+    internal class MaintenanceSystemConverter : BaseConverter<OkxMaintenanceSystem>
     {
         public MaintenanceSystemConverter() : this(true) { }
         public MaintenanceSystemConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexMaintenanceSystem, string>> Mapping => new List<KeyValuePair<OkexMaintenanceSystem, string>>
+        protected override List<KeyValuePair<OkxMaintenanceSystem, string>> Mapping => new List<KeyValuePair<OkxMaintenanceSystem, string>>
         {
-            new KeyValuePair<OkexMaintenanceSystem, string>(OkexMaintenanceSystem.Classic, "classic"),
-            new KeyValuePair<OkexMaintenanceSystem, string>(OkexMaintenanceSystem.Unified, "unified"),
+            new KeyValuePair<OkxMaintenanceSystem, string>(OkxMaintenanceSystem.Classic, "classic"),
+            new KeyValuePair<OkxMaintenanceSystem, string>(OkxMaintenanceSystem.Unified, "unified"),
         };
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace Okex.Net.Enums
+﻿namespace OkxNet.Enums
 {
-    public enum OkexMaintenanceSystem
+    public enum OkxMaintenanceSystem
     {
         Classic,
         Unified,

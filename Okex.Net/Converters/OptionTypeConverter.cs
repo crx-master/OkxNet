@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class OptionTypeConverter : BaseConverter<OkexOptionType>
+    internal class OptionTypeConverter : BaseConverter<OkxOptionType>
     {
         public OptionTypeConverter() : this(true) { }
         public OptionTypeConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexOptionType, string>> Mapping => new List<KeyValuePair<OkexOptionType, string>>
+        protected override List<KeyValuePair<OkxOptionType, string>> Mapping => new List<KeyValuePair<OkxOptionType, string>>
         {
-            new KeyValuePair<OkexOptionType, string>(OkexOptionType.Call, "C"),
-            new KeyValuePair<OkexOptionType, string>(OkexOptionType.Put, "P"),
+            new KeyValuePair<OkxOptionType, string>(OkxOptionType.Call, "C"),
+            new KeyValuePair<OkxOptionType, string>(OkxOptionType.Put, "P"),
         };
     }
 }

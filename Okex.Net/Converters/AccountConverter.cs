@@ -1,23 +1,23 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class AccountConverter : BaseConverter<OkexAccount>
+    internal class AccountConverter : BaseConverter<OkxAccount>
     {
         public AccountConverter() : this(true) { }
         public AccountConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexAccount, string>> Mapping => new List<KeyValuePair<OkexAccount, string>>
+        protected override List<KeyValuePair<OkxAccount, string>> Mapping => new List<KeyValuePair<OkxAccount, string>>
         {
-            new KeyValuePair<OkexAccount, string>(OkexAccount.Spot, "1"),
-            new KeyValuePair<OkexAccount, string>(OkexAccount.Futures, "3"),
-            new KeyValuePair<OkexAccount, string>(OkexAccount.Margin, "5"),
-            new KeyValuePair<OkexAccount, string>(OkexAccount.Funding, "6"),
-            new KeyValuePair<OkexAccount, string>(OkexAccount.Swap, "9"),
-            new KeyValuePair<OkexAccount, string>(OkexAccount.Option, "12"),
-            new KeyValuePair<OkexAccount, string>(OkexAccount.Unified, "18"),
+            new KeyValuePair<OkxAccount, string>(OkxAccount.Spot, "1"),
+            new KeyValuePair<OkxAccount, string>(OkxAccount.Futures, "3"),
+            new KeyValuePair<OkxAccount, string>(OkxAccount.Margin, "5"),
+            new KeyValuePair<OkxAccount, string>(OkxAccount.Funding, "6"),
+            new KeyValuePair<OkxAccount, string>(OkxAccount.Swap, "9"),
+            new KeyValuePair<OkxAccount, string>(OkxAccount.Option, "12"),
+            new KeyValuePair<OkxAccount, string>(OkxAccount.Unified, "18"),
         };
     }
 }

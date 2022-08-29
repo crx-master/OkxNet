@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Okex.Net.Objects.Account
+namespace OkxNet.Objects.Account
 {
-    public class OkexWithdrawalAmount
+    public class OkxWithdrawalAmount
     {
         [JsonProperty("ccy")]
         public string Currency { get; set; }

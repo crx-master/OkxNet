@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <PackageId>OKEx.Net</PackageId>
+    <PackageId>OkxNet</PackageId>
     <Authors>Burak Öner</Authors>
     <Version>5.2.5</Version>
     <FileVersion>5.2.5</FileVersion>
@@ -26,33 +26,33 @@
 		
 		Version 5.2.4 - 21 Aug 2022
 		* Synced with CryptoExchange.Net v5.2.4
-		* Removed "_" (underscore) from async method names (Dummy_Async() => DummyAsync())
-		* Okex.Net.CoreObjects namespace changed as Okex.Net.Objects.Core
-		* Okex.Net.RestObjects.* namespace changed as Okex.Net.Objects.*
-		* Added: Okex.Net.Objects.Core.OkexApiAddresses Class
-		* Added: Okex.Net.Objects.Core.OkexApiCredentials Class
+		* Removed "_" (underscore) from async method names (Dummy_Async() =&gt; DummyAsync())
+		* Okx.Net.CoreObjects namespace changed as Okx.Net.Objects.Core
+		* Okx.Net.RestObjects.* namespace changed as Okx.Net.Objects.*
+		* Added: Okx.Net.Objects.Core.OkxApiAddresses Class
+		* Added: Okx.Net.Objects.Core.OkxApiCredentials Class
 		* Added/Changed some Core Objects according to new version of CryptoExchange.Net
-		* Added: Public => GetVIPInterestRates GetVIPInterestRatesAsync methods
-		* Added: Public => GetInsuranceFund GetInsuranceFundAsync methods
-		* Added: Public => UnitConvert UnitConvertAsync methods
-		* Added: Market => GetTradesHistory GetTradesHistoryAsync methods
-		* Added: Market => GetBlockTickers GetBlockTickersAsync methods
-		* Added: Market => GetBlockTicker GetBlockTickerAsync methods
-		* Added: Market => GetBlockTrades GetBlockTradesAsync methods
-		* Added: SubAccount => ResetSubAccountApiKey ResetSubAccountApiKeyAsync methods
-		* Added: SubAccount => GetSubAccountTradingBalances GetSubAccountTradingBalancesAsync methods
-		* Added: SubAccount => GetSubAccountFundingBalances GetSubAccountFundingBalancesAsync methods
-		* Added: Funding => GetSavingBalances GetSavingBalancesAsync methods
-		* Removed: SubAccount => CreateSubAccountApiKey CreateSubAccountApiKey_Async methods
-		* Removed: SubAccount => GetSubAccountApiKey GetSubAccountApiKey_Async methods
-		* Removed: SubAccount => ModifySubAccountApiKey ModifySubAccountApiKey_Async methods
-		* Removed: SubAccount => DeleteSubAccountApiKey DeleteSubAccountApiKey_Async methods
-		* Removed: SubAccount => GetSubAccountBalance GetSubAccountBalance_Async methods
-		* Removed: Funding => PiggyBankAction PiggyBankAction_Async methods
-		* Removed: Funding => PiggyBankBalance PiggyBankBalance_Async methods
-		* Renamed: Okex.Net.RestObjects.Account.OkexPositionMode => Okex.Net.Objects.Account.OkexAccountPositionMode
-		* Renamed: Okex.Net.RestObjects.Account.OkexGreeksType => Okex.Net.Objects.Account.OkexAccountGreeksType
-		* Renamed: Okex.Net.RestObjects.Account.OkexConfiguration => Okex.Net.Objects.Account.OkexAccountConfiguration
+		* Added: Public =&gt; GetVIPInterestRates GetVIPInterestRatesAsync methods
+		* Added: Public =&gt; GetInsuranceFund GetInsuranceFundAsync methods
+		* Added: Public =&gt; UnitConvert UnitConvertAsync methods
+		* Added: Market =&gt; GetTradesHistory GetTradesHistoryAsync methods
+		* Added: Market =&gt; GetBlockTickers GetBlockTickersAsync methods
+		* Added: Market =&gt; GetBlockTicker GetBlockTickerAsync methods
+		* Added: Market =&gt; GetBlockTrades GetBlockTradesAsync methods
+		* Added: SubAccount =&gt; ResetSubAccountApiKey ResetSubAccountApiKeyAsync methods
+		* Added: SubAccount =&gt; GetSubAccountTradingBalances GetSubAccountTradingBalancesAsync methods
+		* Added: SubAccount =&gt; GetSubAccountFundingBalances GetSubAccountFundingBalancesAsync methods
+		* Added: Funding =&gt; GetSavingBalances GetSavingBalancesAsync methods
+		* Removed: SubAccount =&gt; CreateSubAccountApiKey CreateSubAccountApiKey_Async methods
+		* Removed: SubAccount =&gt; GetSubAccountApiKey GetSubAccountApiKey_Async methods
+		* Removed: SubAccount =&gt; ModifySubAccountApiKey ModifySubAccountApiKey_Async methods
+		* Removed: SubAccount =&gt; DeleteSubAccountApiKey DeleteSubAccountApiKey_Async methods
+		* Removed: SubAccount =&gt; GetSubAccountBalance GetSubAccountBalance_Async methods
+		* Removed: Funding =&gt; PiggyBankAction PiggyBankAction_Async methods
+		* Removed: Funding =&gt; PiggyBankBalance PiggyBankBalance_Async methods
+		* Renamed: Okx.Net.RestObjects.Account.OkxPositionMode =&gt; Okx.Net.Objects.Account.OkxAccountPositionMode
+		* Renamed: Okx.Net.RestObjects.Account.OkxGreeksType =&gt; Okx.Net.Objects.Account.OkxAccountGreeksType
+		* Renamed: Okx.Net.RestObjects.Account.OkxConfiguration =&gt; Okx.Net.Objects.Account.OkxAccountConfiguration
 		* Added/Changed/Fixed many models (added some extra models for new methods, added missing fields, removed some fields, fixed minor bugs for existing models)
 		* Notes: CryptoExchange.Net v5 library is very different from version 4. I tried to keep main structure in OKEx.Net, but I had to make some changes. I know CryptoExchange.Net v5 is has different usage algorithm, but there are many developers using OKEx.Net. So I decided not to change main structure considering those developers. I can build a different wrapper for CryptoExchange.Net v5 later. I'm not sure...
 	</PackageReleaseNotes>

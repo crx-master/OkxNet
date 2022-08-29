@@ -6,8 +6,8 @@ using CryptoExchange.Net.Sockets;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Okex.Net.Helpers;
-using Okex.Net.Objects.Core;
+using OkxNet.Helpers;
+using OkxNet.Objects.Core;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -23,53 +23,53 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Okex.Net
+namespace OkxNet
 {
-    public partial class OkexSocketClient : BaseSocketClient
+    public partial class OkxSocketClient : BaseSocketClient
     {
         #region Internal Fields
-        internal OkexSocketClientOptions Options { get; }
-        internal OkexSocketClientUnifiedSocket UnifiedSocket { get; }
-        internal OkexApiCredentials Credentials { get; private set; }
+        internal OkxSocketClientOptions Options { get; }
+        internal OkxSocketClientUnifiedSocket UnifiedSocket { get; }
+        internal OkxApiCredentials Credentials { get; private set; }
         internal bool IsAuthendicated { get; private set; }
         #endregion
 
         #region Constructor/Destructor
-        public OkexSocketClient() : this(OkexSocketClientOptions.Default)
+        public OkxSocketClient() : this(OkxSocketClientOptions.Default)
         {
         }
 
-        public OkexSocketClient(OkexSocketClientOptions options) : base("OKX WS Api", options)
+        public OkxSocketClient(OkxSocketClientOptions options) : base("OKX WS Api", options)
         {
             SetDataInterpreter(DecompressData, null);
             SendPeriodic("Ping", TimeSpan.FromSeconds(5), con => "ping");
 
             Credentials = options.ApiCredentials;
-            UnifiedSocket = AddApiClient(new OkexSocketClientUnifiedSocket(log, this, options));
+            UnifiedSocket = AddApiClient(new OkxSocketClientUnifiedSocket(log, this, options));
         }
         #endregion
 
         #region Common Methods
-        public static void SetDefaultOptions(OkexSocketClientOptions options)
+        public static void SetDefaultOptions(OkxSocketClientOptions options)
         {
-            OkexSocketClientOptions.Default = options;
+            OkxSocketClientOptions.Default = options;
         }
         
-        public virtual void SetApiCredentials(OkexApiCredentials credentials)
+        public virtual void SetApiCredentials(OkxApiCredentials credentials)
         {
             Credentials = credentials;
             UnifiedSocket.SetApiCredentials(credentials);
         }
         public virtual void SetApiCredentials(string apiKey, string apiSecret, string passPhrase)
         {
-            var credentials = new OkexApiCredentials(apiKey, apiSecret, passPhrase);
+            var credentials = new OkxApiCredentials(apiKey, apiSecret, passPhrase);
             Credentials = credentials;
             UnifiedSocket.SetApiCredentials(credentials);
         }
         #endregion
 
-        public virtual CallResult<OkexSocketPingPong> Ping() => PingAsync().Result;
-        public virtual async Task<CallResult<OkexSocketPingPong>> PingAsync()
+        public virtual CallResult<OkxSocketPingPong> Ping() => PingAsync().Result;
+        public virtual async Task<CallResult<OkxSocketPingPong>> PingAsync()
         {
             var pit = DateTime.UtcNow;
             var sw = Stopwatch.StartNew();
@@ -77,29 +77,25 @@ namespace Okex.Net
             var pot = DateTime.UtcNow;
             sw.Stop();
 
-            var result = new OkexSocketPingPong { PingTime = pit, PongTime = pot, Latency = sw.Elapsed, PongMessage = response.Data };
-            return response.Error != null ? new CallResult<OkexSocketPingPong>(response.Error) : new CallResult<OkexSocketPingPong>(result);
+            var result = new OkxSocketPingPong { PingTime = pit, PongTime = pot, Latency = sw.Elapsed, PongMessage = response.Data };
+            return response.Error != null ? new CallResult<OkxSocketPingPong>(response.Error) : new CallResult<OkxSocketPingPong>(result);
         }
 
         protected static string DecompressData(byte[] byteData)
         {
-            using (var decompressedStream = new MemoryStream())
-            using (var compressedStream = new MemoryStream(byteData))
-            using (var deflateStream = new DeflateStream(compressedStream, CompressionMode.Decompress))
-            {
-                deflateStream.CopyTo(decompressedStream);
-                decompressedStream.Position = 0;
+            using var decompressedStream = new MemoryStream();
+            using var compressedStream = new MemoryStream(byteData);
+            using var deflateStream = new DeflateStream(compressedStream, CompressionMode.Decompress);
+            deflateStream.CopyTo(decompressedStream);
+            decompressedStream.Position = 0;
 
-                using (var streamReader = new StreamReader(decompressedStream))
-                {
-                    /** /
-                    var response = streamReader.ReadToEnd();
-                    return response;
-                    /**/
+            using var streamReader = new StreamReader(decompressedStream);
+            /** /
+            var response = streamReader.ReadToEnd();
+            return response;
+            /**/
 
-                    return streamReader.ReadToEnd();
-                }
-            }
+            return streamReader.ReadToEnd();
         }
 
         internal virtual Task<CallResult<T>> UnifiedQueryAsync<T>(object request, bool authenticated)
@@ -113,9 +109,9 @@ namespace Okex.Net
 
         protected override bool HandleQueryResponse<T>(SocketConnection s, object request, JToken data, out CallResult<T> callResult)
         {
-            return OkexHandleQueryResponse<T>(s, request, data, out callResult);
+            return OkxHandleQueryResponse<T>(s, request, data, out callResult);
         }
-        protected virtual bool OkexHandleQueryResponse<T>(SocketConnection s, object request, JToken data, out CallResult<T> callResult)
+        protected virtual bool OkxHandleQueryResponse<T>(SocketConnection s, object request, JToken data, out CallResult<T> callResult)
         {
             callResult = null;
 
@@ -152,9 +148,9 @@ namespace Okex.Net
 
         protected override bool HandleSubscriptionResponse(SocketConnection s, SocketSubscription subscription, object request, JToken message, out CallResult<object> callResult)
         {
-            return OkexHandleSubscriptionResponse(s, subscription, request, message, out callResult);
+            return OkxHandleSubscriptionResponse(s, subscription, request, message, out callResult);
         }
-        protected virtual bool OkexHandleSubscriptionResponse(SocketConnection s, SocketSubscription subscription, object request, JToken message, out CallResult<object> callResult)
+        protected virtual bool OkxHandleSubscriptionResponse(SocketConnection s, SocketSubscription subscription, object request, JToken message, out CallResult<object> callResult)
         {
             callResult = null;
 
@@ -175,7 +171,7 @@ namespace Okex.Net
             // Check for Success
             if (message.HasValues && message["event"] != null && (string)message["event"]! == "subscribe" && message["arg"]["channel"] != null)
             {
-                if (request is OkexSocketRequest socRequest)
+                if (request is OkxSocketRequest socRequest)
                 {
                     if (socRequest.Arguments.FirstOrDefault().Channel == (string)message["arg"]["channel"]!)
                     {
@@ -191,9 +187,9 @@ namespace Okex.Net
 
         protected override bool MessageMatchesHandler(SocketConnection s, JToken message, object request)
         {
-            return OkexMessageMatchesHandler(s, message, request);
+            return OkxMessageMatchesHandler(s, message, request);
         }
-        protected virtual bool OkexMessageMatchesHandler(SocketConnection s, JToken message, object request)
+        protected virtual bool OkxMessageMatchesHandler(SocketConnection s, JToken message, object request)
         {
             // Ping Request
             if (request.ToString() == "ping" && message.ToString() == "pong")
@@ -204,19 +200,19 @@ namespace Okex.Net
                 return false;
 
             // Socket Request
-            if (request is OkexSocketRequest hRequest)
+            if (request is OkxSocketRequest hRequest)
             {
                 // Check for Error
                 if (message is JObject && message["event"] != null && (string)message["event"]! == "error" && message["code"] != null && message["msg"] != null)
                     return false;
 
                 // Check for Channel
-                if (hRequest.Operation != OkexSocketOperation.Subscribe || message["arg"]["channel"] == null)
+                if (hRequest.Operation != OkxSocketOperation.Subscribe || message["arg"]["channel"] == null)
                     return false;
 
                 // Compare Request and Response Arguments
                 var reqArg = hRequest.Arguments.FirstOrDefault();
-                var resArg = JsonConvert.DeserializeObject<OkexSocketRequestArgument>(message["arg"].ToString());
+                var resArg = JsonConvert.DeserializeObject<OkxSocketRequestArgument>(message["arg"].ToString());
 
                 // Check Data
                 var data = message["data"];
@@ -237,18 +233,18 @@ namespace Okex.Net
 
         protected override bool MessageMatchesHandler(SocketConnection s, JToken message, string identifier)
         {
-            return OkexMessageMatchesHandler(s, message, identifier);
+            return OkxMessageMatchesHandler(s, message, identifier);
         }
-        protected virtual bool OkexMessageMatchesHandler(SocketConnection s, JToken message, string identifier)
+        protected virtual bool OkxMessageMatchesHandler(SocketConnection s, JToken message, string identifier)
         {
             return true;
         }
 
         protected override async Task<CallResult<bool>> AuthenticateSocketAsync(SocketConnection s)
         {
-            return await OkexAuthenticateSocket(s);
+            return await OkxAuthenticateSocket(s);
         }
-        protected virtual async Task<CallResult<bool>> OkexAuthenticateSocket(SocketConnection s)
+        protected virtual async Task<CallResult<bool>> OkxAuthenticateSocket(SocketConnection s)
         {
             // Check Point
             //if (s.Authenticated)
@@ -273,8 +269,8 @@ namespace Okex.Net
             // Signature
             var signtext = timestamp + "GET" + "/users/self/verify";
             var hmacEncryptor = new HMACSHA256(Encoding.ASCII.GetBytes(secret));
-            var signature = OkexAuthenticationProvider.Base64Encode(hmacEncryptor.ComputeHash(Encoding.UTF8.GetBytes(signtext)));
-            var request = new OkexSocketAuthRequest(OkexSocketOperation.Login, new OkexSocketAuthRequestArgument
+            var signature = OkxAuthenticationProvider.Base64Encode(hmacEncryptor.ComputeHash(Encoding.UTF8.GetBytes(signtext)));
+            var request = new OkxSocketAuthRequest(OkxSocketOperation.Login, new OkxSocketAuthRequestArgument
             {
                 ApiKey = key,
                 Passphrase = passphrase,
@@ -289,7 +285,7 @@ namespace Okex.Net
                 if ((string)data["event"] != "login")
                     return false;
 
-                var authResponse = Deserialize<OkexSocketResponse>(data);
+                var authResponse = Deserialize<OkxSocketResponse>(data);
                 if (!authResponse)
                 {
                     log.Write(LogLevel.Warning, "Authorization failed: " + authResponse.Error);
@@ -314,14 +310,14 @@ namespace Okex.Net
 
         protected override async Task<bool> UnsubscribeAsync(SocketConnection connection, SocketSubscription s)
         {
-            return await OkexUnsubscribeAsync(connection, s);
+            return await OkxUnsubscribeAsync(connection, s);
         }
-        protected virtual async Task<bool> OkexUnsubscribeAsync(SocketConnection connection, SocketSubscription s)
+        protected virtual async Task<bool> OkxUnsubscribeAsync(SocketConnection connection, SocketSubscription s)
         {
             if (s == null || s.Request == null)
                 return false;
 
-            var request = new OkexSocketRequest(OkexSocketOperation.Unsubscribe, ((OkexSocketRequest)s.Request).Arguments);
+            var request = new OkxSocketRequest(OkxSocketOperation.Unsubscribe, ((OkxSocketRequest)s.Request).Arguments);
             await connection.SendAndWaitAsync(request, TimeSpan.FromSeconds(10), data =>
             {
                 if (data.Type != JTokenType.Object)
@@ -343,7 +339,7 @@ namespace Okex.Net
                 ? "wss://ws.okx.com:8443/ws/v5/private"
                 : "wss://ws.okx.com:8443/ws/v5/public";
 
-            if (((OkexSocketClientOptions)ClientOptions).DemoTradingService)
+            if (((OkxSocketClientOptions)ClientOptions).DemoTradingService)
             {
                 address = authenticated
                     ? "wss://wspap.okx.com:8443/ws/v5/private?brokerId=9999"
@@ -353,21 +349,21 @@ namespace Okex.Net
         }
     }
 
-    public class OkexSocketClientUnifiedSocket : SocketApiClient
+    public class OkxSocketClientUnifiedSocket : SocketApiClient
     {
         #region Internal Fields
-        internal readonly OkexSocketClient _baseClient;
+        internal readonly OkxSocketClient _baseClient;
         internal readonly Log _log;
         #endregion
 
-        internal OkexSocketClientUnifiedSocket(Log log, OkexSocketClient baseClient, OkexSocketClientOptions options) : base(options, options.UnifiedStreamsOptions)
+        internal OkxSocketClientUnifiedSocket(Log log, OkxSocketClient baseClient, OkxSocketClientOptions options) : base(options, options.UnifiedStreamsOptions)
         {
             _baseClient = baseClient;
             _log = log;
         }
 
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
-            => new OkexAuthenticationProvider((OkexApiCredentials)credentials);
+            => new OkxAuthenticationProvider((OkxApiCredentials)credentials);
     }
 
 }

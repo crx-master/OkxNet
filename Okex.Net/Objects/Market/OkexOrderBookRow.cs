@@ -1,13 +1,13 @@
 ﻿using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
-using Okex.Net.Converters;
+using OkxNet.Converters;
 using System;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.Market
+namespace OkxNet.Objects.Market
 {
     [JsonConverter(typeof(ArrayConverter))]
-    public class OkexOrderBookRow
+    public class OkxOrderBookRow
     {
         /// <summary>
         /// The price for this row

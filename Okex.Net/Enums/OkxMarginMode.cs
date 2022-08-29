@@ -1,9 +1,8 @@
 ﻿namespace OkxNet.Enums
 {
-    public enum OkxTradeMode
+    public enum OkxMarginMode
     {
-        Cash,
-        Cross,
         Isolated,
+        Cross,
     }
 }

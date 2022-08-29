@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Okex.Net.Objects.Public
+namespace OkxNet.Objects.Public
 {
-    public class OkexPositionTier
+    public class OkxPositionTier
     {
         [JsonProperty("instId")]
         public string Instrument { get; set; }

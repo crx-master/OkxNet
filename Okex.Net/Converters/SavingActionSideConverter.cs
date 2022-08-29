@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class SavingActionSideConverter : BaseConverter<OkexSavingActionSide>
+    internal class SavingActionSideConverter : BaseConverter<OkxSavingActionSide>
     {
         public SavingActionSideConverter() : this(true) { }
         public SavingActionSideConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexSavingActionSide, string>> Mapping => new List<KeyValuePair<OkexSavingActionSide, string>>
+        protected override List<KeyValuePair<OkxSavingActionSide, string>> Mapping => new List<KeyValuePair<OkxSavingActionSide, string>>
         {
-            new KeyValuePair<OkexSavingActionSide, string>(OkexSavingActionSide.Purchase, "purchase"),
-            new KeyValuePair<OkexSavingActionSide, string>(OkexSavingActionSide.Redempt, "redempt"),
+            new KeyValuePair<OkxSavingActionSide, string>(OkxSavingActionSide.Purchase, "purchase"),
+            new KeyValuePair<OkxSavingActionSide, string>(OkxSavingActionSide.Redempt, "redempt"),
         };
     }
 }

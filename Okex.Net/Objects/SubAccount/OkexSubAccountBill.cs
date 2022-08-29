@@ -1,20 +1,20 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.SubAccount
+namespace OkxNet.Objects.SubAccount
 {
-    public class OkexSubAccountBill
+    public class OkxSubAccountBill
     {
         [JsonProperty("billId")]
         public long BillId { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
 
         [JsonProperty("type"), JsonConverter(typeof(SubAccountTransferTypeConverter))]
-        public OkexSubAccountTransferType Type { get; set; }
+        public OkxSubAccountTransferType Type { get; set; }
 
         [JsonProperty("ccy")]
         public string Currency { get; set; }

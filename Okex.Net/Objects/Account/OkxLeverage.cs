@@ -1,19 +1,19 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 
-namespace Okex.Net.Objects.Account
+namespace OkxNet.Objects.Account
 {
-    public class OkexLeverage
+    public class OkxLeverage
     {
         [JsonProperty("instId")]
         public string Instrument { get; set; }
 
         [JsonProperty("mgnMode"), JsonConverter(typeof(MarginModeConverter))]
-        public OkexMarginMode MarginMode { get; set; }
+        public OkxMarginMode MarginMode { get; set; }
 
         [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
-        public OkexPositionSide PositionSide { get; set; }
+        public OkxPositionSide PositionSide { get; set; }
 
         [JsonProperty("lever")]
         public decimal? Leverage { get; set; }

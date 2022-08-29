@@ -1,14 +1,14 @@
 ﻿using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
-using Okex.Net.Converters;
+using OkxNet.Converters;
 using System;
 
-namespace Okex.Net.Objects.Trading
+namespace OkxNet.Objects.Trading
 {
     [JsonConverter(typeof(ArrayConverter))]
-    public class OkexPutCallRatio
+    public class OkxPutCallRatio
     {
-        [ArrayProperty(0), JsonConverter(typeof(OkexTimestampConverter))]
+        [ArrayProperty(0), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
 
         [ArrayProperty(1)]

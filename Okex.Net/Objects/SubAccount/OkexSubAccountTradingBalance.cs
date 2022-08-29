@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
+using OkxNet.Converters;
 using System;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.SubAccount
+namespace OkxNet.Objects.SubAccount
 {
-    public class OkexSubAccountTradingBalance
+    public class OkxSubAccountTradingBalance
     {
         [JsonProperty("adjEq")]
         public decimal? AdjustedEquity { get; set; }
@@ -31,14 +31,14 @@ namespace Okex.Net.Objects.SubAccount
         [JsonProperty("totalEq")]
         public decimal TotalEquity { get; set; }
 
-        [JsonProperty("uTime"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("uTime"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime UpdateTime { get; set; }
 
         [JsonProperty("details")]
-        public IEnumerable<OkexSubAccountTradingBalanceDetail> Details { get; set; }
+        public IEnumerable<OkxSubAccountTradingBalanceDetail> Details { get; set; }
     }
 
-    public class OkexSubAccountTradingBalanceDetail
+    public class OkxSubAccountTradingBalanceDetail
     {
         [JsonProperty("availBal")]
         public decimal? AvailableBalance { get; set; }
@@ -94,7 +94,7 @@ namespace Okex.Net.Objects.SubAccount
         [JsonProperty("twap")]
         public decimal? Twap { get; set; }
 
-        [JsonProperty("uTime"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("uTime"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime UpdateTime { get; set; }
 
         [JsonProperty("upl")]

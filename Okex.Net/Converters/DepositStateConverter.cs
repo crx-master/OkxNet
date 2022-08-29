@@ -1,20 +1,20 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class DepositStateConverter : BaseConverter<OkexDepositState>
+    internal class DepositStateConverter : BaseConverter<OkxDepositState>
     {
         public DepositStateConverter() : this(true) { }
         public DepositStateConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexDepositState, string>> Mapping => new List<KeyValuePair<OkexDepositState, string>>
+        protected override List<KeyValuePair<OkxDepositState, string>> Mapping => new List<KeyValuePair<OkxDepositState, string>>
         {
-            new KeyValuePair<OkexDepositState, string>(OkexDepositState.WaitingForConfirmation, "1"),
-            new KeyValuePair<OkexDepositState, string>(OkexDepositState.Credited, "2"),
-            new KeyValuePair<OkexDepositState, string>(OkexDepositState.Successful, "3"),
-            new KeyValuePair<OkexDepositState, string>(OkexDepositState.Pending, "4"),
+            new KeyValuePair<OkxDepositState, string>(OkxDepositState.WaitingForConfirmation, "1"),
+            new KeyValuePair<OkxDepositState, string>(OkxDepositState.Credited, "2"),
+            new KeyValuePair<OkxDepositState, string>(OkxDepositState.Successful, "3"),
+            new KeyValuePair<OkxDepositState, string>(OkxDepositState.Pending, "4"),
         };
     }
 }

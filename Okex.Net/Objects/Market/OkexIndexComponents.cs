@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
+using OkxNet.Converters;
 using System;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.Market
+namespace OkxNet.Objects.Market
 {
-    public class OkexIndexComponents
+    public class OkxIndexComponents
     {
         [JsonProperty("last")]
         public decimal LastPrice { get; set; }
@@ -13,14 +13,14 @@ namespace Okex.Net.Objects.Market
         [JsonProperty("index")]
         public string Index { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
 
         [JsonProperty("components")]
-        public IEnumerable<OkexIndexComponent> Components { get; set; }
+        public IEnumerable<OkxIndexComponent> Components { get; set; }
     }
 
-    public class OkexIndexComponent
+    public class OkxIndexComponent
     {
         [JsonProperty("symbol")]
         public string Symbol { get; set; }

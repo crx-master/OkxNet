@@ -1,22 +1,22 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.Public
+namespace OkxNet.Objects.Public
 {
-    public class OkexInterestRate
+    public class OkxInterestRate
     {
         [JsonProperty("basic")]
-        public IEnumerable<OkexPublicInterestRateBasic> Basic { get; set; }
+        public IEnumerable<OkxPublicInterestRateBasic> Basic { get; set; }
 
         [JsonProperty("vip")]
-        public IEnumerable<OkexPublicInterestRateVip> Vip { get; set; }
+        public IEnumerable<OkxPublicInterestRateVip> Vip { get; set; }
 
         [JsonProperty("regular")]
-        public IEnumerable<OkexPublicInterestRateRegular> regular { get; set; }
+        public IEnumerable<OkxPublicInterestRateRegular> regular { get; set; }
 
     }
 
-    public class OkexPublicInterestRateBasic
+    public class OkxPublicInterestRateBasic
     {
         [JsonProperty("ccy")]
         public string Currency { get; set; }
@@ -28,7 +28,7 @@ namespace Okex.Net.Objects.Public
         public decimal? Rate { get; set; }
     }
 
-    public class OkexPublicInterestRateVip
+    public class OkxPublicInterestRateVip
     {
         [JsonProperty("irDiscount")]
         public decimal? InterestRateDiscount { get; set; }
@@ -40,7 +40,7 @@ namespace Okex.Net.Objects.Public
         public string Level { get; set; }
     }
 
-    public class OkexPublicInterestRateRegular
+    public class OkxPublicInterestRateRegular
     {
         [JsonProperty("irDiscount")]
         public decimal? InterestRateDiscount { get; set; }

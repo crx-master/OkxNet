@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.Funding
+namespace OkxNet.Objects.Funding
 {
-    public class OkexFundingBill
+    public class OkxFundingBill
     {
         [JsonProperty("billId")]
         public long? BillId { get; set; }
@@ -20,9 +20,9 @@ namespace Okex.Net.Objects.Funding
         public decimal? BalanceChange { get; set; }
 
         [JsonProperty("type"), JsonConverter(typeof(FundingBillTypeConverter))]
-        public OkexFundingBillType Type { get; set; }
+        public OkxFundingBillType Type { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
     }
 }

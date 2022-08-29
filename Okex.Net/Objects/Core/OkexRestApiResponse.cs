@@ -1,9 +1,9 @@
 ﻿using CryptoExchange.Net.Attributes;
 using Newtonsoft.Json;
 
-namespace Okex.Net.Objects.Core
+namespace OkxNet.Objects.Core
 {
-    public class OkexRestApiResponse<T>
+    public class OkxRestApiResponse<T>
     {
         [JsonProperty("code", NullValueHandling = NullValueHandling.Ignore)]
         public int ErrorCode { get; set; }

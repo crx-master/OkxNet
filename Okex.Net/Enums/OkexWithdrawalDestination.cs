@@ -1,6 +1,6 @@
-﻿namespace Okex.Net.Enums
+﻿namespace OkxNet.Enums
 {
-    public enum OkexWithdrawalDestination
+    public enum OkxWithdrawalDestination
     {
         OKEx,
         DigitalCurrencyAddress,

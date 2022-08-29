@@ -1,22 +1,22 @@
 ﻿using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
-using Okex.Net.Converters;
+using OkxNet.Converters;
 using System;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.Market
+namespace OkxNet.Objects.Market
 {
-    public class OkexOrderBook
+    public class OkxOrderBook
     {
         public string Instrument { get; set; }
 
         [JsonProperty("asks")]
-        public IEnumerable<OkexOrderBookRow> Asks { get; set; } = new List<OkexOrderBookRow>();
+        public IEnumerable<OkxOrderBookRow> Asks { get; set; } = new List<OkxOrderBookRow>();
 
         [JsonProperty("bids")]
-        public IEnumerable<OkexOrderBookRow> Bids { get; set; } = new List<OkexOrderBookRow>();
+        public IEnumerable<OkxOrderBookRow> Bids { get; set; } = new List<OkxOrderBookRow>();
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
 
         [JsonProperty("action")]

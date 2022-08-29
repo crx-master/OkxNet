@@ -1,20 +1,20 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class InstrumentAliasConverter : BaseConverter<OkexInstrumentAlias>
+    internal class InstrumentAliasConverter : BaseConverter<OkxInstrumentAlias>
     {
         public InstrumentAliasConverter() : this(true) { }
         public InstrumentAliasConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexInstrumentAlias, string>> Mapping => new List<KeyValuePair<OkexInstrumentAlias, string>>
+        protected override List<KeyValuePair<OkxInstrumentAlias, string>> Mapping => new List<KeyValuePair<OkxInstrumentAlias, string>>
         {
-            new KeyValuePair<OkexInstrumentAlias, string>(OkexInstrumentAlias.ThisWeek, "this_week"),
-            new KeyValuePair<OkexInstrumentAlias, string>(OkexInstrumentAlias.NextWeek, "next_week"),
-            new KeyValuePair<OkexInstrumentAlias, string>(OkexInstrumentAlias.Quarter, "quarter"),
-            new KeyValuePair<OkexInstrumentAlias, string>(OkexInstrumentAlias.NextQuarter, "next_quarter"),
+            new KeyValuePair<OkxInstrumentAlias, string>(OkxInstrumentAlias.ThisWeek, "this_week"),
+            new KeyValuePair<OkxInstrumentAlias, string>(OkxInstrumentAlias.NextWeek, "next_week"),
+            new KeyValuePair<OkxInstrumentAlias, string>(OkxInstrumentAlias.Quarter, "quarter"),
+            new KeyValuePair<OkxInstrumentAlias, string>(OkxInstrumentAlias.NextQuarter, "next_quarter"),
         };
     }
 }

@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
+using OkxNet.Converters;
 using System;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.Account
+namespace OkxNet.Objects.Account
 {
-    public class OkexAccountBalance
+    public class OkxAccountBalance
     {
-        [JsonProperty("uTime"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("uTime"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime UpdateTime { get; set; }
 
         [JsonProperty("totalEq")]
@@ -35,15 +35,15 @@ namespace Okex.Net.Objects.Account
         public decimal? NotionalUsd { get; set; }
 
         [JsonProperty("details")]
-        public IEnumerable<OkexAccountBalanceDetail> Details { get; set; }
+        public IEnumerable<OkxAccountBalanceDetail> Details { get; set; }
     }
 
-    public class OkexAccountBalanceDetail
+    public class OkxAccountBalanceDetail
     {
         [JsonProperty("ccy")]
         public string Currency { get; set; }
 
-        [JsonProperty("uTime"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("uTime"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime UpdateTime { get; set; }
 
         [JsonProperty("eq")]
@@ -91,8 +91,8 @@ namespace Okex.Net.Objects.Account
         [JsonProperty("mgnRatio")]
         public decimal? MarginRatio { get; set; }
 
-        [JsonProperty("Interest")]
-        public decimal? interest { get; set; }
+        [JsonProperty("interest")]
+        public decimal? Interest { get; set; }
 
         [JsonProperty("twap")]
         public decimal? Twap { get; set; }

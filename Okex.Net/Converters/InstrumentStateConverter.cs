@@ -1,19 +1,19 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class InstrumentStateConverter : BaseConverter<OkexInstrumentState>
+    internal class InstrumentStateConverter : BaseConverter<OkxInstrumentState>
     {
         public InstrumentStateConverter() : this(true) { }
         public InstrumentStateConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexInstrumentState, string>> Mapping => new List<KeyValuePair<OkexInstrumentState, string>>
+        protected override List<KeyValuePair<OkxInstrumentState, string>> Mapping => new List<KeyValuePair<OkxInstrumentState, string>>
         {
-            new KeyValuePair<OkexInstrumentState, string>(OkexInstrumentState.Live, "live"),
-            new KeyValuePair<OkexInstrumentState, string>(OkexInstrumentState.Suspend, "suspend"),
-            new KeyValuePair<OkexInstrumentState, string>(OkexInstrumentState.PreOpen, "preopen"),
+            new KeyValuePair<OkxInstrumentState, string>(OkxInstrumentState.Live, "live"),
+            new KeyValuePair<OkxInstrumentState, string>(OkxInstrumentState.Suspend, "suspend"),
+            new KeyValuePair<OkxInstrumentState, string>(OkxInstrumentState.PreOpen, "preopen"),
         };
     }
 }

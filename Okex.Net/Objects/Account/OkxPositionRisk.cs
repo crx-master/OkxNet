@@ -1,27 +1,27 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 using System.Collections.Generic;
 
-namespace Okex.Net.Objects.Account
+namespace OkxNet.Objects.Account
 {
-    public class OkexPositionRisk
+    public class OkxPositionRisk
     {
         [JsonProperty("adjEq")]
         public decimal? AdjustedEquity { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
 
         [JsonProperty("balData")]
-        public IEnumerable<OkexAccountPositionRiskBalanceData> BalanceData { get; set; }
+        public IEnumerable<OkxAccountPositionRiskBalanceData> BalanceData { get; set; }
 
         [JsonProperty("posData")]
-        public IEnumerable<OkexAccountPositionRiskPositionData> PositionData { get; set; }
+        public IEnumerable<OkxAccountPositionRiskPositionData> PositionData { get; set; }
     }
 
-    public class OkexAccountPositionRiskBalanceData
+    public class OkxAccountPositionRiskBalanceData
     {
         [JsonProperty("ccy")]
         public string Currency { get; set; }
@@ -33,7 +33,7 @@ namespace Okex.Net.Objects.Account
         public decimal? Equity { get; set; }
     }
 
-    public class OkexAccountPositionRiskPositionData
+    public class OkxAccountPositionRiskPositionData
     {
         [JsonProperty("ccy")]
         public string Currency { get; set; }
@@ -42,10 +42,10 @@ namespace Okex.Net.Objects.Account
         public string Instrument { get; set; }
 
         [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
-        public OkexInstrumentType InstrumentType { get; set; }
+        public OkxInstrumentType InstrumentType { get; set; }
 
         [JsonProperty("mgnMode"), JsonConverter(typeof(MarginModeConverter))]
-        public OkexMarginMode MarginMode { get; set; }
+        public OkxMarginMode MarginMode { get; set; }
 
         [JsonProperty("notionalCcy")]
         public decimal? NotionalCcy { get; set; }
@@ -63,6 +63,6 @@ namespace Okex.Net.Objects.Account
         public long PositionId { get; set; }
 
         [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
-        public OkexPositionSide PositionSide { get; set; }
+        public OkxPositionSide PositionSide { get; set; }
     }
 }

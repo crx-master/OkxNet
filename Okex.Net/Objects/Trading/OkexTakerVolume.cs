@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Attributes;
 using CryptoExchange.Net.Converters;
 using Newtonsoft.Json;
-using Okex.Net.Converters;
+using OkxNet.Converters;
 using System;
 
-namespace Okex.Net.Objects.Trading
+namespace OkxNet.Objects.Trading
 {
     [JsonConverter(typeof(ArrayConverter))]
-    public class OkexTakerVolume
+    public class OkxTakerVolume
     {
         [JsonIgnore]
         public string Currency { get; set; }
 
-        [ArrayProperty(0), JsonConverter(typeof(OkexTimestampConverter))]
+        [ArrayProperty(0), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
 
         [ArrayProperty(1)]

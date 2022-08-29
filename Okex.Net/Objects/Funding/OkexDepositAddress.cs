@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 
-namespace Okex.Net.Objects.Funding
+namespace OkxNet.Objects.Funding
 {
-    public class OkexDepositAddress
+    public class OkxDepositAddress
     {
         [JsonProperty("addr")]
         public string Address { get; set; }
@@ -31,6 +31,6 @@ namespace Okex.Net.Objects.Funding
         public string ContractAddr { get; set; }
 
         [JsonProperty("to"), JsonConverter(typeof(AccountConverter))]
-        public OkexAccount Account { get; set; }
+        public OkxAccount Account { get; set; }
     }
 }

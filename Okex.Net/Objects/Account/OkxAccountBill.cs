@@ -1,26 +1,26 @@
 ﻿using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 using System;
 
-namespace Okex.Net.Objects.Account
+namespace OkxNet.Objects.Account
 {
-    public class OkexAccountBill
+    public class OkxAccountBill
     {
         [JsonProperty("ccy")]
         public string Currency { get; set; }
 
-        [JsonProperty("ts"), JsonConverter(typeof(OkexTimestampConverter))]
+        [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTime Time { get; set; }
 
         [JsonProperty("instId")]
         public string Instrument { get; set; }
 
         [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
-        public OkexInstrumentType? InstrumentType { get; set; }
+        public OkxInstrumentType? InstrumentType { get; set; }
 
         [JsonProperty("mgnMode"), JsonConverter(typeof(MarginModeConverter))]
-        public OkexMarginMode? MarginMode { get; set; }
+        public OkxMarginMode? MarginMode { get; set; }
 
         [JsonProperty("billId")]
         public long? BillId { get; set; }
@@ -41,10 +41,10 @@ namespace Okex.Net.Objects.Account
         public decimal? Fee { get; set; }
 
         [JsonProperty("from"), JsonConverter(typeof(AccountConverter))]
-        public OkexAccount? FromAccount { get; set; }
+        public OkxAccount? FromAccount { get; set; }
 
         [JsonProperty("to"), JsonConverter(typeof(AccountConverter))]
-        public OkexAccount? ToAccount { get; set; }
+        public OkxAccount? ToAccount { get; set; }
 
         [JsonProperty("notes")]
         public string Notes { get; set; }

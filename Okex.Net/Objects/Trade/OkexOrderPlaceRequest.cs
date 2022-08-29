@@ -1,26 +1,26 @@
 ﻿using CryptoExchange.Net.Attributes;
 using Newtonsoft.Json;
-using Okex.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Converters;
+using OkxNet.Enums;
 
-namespace Okex.Net.Objects.Trade
+namespace OkxNet.Objects.Trade
 {
-    public class OkexOrderPlaceRequest
+    public class OkxOrderPlaceRequest
     {
         [JsonProperty("instId")]
         public string InstrumentId { get; set; }
 
         [JsonProperty("tdMode"), JsonConverter(typeof(TradeModeConverter))]
-        public OkexTradeMode TradeMode { get; set; }
+        public OkxTradeMode TradeMode { get; set; }
 
         [JsonProperty("side"), JsonConverter(typeof(OrderSideConverter))]
-        public OkexOrderSide OrderSide { get; set; }
+        public OkxOrderSide OrderSide { get; set; }
 
         [JsonProperty("posSide"), JsonConverter(typeof(PositionSideConverter))]
-        public OkexPositionSide PositionSide { get; set; }
+        public OkxPositionSide PositionSide { get; set; }
 
         [JsonProperty("ordType"), JsonConverter(typeof(OrderTypeConverter))]
-        public OkexOrderType OrderType { get; set; }
+        public OkxOrderType OrderType { get; set; }
 
         [JsonProperty("sz")]
         public string Size { get; set; }
@@ -41,6 +41,6 @@ namespace Okex.Net.Objects.Trade
         public bool? ReduceOnly { get; set; }
 
         [JsonProperty("tgtCcy", NullValueHandling = NullValueHandling.Ignore), JsonConverter(typeof(QuantityTypeConverter))]
-        public OkexQuantityType? QuantityType { get; set; }
+        public OkxQuantityType? QuantityType { get; set; }
     }
 }

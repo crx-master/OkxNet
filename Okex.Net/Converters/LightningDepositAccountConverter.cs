@@ -1,18 +1,18 @@
 ﻿using CryptoExchange.Net.Converters;
-using Okex.Net.Enums;
+using OkxNet.Enums;
 using System.Collections.Generic;
 
-namespace Okex.Net.Converters
+namespace OkxNet.Converters
 {
-    internal class LightningDepositAccountConverter : BaseConverter<OkexLightningDepositAccount>
+    internal class LightningDepositAccountConverter : BaseConverter<OkxLightningDepositAccount>
     {
         public LightningDepositAccountConverter() : this(true) { }
         public LightningDepositAccountConverter(bool quotes) : base(quotes) { }
 
-        protected override List<KeyValuePair<OkexLightningDepositAccount, string>> Mapping => new List<KeyValuePair<OkexLightningDepositAccount, string>>
+        protected override List<KeyValuePair<OkxLightningDepositAccount, string>> Mapping => new List<KeyValuePair<OkxLightningDepositAccount, string>>
         {
-            new KeyValuePair<OkexLightningDepositAccount, string>(OkexLightningDepositAccount.Spot, "1"),
-            new KeyValuePair<OkexLightningDepositAccount, string>(OkexLightningDepositAccount.Funding, "6"),
+            new KeyValuePair<OkxLightningDepositAccount, string>(OkxLightningDepositAccount.Spot, "1"),
+            new KeyValuePair<OkxLightningDepositAccount, string>(OkxLightningDepositAccount.Funding, "6"),
         };
     }
 }

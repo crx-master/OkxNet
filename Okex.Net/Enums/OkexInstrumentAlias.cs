@@ -1,6 +1,6 @@
-﻿namespace Okex.Net.Enums
+﻿namespace OkxNet.Enums
 {
-    public enum OkexInstrumentAlias
+    public enum OkxInstrumentAlias
     {
         ThisWeek,
         NextWeek,
