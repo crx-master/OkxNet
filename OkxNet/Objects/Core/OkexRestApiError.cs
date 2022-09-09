@@ -1,5 +1,5 @@
-﻿using CryptoExchange.Net.Attributes;
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchangeNet.Attributes;
+using CryptoExchangeNet.Objects;
 using Newtonsoft.Json;
 
 namespace OkxNet.Objects.Core

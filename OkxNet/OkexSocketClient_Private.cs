@@ -1,5 +1,5 @@
-﻿using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Sockets;
+﻿using CryptoExchangeNet.Objects;
+using CryptoExchangeNet.Sockets;
 using OkxNet.Enums;
 using OkxNet.Objects.Account;
 using OkxNet.Objects.Core;
@@ -255,7 +255,7 @@ namespace OkxNet
         // TODO: Account greeks channel
         // TODO: Rfqs channel
         // TODO: Quotes channel
-        // TODO: Structure block trades channel
+        // TODO: Structure brick trades channel
         // TODO: Spot grid algo orders channel
         // TODO: Contract grid algo orders channel
         // TODO: Grid positions channel

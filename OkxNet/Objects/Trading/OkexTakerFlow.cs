@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Converters;
+﻿using CryptoExchangeNet.Converters;
 using Newtonsoft.Json;
 using OkxNet.Converters;
 using System;
@@ -24,9 +24,9 @@ namespace OkxNet.Objects.Trading
         public string PutOptionSellVolume { get; set; }
 
         [ArrayProperty(5)]
-        public decimal CallBlockVolume { get; set; }
+        public decimal CallBrickVolume { get; set; }
 
         [ArrayProperty(6)]
-        public decimal PutBlockVolume { get; set; }
+        public decimal PutBrickVolume { get; set; }
     }
 }

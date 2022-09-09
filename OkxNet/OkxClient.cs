@@ -1,8 +1,8 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Logging;
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchangeNet;
+using CryptoExchangeNet.Authentication;
+using CryptoExchangeNet.Interfaces;
+using CryptoExchangeNet.Logging;
+using CryptoExchangeNet.Objects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OkxNet.Objects.Core;
@@ -105,9 +105,9 @@ namespace OkxNet
         protected const string Endpoints_V5_Market_Platform24Volume = "api/v5/market/platform-24-volume";
         protected const string Endpoints_V5_Market_OpenOracle = "api/v5/market/open-oracle";
         protected const string Endpoints_V5_Market_IndexComponents = "api/v5/market/index-components";
-        protected const string Endpoints_V5_Market_BlockTickers = "api/v5/market/block-tickers";
-        protected const string Endpoints_V5_Market_BlockTicker = "api/v5/market/block-ticker";
-        protected const string Endpoints_V5_Market_BlockTrades = "api/v5/market/block-trades";
+        protected const string Endpoints_V5_Market_BrickTickers = "api/v5/market/brick-tickers";
+        protected const string Endpoints_V5_Market_BrickTicker = "api/v5/market/brick-ticker";
+        protected const string Endpoints_V5_Market_BrickTrades = "api/v5/market/brick-trades";
         #endregion
 
         #region Public Data
@@ -141,7 +141,7 @@ namespace OkxNet
         protected const string Endpoints_V5_RubikStat_OptionOpenInterestVolumeRatio = "api/v5/rubik/stat/option/open-interest-volume-ratio";
         protected const string Endpoints_V5_RubikStat_OptionOpenInterestVolumeExpiry = "api/v5/rubik/stat/option/open-interest-volume-expiry";
         protected const string Endpoints_V5_RubikStat_OptionOpenInterestVolumeStrike = "api/v5/rubik/stat/option/open-interest-volume-strike";
-        protected const string Endpoints_V5_RubikStat_OptionTakerBlockVolume = "api/v5/rubik/stat/option/taker-block-volume";
+        protected const string Endpoints_V5_RubikStat_OptionTakerBrickVolume = "api/v5/rubik/stat/option/taker-brick-volume";
         #endregion
 
         #region System

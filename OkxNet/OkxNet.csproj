@@ -10,9 +10,9 @@
     <FileVersion>5.2.5</FileVersion>
     <PackageVersion>5.2.5</PackageVersion>
     <AssemblyVersion>5.2.5</AssemblyVersion>
-    <Description>OKEx.Net is a .Net wrapper for the OKX API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
+    <Description>OkxNet is a .Net wrapper for the OKX API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageTags>OKEx OKEx.Net C# .Net CryptoCurrency Exchange Rest API and WebSocket API Wrapper</PackageTags>
+    <PackageTags>OKX OKEx OkxNet C# .NET Bitcoin BTC Cryptocurrency Exchange REST API WebSocket API Wrapper</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
     <NeutralLanguage>en</NeutralLanguage>
@@ -25,20 +25,20 @@
 		* Fixed minor bugs
 		
 		Version 5.2.4 - 21 Aug 2022
-		* Synced with CryptoExchange.Net v5.2.4
+		* Synced with CryptoExchangeNet v5.2.4
 		* Removed "_" (underscore) from async method names (Dummy_Async() =&gt; DummyAsync())
 		* Okx.Net.CoreObjects namespace changed as Okx.Net.Objects.Core
 		* Okx.Net.RestObjects.* namespace changed as Okx.Net.Objects.*
 		* Added: Okx.Net.Objects.Core.OkxApiAddresses Class
 		* Added: Okx.Net.Objects.Core.OkxApiCredentials Class
-		* Added/Changed some Core Objects according to new version of CryptoExchange.Net
+		* Added/Changed some Core Objects according to new version of CryptoExchangeNet
 		* Added: Public =&gt; GetVIPInterestRates GetVIPInterestRatesAsync methods
 		* Added: Public =&gt; GetInsuranceFund GetInsuranceFundAsync methods
 		* Added: Public =&gt; UnitConvert UnitConvertAsync methods
 		* Added: Market =&gt; GetTradesHistory GetTradesHistoryAsync methods
-		* Added: Market =&gt; GetBlockTickers GetBlockTickersAsync methods
-		* Added: Market =&gt; GetBlockTicker GetBlockTickerAsync methods
-		* Added: Market =&gt; GetBlockTrades GetBlockTradesAsync methods
+		* Added: Market =&gt; GetBrickTickers GetBrickTickersAsync methods
+		* Added: Market =&gt; GetBrickTicker GetBrickTickerAsync methods
+		* Added: Market =&gt; GetBrickTrades GetBrickTradesAsync methods
 		* Added: SubAccount =&gt; ResetSubAccountApiKey ResetSubAccountApiKeyAsync methods
 		* Added: SubAccount =&gt; GetSubAccountTradingBalances GetSubAccountTradingBalancesAsync methods
 		* Added: SubAccount =&gt; GetSubAccountFundingBalances GetSubAccountFundingBalancesAsync methods
@@ -54,7 +54,7 @@
 		* Renamed: Okx.Net.RestObjects.Account.OkxGreeksType =&gt; Okx.Net.Objects.Account.OkxAccountGreeksType
 		* Renamed: Okx.Net.RestObjects.Account.OkxConfiguration =&gt; Okx.Net.Objects.Account.OkxAccountConfiguration
 		* Added/Changed/Fixed many models (added some extra models for new methods, added missing fields, removed some fields, fixed minor bugs for existing models)
-		* Notes: CryptoExchange.Net v5 library is very different from version 4. I tried to keep main structure in OKEx.Net, but I had to make some changes. I know CryptoExchange.Net v5 is has different usage algorithm, but there are many developers using OKEx.Net. So I decided not to change main structure considering those developers. I can build a different wrapper for CryptoExchange.Net v5 later. I'm not sure...
+		* Notes: CryptoExchangeNet v5 library is very different from version 4. I tried to keep main structure in OKEx.Net, but I had to make some changes. I know CryptoExchangeNet v5 is has different usage algorithm, but there are many developers using OKEx.Net. So I decided not to change main structure considering those developers. I can build a different wrapper for CryptoExchangeNet v5 later. I'm not sure...
 	</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
@@ -65,6 +65,6 @@
 	  <None Include="Icon\icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CryptoExchange.Net" Version="5.2.4" />
+    <ProjectReference Include="..\..\CryptoExchangeNet\CryptoExchangeNet\CryptoExchangeNet.csproj" />
   </ItemGroup>
 </Project>

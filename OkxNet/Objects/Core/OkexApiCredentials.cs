@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
-using CryptoExchange.Net.Authentication;
+using CryptoExchangeNet.Authentication;
 using System.Security;
 using System.Text;
-using CryptoExchange.Net;
+using CryptoExchangeNet;
 using Newtonsoft.Json.Linq;
 
 namespace OkxNet.Objects.Core

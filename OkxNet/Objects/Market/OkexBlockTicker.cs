@@ -5,7 +5,7 @@ using System;
 
 namespace OkxNet.Objects.Market
 {
-    public class OkxBlockTicker
+    public class OkxBrickTicker
     {
         [JsonProperty("instType"), JsonConverter(typeof(InstrumentTypeConverter))]
         public OkxInstrumentType InstrumentType { get; set; }

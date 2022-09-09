@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Converters;
+﻿using CryptoExchangeNet.Converters;
 using OkxNet.Enums;
 using System.Collections.Generic;
 

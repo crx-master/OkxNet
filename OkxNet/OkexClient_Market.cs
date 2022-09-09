@@ -1,5 +1,5 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchangeNet;
+using CryptoExchangeNet.Objects;
 using Newtonsoft.Json;
 using OkxNet.Converters;
 using OkxNet.Enums;
@@ -470,26 +470,26 @@ namespace OkxNet
         }
 
         /// <summary>
-        /// Get block tickers
-        /// Retrieve the latest block trading volume in the last 24 hours.
+        /// Get brick tickers
+        /// Retrieve the latest brick trading volume in the last 24 hours.
         /// Rate Limit: 20 requests per 2 seconds
         /// </summary>
         /// <param name="instrumentType">Instrument Type</param>
         /// <param name="underlying">Underlying</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkxBlockTicker>> GetBlockTickers(OkxInstrumentType instrumentType, string underlying = null, CancellationToken ct = default)
-            => GetBlockTickersAsync(instrumentType, underlying, ct).Result;
+        public virtual WebCallResult<IEnumerable<OkxBrickTicker>> GetBrickTickers(OkxInstrumentType instrumentType, string underlying = null, CancellationToken ct = default)
+            => GetBrickTickersAsync(instrumentType, underlying, ct).Result;
         /// <summary>
-        /// Get block tickers
-        /// Retrieve the latest block trading volume in the last 24 hours.
+        /// Get brick tickers
+        /// Retrieve the latest brick trading volume in the last 24 hours.
         /// Rate Limit: 20 requests per 2 seconds
         /// </summary>
         /// <param name="instrumentType">Instrument Type</param>
         /// <param name="underlying">Underlying</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxBlockTicker>>> GetBlockTickersAsync(OkxInstrumentType instrumentType, string underlying = null, CancellationToken ct = default)
+        public virtual async Task<WebCallResult<IEnumerable<OkxBrickTicker>>> GetBrickTickersAsync(OkxInstrumentType instrumentType, string underlying = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>
             {
@@ -497,71 +497,71 @@ namespace OkxNet
             };
             parameters.AddOptionalParameter("uly", underlying);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxBlockTicker>>>(UnifiedApi.GetUri(Endpoints_V5_Market_BlockTickers), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<IEnumerable<OkxBlockTicker>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxBlockTicker>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxBrickTicker>>>(UnifiedApi.GetUri(Endpoints_V5_Market_BrickTickers), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<IEnumerable<OkxBrickTicker>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxBrickTicker>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data);
         }
 
         /// <summary>
-        /// Get block ticker
-        /// Retrieve the latest block trading volume in the last 24 hours.
+        /// Get brick ticker
+        /// Retrieve the latest brick trading volume in the last 24 hours.
         /// Rate Limit: 20 requests per 2 seconds
         /// </summary>
         /// <param name="instrumentId">Instrument ID</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkxBlockTicker> GetBlockTicker(string instrumentId, CancellationToken ct = default)
-            => GetBlockTickerAsync(instrumentId, ct).Result;
+        public virtual WebCallResult<OkxBrickTicker> GetBrickTicker(string instrumentId, CancellationToken ct = default)
+            => GetBrickTickerAsync(instrumentId, ct).Result;
         /// <summary>
-        /// Get block ticker
-        /// Retrieve the latest block trading volume in the last 24 hours.
+        /// Get brick ticker
+        /// Retrieve the latest brick trading volume in the last 24 hours.
         /// Rate Limit: 20 requests per 2 seconds
         /// </summary>
         /// <param name="instrumentId">Instrument ID</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<OkxBlockTicker>> GetBlockTickerAsync(string instrumentId, CancellationToken ct = default)
+        public virtual async Task<WebCallResult<OkxBrickTicker>> GetBrickTickerAsync(string instrumentId, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>
             {
                 { "instId", instrumentId },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxBlockTicker>>>(UnifiedApi.GetUri(Endpoints_V5_Market_BlockTicker), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<OkxBlockTicker>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<OkxBlockTicker>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxBrickTicker>>>(UnifiedApi.GetUri(Endpoints_V5_Market_BrickTicker), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            if (!result.Success) return result.AsError<OkxBrickTicker>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<OkxBrickTicker>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data.FirstOrDefault());
         }
 
         /// <summary>
-        /// Get block trades
-        /// Retrieve the recent block trading transactions of an instrument. Descending order by tradeId.
+        /// Get brick trades
+        /// Retrieve the recent brick trading transactions of an instrument. Descending order by tradeId.
         /// Rate Limit: 20 requests per 2 seconds
         /// </summary>
         /// <param name="instrumentId">Instrument ID</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkxTrade>> GetBlockTrades(string instrumentId, CancellationToken ct = default)
-            => GetBlockTradesAsync(instrumentId, ct).Result;
+        public virtual WebCallResult<IEnumerable<OkxTrade>> GetBrickTrades(string instrumentId, CancellationToken ct = default)
+            => GetBrickTradesAsync(instrumentId, ct).Result;
         /// <summary>
-        /// Get block trades
-        /// Retrieve the recent block trading transactions of an instrument. Descending order by tradeId.
+        /// Get brick trades
+        /// Retrieve the recent brick trading transactions of an instrument. Descending order by tradeId.
         /// Rate Limit: 20 requests per 2 seconds
         /// </summary>
         /// <param name="instrumentId">Instrument ID</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxTrade>>> GetBlockTradesAsync(string instrumentId, CancellationToken ct = default)
+        public virtual async Task<WebCallResult<IEnumerable<OkxTrade>>> GetBrickTradesAsync(string instrumentId, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>
             {
                 { "instId", instrumentId },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxTrade>>>(UnifiedApi.GetUri(Endpoints_V5_Market_BlockTrades), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxTrade>>>(UnifiedApi.GetUri(Endpoints_V5_Market_BrickTrades), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxTrade>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxTrade>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 

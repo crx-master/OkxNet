@@ -1,6 +1,6 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchangeNet;
+using CryptoExchangeNet.Authentication;
+using CryptoExchangeNet.Objects;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

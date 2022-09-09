@@ -1,5 +1,5 @@
-﻿using CryptoExchange.Net.Interfaces;
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchangeNet.Interfaces;
+using CryptoExchangeNet.Objects;
 using System.Collections.Generic;
 using System;
 

@@ -1,5 +1,5 @@
 ﻿#nullable enable
-using CryptoExchange.Net.Objects;
+using CryptoExchangeNet.Objects;
 
 namespace OkxNet.Objects.Core
 {

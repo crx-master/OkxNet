@@ -1,5 +1,5 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchangeNet;
+using CryptoExchangeNet.Objects;
 using Newtonsoft.Json;
 using OkxNet.Converters;
 using OkxNet.Enums;
@@ -404,7 +404,7 @@ namespace OkxNet
                 { "period", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<OkxTakerFlow>>(UnifiedApi.GetUri(Endpoints_V5_RubikStat_OptionTakerBlockVolume), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<OkxTakerFlow>>(UnifiedApi.GetUri(Endpoints_V5_RubikStat_OptionTakerBrickVolume), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxTakerFlow>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxTakerFlow>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 

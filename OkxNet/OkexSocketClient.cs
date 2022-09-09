@@ -1,8 +1,8 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Authentication;
-using CryptoExchange.Net.Logging;
-using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Sockets;
+﻿using CryptoExchangeNet;
+using CryptoExchangeNet.Authentication;
+using CryptoExchangeNet.Logging;
+using CryptoExchangeNet.Objects;
+using CryptoExchangeNet.Sockets;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -27,6 +27,16 @@ namespace OkxNet
 {
     public partial class OkxSocketClient : BaseSocketClient
     {
+        #region Properties
+        public bool Connected
+        {
+            get
+            {
+                return base.socketConnections.Values.Where(c => c.Connected).Count() > 0;
+            }
+        }
+        #endregion
+
         #region Internal Fields
         internal OkxSocketClientOptions Options { get; }
         internal OkxSocketClientUnifiedSocket UnifiedSocket { get; }
@@ -39,11 +49,16 @@ namespace OkxNet
         {
         }
 
-        public OkxSocketClient(OkxSocketClientOptions options) : base("OKX WS Api", options)
+        public OkxSocketClient(OkxSocketClientOptions options) : base("OKX WebSocket API", options)
         {
             SetDataInterpreter(DecompressData, null);
-            SendPeriodic("Ping", TimeSpan.FromSeconds(5), con => "ping");
 
+            //TODO: those periodic PING is not working properly
+            /*
+             * 2022/08/29 12:24:02:608 | Error | OKX WebSocket API | Deserialize JsonReaderException: Unexpected character encountered while parsing value: p. Path '', line 0, position 0., Path: , LineNumber: 0, LinePosition: 0. Data: pong
+             * 2022/08/29 12:24:02:610 | Warning | OKX WebSocket API | Socket 1 Message not handled: pong
+             */
+            //SendPeriodic("Ping", TimeSpan.FromSeconds(5), con => "ping");
             Credentials = options.ApiCredentials;
             UnifiedSocket = AddApiClient(new OkxSocketClientUnifiedSocket(log, this, options));
         }
@@ -68,19 +83,25 @@ namespace OkxNet
         }
         #endregion
 
-        public virtual CallResult<OkxSocketPingPong> Ping() => PingAsync().Result;
-        public virtual async Task<CallResult<OkxSocketPingPong>> PingAsync()
-        {
-            var pit = DateTime.UtcNow;
-            var sw = Stopwatch.StartNew();
-            var response = await UnifiedQueryAsync<string>("ping", false).ConfigureAwait(true);
-            var pot = DateTime.UtcNow;
-            sw.Stop();
-
-            var result = new OkxSocketPingPong { PingTime = pit, PongTime = pot, Latency = sw.Elapsed, PongMessage = response.Data };
-            return response.Error != null ? new CallResult<OkxSocketPingPong>(response.Error) : new CallResult<OkxSocketPingPong>(result);
-        }
-
+        //public virtual CallResult<OkxSocketPingPong> Ping() => PingAsync().Result;
+        //public virtual async Task<CallResult<OkxSocketPingPong>> PingAsync()
+        //{
+        //    if (!Connected) throw new ApplicationException("Not connected!");
+        //    foreach(var connection in socketConnections.Values)
+        //    {
+        //        var pit = DateTime.UtcNow;
+        //        var sw = Stopwatch.StartNew();
+        //        var response = await QueryAndWaitAsync<string>(connection, "ping").ConfigureAwait(true);
+        //        var pot = DateTime.UtcNow;
+        //        sw.Stop();
+        //        var result = new OkxSocketPingPong { PingTime = pit, PongTime = pot, Latency = sw.Elapsed, PongMessage = response.Data };
+        //        if (response != null && response.Error != null)
+        //            return new CallResult<OkxSocketPingPong>(result);
+        //        else
+        //            return new CallResult<OkxSocketPingPong>(response.Error);
+        //    }
+        //    throw new ApplicationException("No connections to ping!");
+        //}
         protected static string DecompressData(byte[] byteData)
         {
             using var decompressedStream = new MemoryStream();
@@ -97,7 +118,6 @@ namespace OkxNet
 
             return streamReader.ReadToEnd();
         }
-
         internal virtual Task<CallResult<T>> UnifiedQueryAsync<T>(object request, bool authenticated)
         {
             return QueryAsync<T>(UnifiedSocket, request, authenticated);
@@ -106,7 +126,6 @@ namespace OkxNet
         {
             return SubscribeAsync(UnifiedSocket, request, identifier, authenticated, dataHandler, ct);
         }
-
         protected override bool HandleQueryResponse<T>(SocketConnection s, object request, JToken data, out CallResult<T> callResult)
         {
             return OkxHandleQueryResponse<T>(s, request, data, out callResult);
@@ -145,7 +164,6 @@ namespace OkxNet
 
             return false;
         }
-
         protected override bool HandleSubscriptionResponse(SocketConnection s, SocketSubscription subscription, object request, JToken message, out CallResult<object> callResult)
         {
             return OkxHandleSubscriptionResponse(s, subscription, request, message, out callResult);
@@ -184,7 +202,6 @@ namespace OkxNet
 
             return false;
         }
-
         protected override bool MessageMatchesHandler(SocketConnection s, JToken message, object request)
         {
             return OkxMessageMatchesHandler(s, message, request);
@@ -192,26 +209,26 @@ namespace OkxNet
         protected virtual bool OkxMessageMatchesHandler(SocketConnection s, JToken message, object request)
         {
             // Ping Request
-            if (request.ToString() == "ping" && message.ToString() == "pong")
-                return true;
+            if (request.ToString() == "ping" && message.ToString() == "pong") 
+                return false;
 
             // Check Point
             if (message.Type != JTokenType.Object)
                 return false;
 
             // Socket Request
-            if (request is OkxSocketRequest hRequest)
+            if (request is OkxSocketRequest socketRequest)
             {
                 // Check for Error
                 if (message is JObject && message["event"] != null && (string)message["event"]! == "error" && message["code"] != null && message["msg"] != null)
                     return false;
 
                 // Check for Channel
-                if (hRequest.Operation != OkxSocketOperation.Subscribe || message["arg"]["channel"] == null)
+                if (socketRequest.Operation != OkxSocketOperation.Subscribe || message["arg"]["channel"] == null)
                     return false;
 
                 // Compare Request and Response Arguments
-                var reqArg = hRequest.Arguments.FirstOrDefault();
+                var reqArg = socketRequest.Arguments.FirstOrDefault();
                 var resArg = JsonConvert.DeserializeObject<OkxSocketRequestArgument>(message["arg"].ToString());
 
                 // Check Data
@@ -230,7 +247,6 @@ namespace OkxNet
 
             return false;
         }
-
         protected override bool MessageMatchesHandler(SocketConnection s, JToken message, string identifier)
         {
             return OkxMessageMatchesHandler(s, message, identifier);
@@ -239,7 +255,6 @@ namespace OkxNet
         {
             return true;
         }
-
         protected override async Task<CallResult<bool>> AuthenticateSocketAsync(SocketConnection s)
         {
             return await OkxAuthenticateSocket(s);
@@ -307,7 +322,6 @@ namespace OkxNet
 
             return result;
         }
-
         protected override async Task<bool> UnsubscribeAsync(SocketConnection connection, SocketSubscription s)
         {
             return await OkxUnsubscribeAsync(connection, s);
@@ -332,7 +346,6 @@ namespace OkxNet
             });
             return false;
         }
-
         protected override async Task<CallResult<SocketConnection>> GetSocketConnection(SocketApiClient apiClient, string address, bool authenticated)
         {
             address = authenticated

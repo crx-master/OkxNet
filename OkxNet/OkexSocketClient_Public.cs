@@ -1,5 +1,5 @@
-﻿using CryptoExchange.Net.Objects;
-using CryptoExchange.Net.Sockets;
+﻿using CryptoExchangeNet.Objects;
+using CryptoExchangeNet.Sockets;
 using Newtonsoft.Json;
 using OkxNet.Converters;
 using OkxNet.Enums;
@@ -25,6 +25,7 @@ namespace OkxNet
         /// <returns></returns>
         public virtual CallResult<UpdateSubscription> SubscribeToInstruments(OkxInstrumentType instrumentType, Action<OkxInstrument> onData)
             => SubscribeToInstrumentsAsync(instrumentType, onData).Result;
+
         /// <summary>
         /// The full instrument list will be pushed for the first time after subscription. Subsequently, the instruments will be pushed if there's any change to the instrument’s state (such as delivery of FUTURES, exercise of OPTION, listing of new contracts / trading pairs, trading suspension, etc.).
         /// </summary>
@@ -51,12 +52,13 @@ namespace OkxNet
         /// <returns></returns>
         public virtual CallResult<UpdateSubscription> SubscribeToTickers(string intrumentId, Action<OkxTicker> onData)
             => SubscribeToTickersAsync(intrumentId, onData).Result;
+
         /// Retrieve the last traded price, bid price, ask price and 24-hour trading volume of instruments. Data will be pushed every 100 ms.
         /// </summary>
         /// <param name="intrumentId">Instrument ID</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
-        public virtual async Task<CallResult<UpdateSubscription>> SubscribeToTickersAsync(string intrumentId, Action<OkxTicker> onData, CancellationToken ct = default)
+        public virtual Task<CallResult<UpdateSubscription>> SubscribeToTickersAsync(string intrumentId, Action<OkxTicker> onData, CancellationToken ct = default)
         {
             var internalHandler = new Action<DataEvent<OkxSocketUpdateResponse<IEnumerable<OkxTicker>>>>(data =>
             {
@@ -65,7 +67,7 @@ namespace OkxNet
             });
 
             var request = new OkxSocketRequest(OkxSocketOperation.Subscribe, "tickers", intrumentId);
-            return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
+            return UnifiedSubscribeAsync(request, null, false, internalHandler, ct);
         }
 
         /// <summary>
@@ -76,6 +78,7 @@ namespace OkxNet
         /// <returns></returns>
         public virtual CallResult<UpdateSubscription> SubscribeToInterests(string intrumentId, Action<OkxOpenInterest> onData)
             => SubscribeToInterestsAsync(intrumentId, onData).Result;
+
         /// <summary>
         /// Retrieve the open interest. Data will by pushed every 3 seconds.
         /// </summary>
@@ -190,6 +193,7 @@ namespace OkxNet
         /// <returns></returns>
         public virtual CallResult<UpdateSubscription> SubscribeToMarkPrice(string intrumentId, Action<OkxMarkPrice> onData)
             => SubscribeToMarkPriceAsync(intrumentId, onData).Result;
+
         /// <summary>
         /// Retrieve the mark price. Data will be pushed every 200 ms when the mark price changes, and will be pushed every 10 seconds when the mark price does not change.
         /// </summary>
@@ -215,6 +219,7 @@ namespace OkxNet
         /// <param name="period">Period</param>
         /// <param name="onData">On Data Handler</param>
         /// <returns></returns>
+
         public virtual CallResult<UpdateSubscription> SubscribeToMarkPriceCandlesticks(string intrumentId, OkxPeriod period, Action<OkxCandlestick> onData)
             => SubscribeToMarkPriceCandlesticksAsync(intrumentId, period, onData).Result;
         /// <summary>
@@ -443,8 +448,8 @@ namespace OkxNet
             return await UnifiedSubscribeAsync(request, null, false, internalHandler, ct).ConfigureAwait(false);
         }
 
-        // TODO: Public structure block trades channel
-        // TODO: Block tickers channel
+        // TODO: Public structure brick trades channel
+        // TODO: Brick tickers channel
         #endregion
     }
 }

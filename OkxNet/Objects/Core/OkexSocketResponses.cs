@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+﻿using CryptoExchangeNet.Attributes;
 using Newtonsoft.Json;
 using OkxNet.Objects.Market;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
-﻿using CryptoExchange.Net;
-using CryptoExchange.Net.Objects;
+﻿using CryptoExchangeNet;
+using CryptoExchangeNet.Objects;
 using Newtonsoft.Json;
 using OkxNet.Converters;
 using OkxNet.Enums;

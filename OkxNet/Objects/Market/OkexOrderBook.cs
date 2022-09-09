@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Converters;
+﻿using CryptoExchangeNet.Converters;
 using Newtonsoft.Json;
 using OkxNet.Converters;
 using System;

@@ -1,4 +1,4 @@
-﻿using CryptoExchange.Net.Attributes;
+﻿using CryptoExchangeNet.Attributes;
 using Newtonsoft.Json;
 
 namespace OkxNet.Objects.Core
