@@ -7,7 +7,7 @@ namespace OkxNet.Objects.Funding
     public class OkxLightningDeposit
     {
         [JsonProperty("cTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         [JsonProperty("invoice")]
         public string Invoice { get; set; }

@@ -17,7 +17,7 @@ namespace OkxNet.Objects.Public
         public string Underlying { get; set; }
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         [JsonProperty("delta")]
         public decimal Delta { get; set; }

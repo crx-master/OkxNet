@@ -14,7 +14,7 @@ namespace OkxNet.Objects.Market
         public string Instrument { get; set; }
 
         [ArrayProperty(0), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         /// <summary>
         /// Open price

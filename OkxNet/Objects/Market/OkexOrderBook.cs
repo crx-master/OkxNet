@@ -17,7 +17,7 @@ namespace OkxNet.Objects.Market
         public IEnumerable<OkxOrderBookRow> Bids { get; set; } = new List<OkxOrderBookRow>();
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         [JsonProperty("action")]
         public string Action { get; set; }

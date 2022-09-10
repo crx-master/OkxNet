@@ -11,7 +11,7 @@ namespace OkxNet.Objects.SubAccount
         public long BillId { get; set; }
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         [JsonProperty("type"), JsonConverter(typeof(SubAccountTransferTypeConverter))]
         public OkxSubAccountTransferType Type { get; set; }

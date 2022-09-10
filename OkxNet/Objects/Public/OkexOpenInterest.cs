@@ -20,6 +20,6 @@ namespace OkxNet.Objects.Public
         public decimal? OpenInterestCoin { get; set; }
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
     }
 }

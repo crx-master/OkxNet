@@ -8,7 +8,7 @@ namespace OkxNet.Objects.Account
     public class OkxAccountBalance
     {
         [JsonProperty("uTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime UpdateTime { get; set; }
+        public DateTimeOffset UpdateTime { get; set; }
 
         [JsonProperty("totalEq")]
         public decimal TotalEquity { get; set; }
@@ -44,7 +44,7 @@ namespace OkxNet.Objects.Account
         public string Currency { get; set; }
 
         [JsonProperty("uTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime UpdateTime { get; set; }
+        public DateTimeOffset UpdateTime { get; set; }
 
         [JsonProperty("eq")]
         public decimal? Equity { get; set; }

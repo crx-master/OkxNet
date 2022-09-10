@@ -14,7 +14,7 @@ namespace OkxNet.Objects.Market
         public string Index { get; set; }
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         [JsonProperty("components")]
         public IEnumerable<OkxIndexComponent> Components { get; set; }

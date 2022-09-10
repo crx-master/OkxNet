@@ -290,7 +290,7 @@ namespace OkxNet
             return new Uri($"{BaseAddress.TrimEnd('/')}/{endpoint}");
         }
 
-        protected override Task<WebCallResult<DateTime>> GetServerTimestampAsync()
+        protected override Task<WebCallResult<DateTimeOffset>> GetServerTimestampAsync()
              => _baseClient.GetSystemTimeAsync();
 
         public override TimeSyncInfo GetTimeSyncInfo()

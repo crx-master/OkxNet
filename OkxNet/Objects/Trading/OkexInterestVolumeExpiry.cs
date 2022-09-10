@@ -9,7 +9,7 @@ namespace OkxNet.Objects.Trading
     public class OkxInterestVolumeExpiry
     {
         [ArrayProperty(0), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         [ArrayProperty(1)]
         public string ExpiryTime { get; set; }

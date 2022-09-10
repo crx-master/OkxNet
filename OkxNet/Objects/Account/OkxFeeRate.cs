@@ -11,7 +11,7 @@ namespace OkxNet.Objects.Account
         public OkxFeeRateCategory? Category { get; set; }
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         [JsonProperty("level")]
         public string Level { get; set; }

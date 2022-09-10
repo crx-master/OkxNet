@@ -7,7 +7,7 @@ namespace OkxNet.Objects.Funding
     public class OkxLightningWithdrawal
     {
         [JsonProperty("cTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         [JsonProperty("wdId")]
         public string WithdrawalId { get; set; }

@@ -8,13 +8,13 @@ namespace OkxNet.Objects.Account
     public class OkxPosition
     {
         [JsonProperty("cTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime CreateTime { get; set; }
+        public DateTimeOffset CreateTime { get; set; }
 
         [JsonProperty("uTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime UpdateTime { get; set; }
+        public DateTimeOffset UpdateTime { get; set; }
 
         [JsonProperty("pTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime pTime { get; set; }
+        public DateTimeOffset pTime { get; set; }
 
         [JsonProperty("ccy")]
         public string Currency { get; set; }

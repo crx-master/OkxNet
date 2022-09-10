@@ -11,7 +11,7 @@ namespace OkxNet.Objects.Account
         public string Currency { get; set; }
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         [JsonProperty("instId")]
         public string Instrument { get; set; }

@@ -53,10 +53,10 @@ namespace OkxNet.Objects.Public
         public decimal? StrikePrice { get; set; }
 
         [JsonProperty("listTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime? ListingTime { get; set; }
+        public DateTimeOffset? ListingTime { get; set; }
 
         [JsonProperty("expTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime? ExpiryTime { get; set; }
+        public DateTimeOffset? ExpiryTime { get; set; }
 
         [JsonProperty("lever")]
         public int? MaximumLeverage { get; set; }

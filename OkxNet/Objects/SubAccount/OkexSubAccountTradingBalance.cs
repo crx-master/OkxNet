@@ -32,7 +32,7 @@ namespace OkxNet.Objects.SubAccount
         public decimal TotalEquity { get; set; }
 
         [JsonProperty("uTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime UpdateTime { get; set; }
+        public DateTimeOffset UpdateTime { get; set; }
 
         [JsonProperty("details")]
         public IEnumerable<OkxSubAccountTradingBalanceDetail> Details { get; set; }
@@ -95,7 +95,7 @@ namespace OkxNet.Objects.SubAccount
         public decimal? Twap { get; set; }
 
         [JsonProperty("uTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime UpdateTime { get; set; }
+        public DateTimeOffset UpdateTime { get; set; }
 
         [JsonProperty("upl")]
         public decimal? UnrealizedProfitAndLoss { get; set; }

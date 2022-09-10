@@ -26,6 +26,6 @@ namespace OkxNet.Objects.Account
         public decimal? Liabilities { get; set; }
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace OkxNet.Objects.Funding
     public class OkxWithdrawalHistory
     {
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         [JsonProperty("wdId")]
         public long WithdrawalId { get; set; }

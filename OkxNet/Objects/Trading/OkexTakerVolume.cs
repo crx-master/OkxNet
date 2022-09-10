@@ -13,7 +13,7 @@ namespace OkxNet.Objects.Trading
         public string Currency { get; set; }
 
         [ArrayProperty(0), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         [ArrayProperty(1)]
         public decimal SellVolume { get; set; }

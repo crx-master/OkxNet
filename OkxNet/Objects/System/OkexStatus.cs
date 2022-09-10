@@ -23,13 +23,13 @@ namespace OkxNet.Objects.System
         /// Begin time of system maintenance, Unix timestamp format in milliseconds, e.g. 1617788463867
         /// </summary>
         [JsonProperty("begin"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime? Begin { get; set; }
+        public DateTimeOffset? Begin { get; set; }
 
         /// <summary>
         /// End time of system maintenance, Unix timestamp format in milliseconds, e.g. 1617788463867
         /// </summary>
         [JsonProperty("end"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime? End { get; set; }
+        public DateTimeOffset? End { get; set; }
 
         /// <summary>
         /// Hyperlink for system maintenance details, if there is no return value, the default value will be empty. e.g. “”

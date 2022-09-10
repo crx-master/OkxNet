@@ -8,10 +8,10 @@ namespace OkxNet.Objects.Trade
     public class OkxAlgoOrder
     {
         [JsonProperty("cTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime CreateTime { get; set; }
+        public DateTimeOffset CreateTime { get; set; }
 
         [JsonProperty("triggerTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime TriggerTime { get; set; }
+        public DateTimeOffset TriggerTime { get; set; }
 
         [JsonProperty("algoId")]
         public long? AlgoId { get; set; }

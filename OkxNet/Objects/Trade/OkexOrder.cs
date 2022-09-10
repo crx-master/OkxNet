@@ -8,13 +8,13 @@ namespace OkxNet.Objects.Trade
     public class OkxOrder
     {
         [JsonProperty("cTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime CreateTime { get; set; }
+        public DateTimeOffset CreateTime { get; set; }
 
         [JsonProperty("uTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime UpdateTime { get; set; }
+        public DateTimeOffset UpdateTime { get; set; }
 
         [JsonProperty("fillTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime? FillTime { get; set; }
+        public DateTimeOffset? FillTime { get; set; }
 
         [JsonProperty("ccy")]
         public string Currency { get; set; }

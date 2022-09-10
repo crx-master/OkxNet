@@ -14,13 +14,13 @@ namespace OkxNet.Objects.Public
         public OkxInstrumentType InstrumentType { get; set; }
 
         [JsonProperty("fundingTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime FundingTime { get; set; }
+        public DateTimeOffset FundingTime { get; set; }
 
         [JsonProperty("fundingRate")]
         public decimal FundingRate { get; set; }
 
         [JsonProperty("nextFundingTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime NextFundingTime { get; set; }
+        public DateTimeOffset NextFundingTime { get; set; }
 
         [JsonProperty("nextFundingRate")]
         public decimal NextFundingRate { get; set; }

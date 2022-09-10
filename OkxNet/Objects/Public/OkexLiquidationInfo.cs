@@ -45,6 +45,6 @@ namespace OkxNet.Objects.Public
         public string Currency { get; set; }
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
     }
 }

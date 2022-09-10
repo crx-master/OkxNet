@@ -50,6 +50,6 @@ namespace OkxNet.Objects.Trade
         public decimal? Fee { get; set; }
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
     }
 }

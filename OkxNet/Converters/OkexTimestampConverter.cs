@@ -4,7 +4,7 @@ using System;
 namespace OkxNet.Converters
 {
     /// <summary>
-    /// converter for milliseconds to datetime
+    /// Converter from UNIX milliseconds timestamp to DateTimeOffset (UTC)
     /// </summary>
     internal class OkxTimestampConverter : JsonConverter
     {
@@ -24,16 +24,18 @@ namespace OkxNet.Converters
                 return null;
 
             var t = long.Parse(reader.Value.ToString());
-            return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(t);
+            return DateTimeOffset.FromUnixTimeMilliseconds(t);
+            //return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(t);
         }
 
         /// <inheritdoc />
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             if (value == null)
-                writer.WriteValue((DateTime?)null);
+                writer.WriteValue((DateTimeOffset?)null);
             else
-                writer.WriteValue((long)Math.Round(((DateTime)value - new DateTime(1970, 1, 1)).TotalMilliseconds));
+                //writer.WriteValue((long)Math.Round(((DateTime)value - new DateTime(1970, 1, 1)).TotalMilliseconds));
+                writer.WriteValue(((DateTimeOffset)value).ToUnixTimeMilliseconds());
         }
     }
 }

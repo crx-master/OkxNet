@@ -9,7 +9,7 @@ namespace OkxNet.Objects.Public
     public class OkxDeliveryExerciseHistory
     {
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         [JsonProperty("details")]
         public IEnumerable<OkxPublicDeliveryExerciseHistoryDetail> Details { get; set; }

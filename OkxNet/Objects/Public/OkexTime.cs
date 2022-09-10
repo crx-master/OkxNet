@@ -10,6 +10,6 @@ namespace OkxNet.Objects.Public
         /// System time, Unix timestamp format in milliseconds, e.g. 1597026383085
         /// </summary>
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
     }
 }

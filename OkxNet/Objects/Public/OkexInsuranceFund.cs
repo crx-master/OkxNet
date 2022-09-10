@@ -30,6 +30,6 @@ namespace OkxNet.Objects.Public
         public OkxInsuranceType Type { get; set; }
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Timestamp { get; set; }
+        public DateTimeOffset Timestamp { get; set; }
     }
 }

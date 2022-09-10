@@ -12,7 +12,7 @@ namespace OkxNet.Objects.Account
         public decimal? AdjustedEquity { get; set; }
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         [JsonProperty("balData")]
         public IEnumerable<OkxAccountPositionRiskBalanceData> BalanceData { get; set; }

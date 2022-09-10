@@ -23,6 +23,6 @@ namespace OkxNet.Objects.Funding
         public OkxFundingBillType Type { get; set; }
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
     }
 }

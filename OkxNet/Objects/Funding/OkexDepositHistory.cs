@@ -26,7 +26,7 @@ namespace OkxNet.Objects.Funding
         public string TransactionId { get; set; }
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         [JsonProperty("depId")]
         public string DepositId { get; set; }

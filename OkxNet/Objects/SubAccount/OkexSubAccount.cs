@@ -26,7 +26,7 @@ namespace OkxNet.Objects.SubAccount
         public bool CanTransOut { get; set; }
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
         
         [JsonProperty("type"), JsonConverter(typeof(SubAccountTypeConverter))]
         public OkxSubAccountType Type { get; set; }

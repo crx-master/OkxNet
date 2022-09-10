@@ -326,20 +326,28 @@ namespace OkxNet
         /// <summary>
         /// Retrieve API server time.
         /// </summary>
+        /// <remarks>
+        /// Rate Limit: 10 requests per 2 seconds
+        /// Rate limit rule: IP
+        /// </remarks>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<DateTime> GetSystemTime(CancellationToken ct = default) 
+        public virtual WebCallResult<DateTimeOffset> GetSystemTime(CancellationToken ct = default) 
             => GetSystemTimeAsync(ct).Result;
         /// <summary>
-        /// Retrieve API server time.
+        /// Asynchronously retrieve API server time.
         /// </summary>
+        /// <remarks>
+        /// Rate Limit: 10 requests per 2 seconds
+        /// Rate limit rule: IP
+        /// </remarks>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<DateTime>> GetSystemTimeAsync(CancellationToken ct = default)
+        public virtual async Task<WebCallResult<DateTimeOffset>> GetSystemTimeAsync(CancellationToken ct = default)
         {
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxTime>>>(UnifiedApi.GetUri(Endpoints_V5_Public_Time), HttpMethod.Get, ct).ConfigureAwait(false);
-            if (!result.Success) return result.AsError<DateTime>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
-            if (result.Data.ErrorCode > 0) return result.AsError<DateTime>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
+            if (!result.Success) return result.AsError<DateTimeOffset>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (result.Data.ErrorCode > 0) return result.AsError<DateTimeOffset>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             return result.As(result.Data.Data.FirstOrDefault().Time);
         }

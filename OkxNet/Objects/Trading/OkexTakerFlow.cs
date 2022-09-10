@@ -9,7 +9,7 @@ namespace OkxNet.Objects.Trading
     public class OkxTakerFlow
     {
         [ArrayProperty(0), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTime Time { get; set; }
+        public DateTimeOffset Time { get; set; }
 
         [ArrayProperty(1)]
         public string CallOptionBuyVolume { get; set; }
