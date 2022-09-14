@@ -155,7 +155,7 @@ namespace OkxNet
         {
         }
 
-        public OkxClient(OkxClientOptions options) : base("OKX Rest Api", options)
+        public OkxClient(OkxClientOptions options) : base("OKX REST API", options)
         {
             Options = options;
             UnifiedApi = AddApiClient(new OkxClientUnifiedApi(log, this, options));
