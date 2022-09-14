@@ -1,85 +1,85 @@
 ﻿namespace OkxNet.Enums
 {
-    public enum OkxPeriod
+    public enum OkxPeriod : byte
     {
         /// <summary>
         /// 1m
         /// </summary>
-        OneMinute,
+        OneMinute = 1,
 
         /// <summary>
         /// 3m
         /// </summary>
-        ThreeMinutes,
+        ThreeMinutes = 3,
 
         /// <summary>
         /// 5m
         /// </summary>
-        FiveMinutes,
+        FiveMinutes = 5,
 
         /// <summary>
         /// 15m
         /// </summary>
-        FifteenMinutes,
+        FifteenMinutes = 15,
 
         /// <summary>
         /// 30m
         /// </summary>
-        ThirtyMinutes,
+        ThirtyMinutes = 30,
 
         /// <summary>
         /// 1H
         /// </summary>
-        OneHour,
+        OneHour = 60,
 
         /// <summary>
         /// 2H
         /// </summary>
-        TwoHours,
+        TwoHours = 120,
 
         /// <summary>
         /// 4H
         /// </summary>
-        FourHours,
+        FourHours = 240,
 
         /// <summary>
         /// 6H
         /// </summary>
-        SixHours,
+        SixHours = 254,
 
         /// <summary>
         /// 12H
         /// </summary>
-        TwelveHours,
+        TwelveHours = 255,
 
         /// <summary>
         /// 1D
         /// </summary>
-        OneDay,
+        OneDay = 100,
 
         /// <summary>
         /// 1W
         /// </summary>
-        OneWeek,
+        OneWeek = 101,
 
         /// <summary>
         /// 1M
         /// </summary>
-        OneMonth,
+        OneMonth = 102,
 
         /// <summary>
         /// 3M
         /// </summary>
-        ThreeMonths,
+        ThreeMonths = 103,
 
         /// <summary>
         /// 6M
         /// </summary>
-        SixMonths,
+        SixMonths = 104,
 
         /// <summary>
         /// 1Y
         /// </summary>
-        OneYear,
+        OneYear = 105,
     }
 }
