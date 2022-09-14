@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
-using SharpCryptoExchange.Okx;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Objects.Core;
 using SharpCryptoExchange.Sockets;
 using System;
 using System.Collections.Generic;
 
-namespace OkxNet.Examples
+namespace SharpCryptoExchange.Okx.Examples
 {
     internal class Program
     {
