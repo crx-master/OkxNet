@@ -1,6 +1,5 @@
-﻿using SharpCryptoExchange;
+﻿using Newtonsoft.Json;
 using SharpCryptoExchange.Objects;
-using Newtonsoft.Json;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Helpers;

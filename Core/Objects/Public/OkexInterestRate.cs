@@ -12,7 +12,7 @@ namespace SharpCryptoExchange.Okx.Objects.Public
         public IEnumerable<OkxPublicInterestRateVip> Vip { get; set; }
 
         [JsonProperty("regular")]
-        public IEnumerable<OkxPublicInterestRateRegular> regular { get; set; }
+        public IEnumerable<OkxPublicInterestRateRegular> Regular { get; set; }
 
     }
 

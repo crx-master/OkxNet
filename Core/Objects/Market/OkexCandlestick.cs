@@ -1,8 +1,6 @@
-﻿using SharpCryptoExchange.Attributes;
+﻿using Newtonsoft.Json;
 using SharpCryptoExchange.Converters;
-using Newtonsoft.Json;
 using SharpCryptoExchange.Okx.Converters;
-using SharpCryptoExchange.Okx.Helpers;
 using System;
 
 namespace SharpCryptoExchange.Okx.Objects.Market

@@ -1,23 +1,17 @@
-﻿using SharpCryptoExchange;
+﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SharpCryptoExchange.Authentication;
 using SharpCryptoExchange.Logging;
 using SharpCryptoExchange.Objects;
-using SharpCryptoExchange.Sockets;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using SharpCryptoExchange.Okx.Helpers;
 using SharpCryptoExchange.Okx.Objects.Core;
+using SharpCryptoExchange.Sockets;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -60,7 +54,7 @@ namespace SharpCryptoExchange.Okx
              */
             //SendPeriodic("Ping", TimeSpan.FromSeconds(5), con => "ping");
             Credentials = options.ApiCredentials;
-            UnifiedSocket = AddApiClient(new OkxSocketClientUnifiedSocket(log, this, options));
+            UnifiedSocket = AddApiClient(new OkxSocketClientUnifiedSocket(Log, this, options));
         }
         #endregion
 
@@ -69,7 +63,7 @@ namespace SharpCryptoExchange.Okx
         {
             OkxSocketClientOptions.Default = options;
         }
-        
+
         public virtual void SetApiCredentials(OkxApiCredentials credentials)
         {
             Credentials = credentials;
@@ -143,7 +137,7 @@ namespace SharpCryptoExchange.Okx
             // Check for Error
             if (data is JObject && data["event"] != null && (string)data["event"]! == "error" && data["code"] != null && data["msg"] != null)
             {
-                log.Write(LogLevel.Warning, "Query failed: " + (string)data["msg"]!);
+                Log.Write(LogLevel.Warning, "Query failed: " + (string)data["msg"]!);
                 callResult = new CallResult<T>(new ServerError($"{(string)data["code"]!}, {(string)data["msg"]!}"));
                 return true;
             }
@@ -154,7 +148,7 @@ namespace SharpCryptoExchange.Okx
                 var desResult = Deserialize<T>(data);
                 if (!desResult)
                 {
-                    log.Write(LogLevel.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
+                    Log.Write(LogLevel.Warning, $"Failed to deserialize data: {desResult.Error}. Data: {data}");
                     return false;
                 }
 
@@ -181,7 +175,7 @@ namespace SharpCryptoExchange.Okx
             // 30040: {0} Channel : {1} doesn't exist
             if (message.HasValues && message["event"] != null && (string)message["event"]! == "error" && message["errorCode"] != null && (string)message["errorCode"]! == "30040")
             {
-                log.Write(LogLevel.Warning, "Subscription failed: " + (string)message["message"]!);
+                Log.Write(LogLevel.Warning, "Subscription failed: " + (string)message["message"]!);
                 callResult = new CallResult<object>(new ServerError($"{(string)message["errorCode"]!}, {(string)message["message"]!}"));
                 return true;
             }
@@ -193,7 +187,7 @@ namespace SharpCryptoExchange.Okx
                 {
                     if (socRequest.Arguments.FirstOrDefault().Channel == (string)message["arg"]["channel"]!)
                     {
-                        log.Write(LogLevel.Debug, "Subscription completed");
+                        Log.Write(LogLevel.Debug, "Subscription completed");
                         callResult = new CallResult<object>(true);
                         return true;
                     }
@@ -209,7 +203,7 @@ namespace SharpCryptoExchange.Okx
         protected virtual bool OkxMessageMatchesHandler(SocketConnection s, JToken message, object request)
         {
             // Ping Request
-            if (request.ToString() == "ping" && message.ToString() == "pong") 
+            if (request.ToString() == "ping" && message.ToString() == "pong")
                 return false;
 
             // Check Point
@@ -303,18 +297,18 @@ namespace SharpCryptoExchange.Okx
                 var authResponse = Deserialize<OkxSocketResponse>(data);
                 if (!authResponse)
                 {
-                    log.Write(LogLevel.Warning, "Authorization failed: " + authResponse.Error);
+                    Log.Write(LogLevel.Warning, "Authorization failed: " + authResponse.Error);
                     result = new CallResult<bool>(authResponse.Error);
                     return true;
                 }
                 if (!authResponse.Data.Success)
                 {
-                    log.Write(LogLevel.Warning, "Authorization failed: " + authResponse.Error.Message);
+                    Log.Write(LogLevel.Warning, "Authorization failed: " + authResponse.Error.Message);
                     result = new CallResult<bool>(new ServerError(authResponse.Error.Code.Value, authResponse.Error.Message));
                     return true;
                 }
 
-                log.Write(LogLevel.Debug, "Authorization completed");
+                Log.Write(LogLevel.Debug, "Authorization completed");
                 result = new CallResult<bool>(true);
                 IsAuthendicated = true;
                 return true;

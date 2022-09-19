@@ -27,7 +27,7 @@ namespace SharpCryptoExchange.Okx.Objects.SubAccount
 
         [JsonProperty("ts"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTimeOffset Time { get; set; }
-        
+
         [JsonProperty("type"), JsonConverter(typeof(SubAccountTypeConverter))]
         public OkxSubAccountType Type { get; set; }
     }

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using SharpCryptoExchange.Okx.Converters;
-using SharpCryptoExchange.Okx.Enums;
 using System;
 
 namespace SharpCryptoExchange.Okx.Objects.SubAccount
@@ -14,7 +13,7 @@ namespace SharpCryptoExchange.Okx.Objects.SubAccount
         public string Label { get; set; }
 
         [JsonProperty("apiKey")]
-        public string apiKey { get; set; }
+        public string ApiKey { get; set; }
 
         /*
         [JsonProperty("secretKey")]

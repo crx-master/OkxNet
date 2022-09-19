@@ -1,6 +1,5 @@
-﻿using SharpCryptoExchange;
+﻿using Newtonsoft.Json;
 using SharpCryptoExchange.Objects;
-using Newtonsoft.Json;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Objects.Core;
@@ -364,7 +363,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual WebCallResult<IEnumerable<OkxTrade>> GetTradesHistory(string instrumentId, OkxTradeHistoryPaginationType type = OkxTradeHistoryPaginationType.TradeId, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
-            => GetTradesHistoryAsync(instrumentId, type ,after ,before ,limit,ct).Result;
+            => GetTradesHistoryAsync(instrumentId, type, after, before, limit, ct).Result;
         /// <summary>
         /// Get trades history
         /// Retrieve the recent transactions of an instrument from the last 3 months with pagination.
@@ -377,7 +376,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxTrade>>> GetTradesHistoryAsync(string instrumentId, OkxTradeHistoryPaginationType type= OkxTradeHistoryPaginationType.TradeId, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+        public virtual async Task<WebCallResult<IEnumerable<OkxTrade>>> GetTradesHistoryAsync(string instrumentId, OkxTradeHistoryPaginationType type = OkxTradeHistoryPaginationType.TradeId, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
         {
             if (limit < 1 || limit > 100)
                 throw new ArgumentException("Limit can be between 1-100.");

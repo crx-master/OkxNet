@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
-using System;
-using System.Collections.Generic;
 
 namespace SharpCryptoExchange.Okx.Objects.Public
 {
@@ -19,7 +17,7 @@ namespace SharpCryptoExchange.Okx.Objects.Public
 
         [JsonProperty("type"), JsonConverter(typeof(ConvertTypeConverter))]
         public OkxConvertType Type { get; set; }
-        
+
         [JsonProperty("unit"), JsonConverter(typeof(ConvertUnitConverter))]
         public OkxConvertUnit Unit { get; set; }
     }

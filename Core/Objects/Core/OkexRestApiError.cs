@@ -1,6 +1,4 @@
-﻿using SharpCryptoExchange.Attributes;
-using SharpCryptoExchange.Objects;
-using Newtonsoft.Json;
+﻿using SharpCryptoExchange.Objects;
 
 namespace SharpCryptoExchange.Okx.Objects.Core
 {

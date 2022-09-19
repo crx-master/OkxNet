@@ -11,7 +11,7 @@ namespace SharpCryptoExchange.Okx.Objects.Funding
 
         [JsonProperty("amt")]
         public decimal? Amount { get; set; }
-        
+
         [JsonProperty("rate")]
         public decimal? PurchaseRate { get; set; }
 

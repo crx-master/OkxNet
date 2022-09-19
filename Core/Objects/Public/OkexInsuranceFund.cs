@@ -12,7 +12,7 @@ namespace SharpCryptoExchange.Okx.Objects.Public
         public decimal Total { get; set; }
 
         [JsonProperty("details")]
-        public IEnumerable< OkxInsuranceFundDetail> Details { get; set; }
+        public IEnumerable<OkxInsuranceFundDetail> Details { get; set; }
     }
 
     public class OkxInsuranceFundDetail
@@ -22,7 +22,7 @@ namespace SharpCryptoExchange.Okx.Objects.Public
 
         [JsonProperty("balance")]
         public decimal Balance { get; set; }
-        
+
         [JsonProperty("ccy")]
         public string Currency { get; set; }
 

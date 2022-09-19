@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json;
-using SharpCryptoExchange.Okx.Converters;
-using SharpCryptoExchange.Okx.Enums;
 
 namespace SharpCryptoExchange.Okx.Objects.Funding
 {
@@ -11,7 +9,7 @@ namespace SharpCryptoExchange.Okx.Objects.Funding
 
         [JsonProperty("redemptAmt")]
         public decimal? RedemptingAmount { get; set; }
-        
+
         [JsonProperty("rate")]
         public decimal? LendingRate { get; set; }
 

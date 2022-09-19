@@ -10,11 +10,17 @@ namespace SharpCryptoExchange.Okx.Objects.Account
         [JsonProperty("cTime"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTimeOffset CreateTime { get; set; }
 
+        /// <summary>
+        /// Latest time position was adjusted
+        /// </summary>
         [JsonProperty("uTime"), JsonConverter(typeof(OkxTimestampConverter))]
         public DateTimeOffset UpdateTime { get; set; }
 
+        /// <summary>
+        /// Push time of positions information
+        /// </summary>
         [JsonProperty("pTime"), JsonConverter(typeof(OkxTimestampConverter))]
-        public DateTimeOffset pTime { get; set; }
+        public DateTimeOffset PushTime { get; set; }
 
         [JsonProperty("ccy")]
         public string Currency { get; set; }

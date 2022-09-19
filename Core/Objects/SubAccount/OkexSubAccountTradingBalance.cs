@@ -67,15 +67,31 @@ namespace SharpCryptoExchange.Okx.Objects.SubAccount
         [JsonProperty("frozenBal")]
         public decimal? FrozenBalance { get; set; }
 
-        [JsonProperty("Interest")]
-        public decimal? interest { get; set; }
+        /// <summary>
+        /// Interest of the currency
+        /// Applicable to Multi-currency margin and Portfolio margin
+        /// </summary>
+        [JsonProperty("interest")]
+        public decimal? Interest { get; set; }
 
+        /// <summary>
+        /// Isolated margin equity of the currency
+        /// Applicable to Single-currency margin and Multi-currency margin and Portfolio margin
+        /// </summary>
         [JsonProperty("isoEq")]
         public decimal? IsolatedMarginEquity { get; set; }
 
+        /// <summary>
+        /// Isolated liabilities of the currency
+        /// Applicable to Multi-currency margin and Portfolio margin
+        /// </summary>
         [JsonProperty("isoLiab")]
         public decimal? IsolatedLiabilities { get; set; }
 
+        /// <summary>
+        /// Liabilities of the currency
+        /// Applicable to Multi-currency margin and Portfolio margin
+        /// </summary>
         [JsonProperty("liab")]
         public decimal? Liabilities { get; set; }
 

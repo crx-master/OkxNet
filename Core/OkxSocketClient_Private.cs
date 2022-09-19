@@ -1,9 +1,9 @@
 ﻿using SharpCryptoExchange.Objects;
-using SharpCryptoExchange.Sockets;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Objects.Account;
 using SharpCryptoExchange.Okx.Objects.Core;
 using SharpCryptoExchange.Okx.Objects.Trade;
+using SharpCryptoExchange.Sockets;
 using System;
 using System.Collections.Generic;
 using System.Threading;

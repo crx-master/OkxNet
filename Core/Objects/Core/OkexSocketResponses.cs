@@ -1,5 +1,4 @@
-﻿using SharpCryptoExchange.Attributes;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SharpCryptoExchange.Okx.Objects.Market;
 using System.Collections.Generic;
 

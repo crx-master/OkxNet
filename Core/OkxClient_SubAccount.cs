@@ -1,6 +1,5 @@
-﻿using SharpCryptoExchange;
+﻿using Newtonsoft.Json;
 using SharpCryptoExchange.Objects;
-using Newtonsoft.Json;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Helpers;
@@ -9,7 +8,6 @@ using SharpCryptoExchange.Okx.Objects.SubAccount;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,7 +33,7 @@ namespace SharpCryptoExchange.Okx
             long? after = null,
             long? before = null,
             int limit = 100,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetSubAccountsAsync(enable, subAccountName, after, before, limit, ct).Result;
         /// <summary>
         /// applies to master accounts only
@@ -90,7 +88,7 @@ namespace SharpCryptoExchange.Okx
             bool? readPermission = null,
             bool? tradePermission = null,
             string ipAddresses = null,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => ResetSubAccountApiKeyAsync(subAccountName, apiKey, apiLabel, readPermission, tradePermission, ipAddresses, ct).Result;
         /// <summary>
         /// applies to master accounts only
@@ -142,7 +140,7 @@ namespace SharpCryptoExchange.Okx
         /// <returns></returns>
         public virtual WebCallResult<OkxSubAccountTradingBalance> GetSubAccountTradingBalances(
             string subAccountName,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetSubAccountTradingBalancesAsync(subAccountName, ct).Result;
         /// <summary>
         /// Query detailed balance info of Trading Account of a sub-account via the master account (applies to master accounts only)
@@ -178,7 +176,7 @@ namespace SharpCryptoExchange.Okx
             string subAccountName,
             string currency = null,
             CancellationToken ct = default)
-            => GetSubAccountFundingBalancesAsync(subAccountName,currency, ct).Result;
+            => GetSubAccountFundingBalancesAsync(subAccountName, currency, ct).Result;
         /// <summary>
         /// Get sub-account funding balance
         /// Query detailed balance info of Funding Account of a sub-account via the master account (applies to master accounts only)
@@ -225,7 +223,7 @@ namespace SharpCryptoExchange.Okx
             long? after = null,
             long? before = null,
             int limit = 100,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetSubAccountBillsAsync(subAccountName, currency, type, after, before, limit, ct).Result;
         /// <summary>
         /// applies to master accounts only
@@ -284,7 +282,7 @@ namespace SharpCryptoExchange.Okx
             OkxAccount toAccount,
             string fromSubAccountName,
             string toSubAccountName,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => TransferBetweenSubAccountsAsync(currency, amount, fromAccount, toAccount, fromSubAccountName, toSubAccountName, ct).Result;
         /// <summary>
         /// applies to master accounts only

@@ -1,6 +1,5 @@
-﻿using SharpCryptoExchange;
+﻿using Newtonsoft.Json;
 using SharpCryptoExchange.Objects;
-using Newtonsoft.Json;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Helpers;
@@ -8,7 +7,6 @@ using SharpCryptoExchange.Okx.Objects.Core;
 using SharpCryptoExchange.Okx.Objects.Funding;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
@@ -455,7 +453,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual WebCallResult<OkxWithdrawalId> CancelWithdrawal(string withdrawalId, CancellationToken ct = default)
-            => CancelWithdrawalAsync( withdrawalId, ct).Result;
+            => CancelWithdrawalAsync(withdrawalId, ct).Result;
 
         /// <summary>
         /// Cancel withdrawal

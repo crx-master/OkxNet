@@ -1,12 +1,12 @@
-﻿using SharpCryptoExchange.Objects;
-using SharpCryptoExchange.Sockets;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using SharpCryptoExchange.Objects;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Objects.Core;
 using SharpCryptoExchange.Okx.Objects.Market;
 using SharpCryptoExchange.Okx.Objects.Public;
 using SharpCryptoExchange.Okx.Objects.System;
+using SharpCryptoExchange.Sockets;
 using System;
 using System.Collections.Generic;
 using System.Threading;

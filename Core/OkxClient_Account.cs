@@ -1,6 +1,5 @@
-﻿using SharpCryptoExchange;
+﻿using Newtonsoft.Json;
 using SharpCryptoExchange.Objects;
-using Newtonsoft.Json;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Helpers;
@@ -24,7 +23,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="currency">Currency</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkxAccountBalance> GetAccountBalance(string currency = null, CancellationToken ct = default) 
+        public virtual WebCallResult<OkxAccountBalance> GetAccountBalance(string currency = null, CancellationToken ct = default)
             => GetAccountBalance_Async(currency, ct).Result;
         /// <summary>
         /// Retrieve a list of assets (with non-zero balance), remaining balance, and available amount in the account.
@@ -56,7 +55,7 @@ namespace SharpCryptoExchange.Okx
             OkxInstrumentType? instrumentType = null,
             string instrumentId = null,
             string positionId = null,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetAccountPositions_Async(instrumentType, instrumentId, positionId, ct).Result;
         /// <summary>
         /// Retrieve information on your positions. When the account is in net mode, net positions will be displayed, and when the account is in long/short mode, long or short positions will be displayed.
@@ -95,7 +94,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="instrumentType">Instrument Type</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkxPositionRisk>> GetAccountPositionRisk(OkxInstrumentType? instrumentType = null, CancellationToken ct = default) 
+        public virtual WebCallResult<IEnumerable<OkxPositionRisk>> GetAccountPositionRisk(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
             => GetAccountPositionRisk_Async(instrumentType, ct).Result;
         /// <summary>
         /// Get account and position risk
@@ -140,7 +139,7 @@ namespace SharpCryptoExchange.Okx
             long? after = null,
             long? before = null,
             int limit = 100,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetBillHistory_Async(
             instrumentType,
             currency,
@@ -229,7 +228,7 @@ namespace SharpCryptoExchange.Okx
             long? after = null,
             long? before = null,
             int limit = 100,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetBillArchive_Async(
             instrumentType,
             currency,
@@ -299,7 +298,7 @@ namespace SharpCryptoExchange.Okx
         /// </summary>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkxAccountConfiguration> GetAccountConfiguration(CancellationToken ct = default) 
+        public virtual WebCallResult<OkxAccountConfiguration> GetAccountConfiguration(CancellationToken ct = default)
             => GetAccountConfiguration_Async(ct).Result;
         /// <summary>
         /// Retrieve current account configuration.
@@ -321,7 +320,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="positionMode"></param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkxAccountPositionMode> SetAccountPositionMode(Enums.OkxPositionMode positionMode, CancellationToken ct = default) 
+        public virtual WebCallResult<OkxAccountPositionMode> SetAccountPositionMode(Enums.OkxPositionMode positionMode, CancellationToken ct = default)
             => SetAccountPositionMode_Async(positionMode, ct).Result;
         /// <summary>
         /// FUTURES and SWAP support both long/short mode and net mode. In net mode, users can only have positions in one direction; In long/short mode, users can hold positions in long and short directions.
@@ -352,7 +351,7 @@ namespace SharpCryptoExchange.Okx
         public virtual WebCallResult<IEnumerable<OkxLeverage>> GetAccountLeverage(
             string instrumentIds,
             OkxMarginMode marginMode,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetAccountLeverage_Async(instrumentIds, marginMode, ct).Result;
         /// <summary>
         /// Get Leverage
@@ -398,7 +397,7 @@ namespace SharpCryptoExchange.Okx
             string instrumentId = null,
             OkxMarginMode? marginMode = null,
             OkxPositionSide? positionSide = null,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => SetAccountLeverage_Async(leverage, currency, instrumentId, marginMode, positionSide, ct).Result;
         /// <summary>
         /// The following are the setting leverage cases for an instrument:
@@ -461,7 +460,7 @@ namespace SharpCryptoExchange.Okx
             OkxTradeMode tradeMode,
             string currency = null,
             decimal? price = null,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetMaximumAmount_Async(instrumentId, tradeMode, currency, price, ct).Result;
         /// <summary>
         /// Get maximum buy/sell amount or open amount
@@ -507,7 +506,7 @@ namespace SharpCryptoExchange.Okx
             OkxTradeMode tradeMode,
             string currency = null,
             bool? reduceOnly = null,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetMaximumAvailableAmount_Async(instrumentId, tradeMode, currency, reduceOnly, ct).Result;
         /// <summary>
         /// Get Maximum Available Tradable Amount
@@ -553,7 +552,7 @@ namespace SharpCryptoExchange.Okx
             OkxPositionSide positionSide,
             OkxMarginAddReduce marginAddReduce,
             decimal amount,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => SetMarginAmount_Async(instrumentId, positionSide, marginAddReduce, amount, ct).Result;
         /// <summary>
         /// Increase or decrease the margin of the isolated position.
@@ -597,7 +596,7 @@ namespace SharpCryptoExchange.Okx
             string instrumentId,
             OkxMarginMode marginMode,
             string marginCurrency = null,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetMaximumLoanAmount_Async(instrumentId, marginMode, marginCurrency, ct).Result;
         /// <summary>
         /// Get the maximum loan of instrument
@@ -640,7 +639,7 @@ namespace SharpCryptoExchange.Okx
             string instrumentId = null,
             string underlying = null,
             OkxFeeRateCategory? category = null,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetFeeRates_Async(instrumentType, instrumentId, underlying, category, ct).Result;
         /// <summary>
         /// Get Fee Rates
@@ -690,7 +689,7 @@ namespace SharpCryptoExchange.Okx
             long? after = null,
             long? before = null,
             int limit = 100,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetInterestAccrued_Async(
             instrumentId,
             currency,
@@ -747,7 +746,7 @@ namespace SharpCryptoExchange.Okx
         /// <returns></returns>
         public virtual WebCallResult<IEnumerable<OkxInterestRate>> GetInterestRate(
             string currency = null,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetInterestRate_Async(
             currency,
             ct).Result;
@@ -779,7 +778,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="greeksType">Display type of Greeks.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkxAccountGreeksType> SetGreeks(Enums.OkxGreeksType greeksType, CancellationToken ct = default) 
+        public virtual WebCallResult<OkxAccountGreeksType> SetGreeks(Enums.OkxGreeksType greeksType, CancellationToken ct = default)
             => SetGreeks_Async(greeksType, ct).Result;
         /// <summary>
         /// Set the display type of Greeks.
@@ -810,7 +809,7 @@ namespace SharpCryptoExchange.Okx
         /// <returns></returns>
         public virtual WebCallResult<IEnumerable<OkxWithdrawalAmount>> GetMaximumWithdrawals(
             string currency = null,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetMaximumWithdrawals_Async(
             currency,
             ct).Result;

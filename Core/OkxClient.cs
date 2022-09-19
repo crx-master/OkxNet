@@ -1,10 +1,9 @@
-﻿using SharpCryptoExchange;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SharpCryptoExchange.Authentication;
 using SharpCryptoExchange.Interfaces;
 using SharpCryptoExchange.Logging;
 using SharpCryptoExchange.Objects;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using SharpCryptoExchange.Okx.Objects.Core;
 using System;
 using System.Collections.Generic;
@@ -158,7 +157,7 @@ namespace SharpCryptoExchange.Okx
         public OkxClient(OkxClientOptions options) : base("OKX REST API", options)
         {
             Options = options;
-            UnifiedApi = AddApiClient(new OkxClientUnifiedApi(log, this, options));
+            UnifiedApi = AddApiClient(new OkxClientUnifiedApi(Log, this, options));
         }
         #endregion
 

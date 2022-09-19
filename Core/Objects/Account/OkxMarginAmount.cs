@@ -13,7 +13,7 @@ namespace SharpCryptoExchange.Okx.Objects.Account
         public OkxPositionSide? PositionSide { get; set; }
 
         [JsonProperty("amt")]
-        public decimal? amt { get; set; }
+        public decimal? Amount { get; set; }
 
         [JsonProperty("type"), JsonConverter(typeof(MarginAddReduceConverter))]
         public OkxMarginAddReduce? MarginAddReduce { get; set; }

@@ -29,7 +29,7 @@ namespace SharpCryptoExchange.Okx.Converters
                 return DateTimeOffset.FromUnixTimeMilliseconds(t);
                 //return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(t);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ApplicationException($"Cannot convert value '{reader.Value}' to type {nameof(DateTimeOffset)}.", ex);
             }

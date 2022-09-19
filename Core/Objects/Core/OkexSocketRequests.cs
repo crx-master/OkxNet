@@ -1,6 +1,5 @@
-﻿using SharpCryptoExchange.Attributes;
+﻿using Newtonsoft.Json;
 using SharpCryptoExchange.Converters;
-using Newtonsoft.Json;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using System.Collections.Generic;
@@ -31,36 +30,46 @@ namespace SharpCryptoExchange.Okx.Objects.Core
         public OkxSocketRequest(OkxSocketOperation op, string channel)
         {
             Operation = op;
-            Arguments = new List<OkxSocketRequestArgument>();
-            Arguments.Add(new OkxSocketRequestArgument(channel));
+            Arguments = new List<OkxSocketRequestArgument>
+            {
+                new OkxSocketRequestArgument(channel)
+            };
         }
 
         public OkxSocketRequest(OkxSocketOperation op, string channel, string instrumentId)
         {
             Operation = op;
-            Arguments = new List<OkxSocketRequestArgument>();
-            Arguments.Add(new OkxSocketRequestArgument(channel, instrumentId));
+            Arguments = new List<OkxSocketRequestArgument>
+            {
+                new OkxSocketRequestArgument(channel, instrumentId)
+            };
         }
 
         public OkxSocketRequest(OkxSocketOperation op, string channel, string underlying, string instrumentId)
         {
             Operation = op;
-            Arguments = new List<OkxSocketRequestArgument>();
-            Arguments.Add(new OkxSocketRequestArgument(channel, underlying, instrumentId));
+            Arguments = new List<OkxSocketRequestArgument>
+            {
+                new OkxSocketRequestArgument(channel, underlying, instrumentId)
+            };
         }
 
         public OkxSocketRequest(OkxSocketOperation op, string channel, OkxInstrumentType instrumentType)
         {
             Operation = op;
-            Arguments = new List<OkxSocketRequestArgument>();
-            Arguments.Add(new OkxSocketRequestArgument(channel, instrumentType));
+            Arguments = new List<OkxSocketRequestArgument>
+            {
+                new OkxSocketRequestArgument(channel, instrumentType)
+            };
         }
 
         public OkxSocketRequest(OkxSocketOperation op, string channel, OkxInstrumentType instrumentType, string underlying)
         {
             Operation = op;
-            Arguments = new List<OkxSocketRequestArgument>();
-            Arguments.Add(new OkxSocketRequestArgument(channel, instrumentType, underlying));
+            Arguments = new List<OkxSocketRequestArgument>
+            {
+                new OkxSocketRequestArgument(channel, instrumentType, underlying)
+            };
         }
 
     }

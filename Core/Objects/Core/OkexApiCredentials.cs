@@ -1,10 +1,5 @@
-﻿using System;
-using System.IO;
-using SharpCryptoExchange.Authentication;
+﻿using SharpCryptoExchange.Authentication;
 using System.Security;
-using System.Text;
-using SharpCryptoExchange;
-using Newtonsoft.Json.Linq;
 
 namespace SharpCryptoExchange.Okx.Objects.Core
 {

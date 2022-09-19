@@ -2,7 +2,6 @@
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using System;
-using System.Diagnostics.Contracts;
 
 namespace SharpCryptoExchange.Okx.Objects.Market
 {

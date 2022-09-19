@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SharpCryptoExchange.Okx.Objects.Core
+﻿namespace SharpCryptoExchange.Okx.Objects.Core
 {
     public class OkxApiAddresses
     {

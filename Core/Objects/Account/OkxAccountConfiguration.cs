@@ -34,9 +34,9 @@ namespace SharpCryptoExchange.Okx.Objects.Account
         public OkxMarginTransferMode MarginIsolatedMarginTradingMode { get; set; }
 
         [JsonProperty("liquidationGear")]
-        public string liquidationGear { get; set; }
+        public string LiquidationGear { get; set; }
 
         [JsonProperty("spotOffsetType")]
-        public string spotOffsetType { get; set; }
+        public string SpotOffsetType { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using SharpCryptoExchange.Converters;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using SharpCryptoExchange.Okx.Converters;
 using System;
 using System.Collections.Generic;

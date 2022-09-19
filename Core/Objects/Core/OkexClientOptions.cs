@@ -1,7 +1,7 @@
 ﻿using SharpCryptoExchange.Interfaces;
 using SharpCryptoExchange.Objects;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 namespace SharpCryptoExchange.Okx.Objects.Core
 {

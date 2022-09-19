@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using SharpCryptoExchange.Okx.Converters;
-using System;
-using System.Collections.Generic;
 
 namespace SharpCryptoExchange.Okx.Objects.SubAccount
 {

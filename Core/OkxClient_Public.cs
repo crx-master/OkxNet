@@ -1,6 +1,5 @@
-﻿using SharpCryptoExchange;
+﻿using Newtonsoft.Json;
 using SharpCryptoExchange.Objects;
-using Newtonsoft.Json;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Helpers;
@@ -26,7 +25,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="instrumentId">Instrument ID</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkxInstrument>> GetInstruments(OkxInstrumentType instrumentType, string underlying = null, string instrumentId = null, CancellationToken ct = default) 
+        public virtual WebCallResult<IEnumerable<OkxInstrument>> GetInstruments(OkxInstrumentType instrumentType, string underlying = null, string instrumentId = null, CancellationToken ct = default)
             => GetInstrumentsAsync(instrumentType, underlying, instrumentId, ct).Result;
         /// <summary>
         /// Retrieve a list of instruments with open contracts.
@@ -62,7 +61,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkxDeliveryExerciseHistory>> GetDeliveryExerciseHistory(OkxInstrumentType instrumentType, string underlying, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default) 
+        public virtual WebCallResult<IEnumerable<OkxDeliveryExerciseHistory>> GetDeliveryExerciseHistory(OkxInstrumentType instrumentType, string underlying, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
             => GetDeliveryExerciseHistoryAsync(instrumentType, underlying, after, before, limit, ct).Result;
         /// <summary>
         /// Retrieve the estimated delivery price, which will only have a return value one hour before the delivery/exercise.
@@ -106,7 +105,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="instrumentId">Instrument ID</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkxOpenInterest>> GetOpenInterests(OkxInstrumentType instrumentType, string underlying = null, string instrumentId = null, CancellationToken ct = default) 
+        public virtual WebCallResult<IEnumerable<OkxOpenInterest>> GetOpenInterests(OkxInstrumentType instrumentType, string underlying = null, string instrumentId = null, CancellationToken ct = default)
             => GetOpenInterestsAsync(instrumentType, underlying, instrumentId, ct).Result;
         /// <summary>
         /// Retrieve the total open interest for contracts on OKEx.
@@ -144,7 +143,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="instrumentId">Instrument ID</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkxFundingRate>> GetFundingRates(string instrumentId, CancellationToken ct = default) 
+        public virtual WebCallResult<IEnumerable<OkxFundingRate>> GetFundingRates(string instrumentId, CancellationToken ct = default)
             => GetFundingRatesAsync(instrumentId, ct).Result;
         /// <summary>
         /// Retrieve funding rate.
@@ -175,7 +174,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkxFundingRateHistory>> GetFundingRateHistory(string instrumentId, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default) 
+        public virtual WebCallResult<IEnumerable<OkxFundingRateHistory>> GetFundingRateHistory(string instrumentId, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
             => GetFundingRateHistoryAsync(instrumentId, after, before, limit, ct).Result;
         /// <summary>
         /// Retrieve funding rate history. This endpoint can retrieve data from the last 3 months.
@@ -212,7 +211,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="instrumentId">Instrument ID</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkxLimitPrice> GetLimitPrice(string instrumentId, CancellationToken ct = default) 
+        public virtual WebCallResult<OkxLimitPrice> GetLimitPrice(string instrumentId, CancellationToken ct = default)
             => GetLimitPriceAsync(instrumentId, ct).Result;
         /// <summary>
         /// Retrieve the highest buy limit and lowest sell limit of the instrument.
@@ -241,7 +240,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="expiryDate">Contract expiry date, the format is "YYMMDD", e.g. "200527"</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkxOptionSummary>> GetOptionMarketData(string underlying, DateTime? expiryDate = null, CancellationToken ct = default) 
+        public virtual WebCallResult<IEnumerable<OkxOptionSummary>> GetOptionMarketData(string underlying, DateTime? expiryDate = null, CancellationToken ct = default)
             => GetOptionMarketDataAsync(underlying, expiryDate, ct).Result;
         /// <summary>
         /// Retrieve option market data.
@@ -271,7 +270,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="instrumentId">Instrument ID</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkxEstimatedPrice> GetEstimatedPrice(string instrumentId, CancellationToken ct = default) 
+        public virtual WebCallResult<OkxEstimatedPrice> GetEstimatedPrice(string instrumentId, CancellationToken ct = default)
             => GetEstimatedPriceAsync(instrumentId, ct).Result;
         /// <summary>
         /// Retrieve the estimated delivery price which will only have a return value one hour before the delivery/exercise.
@@ -299,7 +298,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="discountLevel">Discount level</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkxDiscountInfo>> GetDiscountInfo(int? discountLevel = null, CancellationToken ct = default) 
+        public virtual WebCallResult<IEnumerable<OkxDiscountInfo>> GetDiscountInfo(int? discountLevel = null, CancellationToken ct = default)
             => GetDiscountInfoAsync(discountLevel, ct).Result;
         /// <summary>
         /// Retrieve discount rate level and interest-free quota.
@@ -332,7 +331,7 @@ namespace SharpCryptoExchange.Okx
         /// </remarks>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<DateTimeOffset> GetSystemTime(CancellationToken ct = default) 
+        public virtual WebCallResult<DateTimeOffset> GetSystemTime(CancellationToken ct = default)
             => GetSystemTimeAsync(ct).Result;
         /// <summary>
         /// Asynchronously retrieve API server time.
@@ -376,7 +375,7 @@ namespace SharpCryptoExchange.Okx
             OkxInstrumentAlias? alias = null,
             OkxLiquidationState? state = null,
             long? after = null, long? before = null, int limit = 100,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetLiquidationOrdersAsync(
             instrumentType,
             marginMode,
@@ -462,7 +461,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="instrumentId">Instrument ID</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkxMarkPrice>> GetMarkPrices(OkxInstrumentType instrumentType, string underlying = null, string instrumentId = null, CancellationToken ct = default) 
+        public virtual WebCallResult<IEnumerable<OkxMarkPrice>> GetMarkPrices(OkxInstrumentType instrumentType, string underlying = null, string instrumentId = null, CancellationToken ct = default)
             => GetMarkPricesAsync(instrumentType, underlying, instrumentId, ct).Result;
         /// <summary>
         /// Retrieve mark price.
@@ -510,7 +509,7 @@ namespace SharpCryptoExchange.Okx
             string underlying,
             string instrumentId = null,
             string tier = null,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetPositionTiersAsync(instrumentType, marginMode, underlying, instrumentId, tier, ct).Result;
         /// <summary>
         /// Position information，Maximum leverage depends on your borrowings and margin ratio.
@@ -557,7 +556,7 @@ namespace SharpCryptoExchange.Okx
         /// </summary>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkxInterestRate> GetInterestRates(CancellationToken ct = default) 
+        public virtual WebCallResult<OkxInterestRate> GetInterestRates(CancellationToken ct = default)
             => GetInterestRatesAsync(ct).Result;
         /// <summary>
         /// Get margin interest rate
@@ -578,7 +577,7 @@ namespace SharpCryptoExchange.Okx
         /// </summary>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<OkxVipInterestRate>> GetVIPInterestRates(CancellationToken ct = default) 
+        public virtual WebCallResult<IEnumerable<OkxVipInterestRate>> GetVIPInterestRates(CancellationToken ct = default)
             => GetVIPInterestRatesAsync(ct).Result;
         /// <summary>
         /// Get interest rate and loan quota for VIP loans
@@ -600,7 +599,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="instrumentType">Instrument Type</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<IEnumerable<string>> GetUnderlying(OkxInstrumentType instrumentType, CancellationToken ct = default) 
+        public virtual WebCallResult<IEnumerable<string>> GetUnderlying(OkxInstrumentType instrumentType, CancellationToken ct = default)
             => GetUnderlyingAsync(instrumentType, ct).Result;
         /// <summary>
         /// Get Underlying
@@ -646,7 +645,7 @@ namespace SharpCryptoExchange.Okx
             long? after = null,
             long? before = null,
             int limit = 100,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetInsuranceFundAsync(instrumentType, type, underlying, currency, after, before, limit, ct).Result;
 
         /// <summary>
@@ -714,7 +713,7 @@ namespace SharpCryptoExchange.Okx
             string instrumentId = "",
             decimal? price = null,
             decimal? size = null,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => UnitConvertAsync(type, unit, instrumentId, price, size, ct).Result;
         /// <summary>
         /// Get Underlying
@@ -723,7 +722,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual async Task<WebCallResult<OkxUnitConvert>> UnitConvertAsync(
-            OkxConvertType? type =  OkxConvertType.CurrencyToContract,
+            OkxConvertType? type = OkxConvertType.CurrencyToContract,
             OkxConvertUnit? unit = null,
             string instrumentId = "",
             decimal? price = null,
@@ -731,7 +730,7 @@ namespace SharpCryptoExchange.Okx
             CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
-            if(type!=null) parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new ConvertTypeConverter(false)));
+            if (type != null) parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new ConvertTypeConverter(false)));
             if (unit != null) parameters.AddOptionalParameter("unit", JsonConvert.SerializeObject(type, new ConvertUnitConverter(false)));
             if (!string.IsNullOrEmpty(instrumentId)) parameters.AddOptionalParameter("instId", instrumentId);
             parameters.AddOptionalParameter("px", price?.ToString(OkxGlobals.OkxCultureInfo));

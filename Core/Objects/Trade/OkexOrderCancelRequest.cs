@@ -1,5 +1,4 @@
-﻿using SharpCryptoExchange.Attributes;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace SharpCryptoExchange.Okx.Objects.Trade
 {

@@ -1,6 +1,5 @@
-﻿using SharpCryptoExchange;
+﻿using Newtonsoft.Json;
 using SharpCryptoExchange.Objects;
-using Newtonsoft.Json;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Helpers;
@@ -21,7 +20,7 @@ namespace SharpCryptoExchange.Okx
         /// </summary>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual WebCallResult<OkxSupportCoins> GetRubikSupportCoin(CancellationToken ct = default) 
+        public virtual WebCallResult<OkxSupportCoins> GetRubikSupportCoin(CancellationToken ct = default)
             => GetRubikSupportCoinAsync(ct).Result;
         /// <summary>
         /// Get the currency supported by the transaction big data interface
@@ -53,7 +52,7 @@ namespace SharpCryptoExchange.Okx
             OkxPeriod period = OkxPeriod.FiveMinutes,
             long? begin = null,
             long? end = null,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetRubikTakerVolumeAsync(currency, instrumentType, period, begin, end, ct).Result;
         /// <summary>
         /// This is the taker volume for both buyers and sellers. This shows the influx and exit of funds in and out of {coin}.
@@ -102,7 +101,7 @@ namespace SharpCryptoExchange.Okx
             OkxPeriod period = OkxPeriod.FiveMinutes,
             long? begin = null,
             long? end = null,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetRubikMarginLendingRatioAsync(currency, period, begin, end, ct).Result;
         /// <summary>
         /// This indicator shows the ratio of cumulative data value between currency pair leverage quote currency and underlying asset over a given period of time.
@@ -148,7 +147,7 @@ namespace SharpCryptoExchange.Okx
             OkxPeriod period = OkxPeriod.FiveMinutes,
             long? begin = null,
             long? end = null,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetRubikLongShortRatioAsync(currency, period, begin, end, ct).Result;
         /// <summary>
         /// This is the ratio of users with net long vs short positions. It includes data from futures and perpetual swaps.
@@ -194,7 +193,7 @@ namespace SharpCryptoExchange.Okx
             OkxPeriod period = OkxPeriod.FiveMinutes,
             long? begin = null,
             long? end = null,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetRubikContractSummaryAsync(currency, period, begin, end, ct).Result;
         /// <summary>
         /// Open interest is the sum of all long and short futures and perpetual swap positions.
@@ -236,7 +235,7 @@ namespace SharpCryptoExchange.Okx
         public virtual WebCallResult<IEnumerable<OkxInterestVolume>> GetRubikOptionsSummary(
             string currency,
             OkxPeriod period = OkxPeriod.FiveMinutes,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetRubikOptionsSummaryAsync(currency, period, ct).Result;
         /// <summary>
         /// This shows the sum of all open positions and how much total trading volume has taken place.
@@ -272,7 +271,7 @@ namespace SharpCryptoExchange.Okx
         public virtual WebCallResult<IEnumerable<OkxPutCallRatio>> GetRubikPutCallRatio(
             string currency,
             OkxPeriod period = OkxPeriod.FiveMinutes,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetRubikPutCallRatioAsync(currency, period, ct).Result;
         /// <summary>
         /// This shows the relative buy/sell volume for calls and puts. It shows whether traders are bullish or bearish on price and volatility.
@@ -308,7 +307,7 @@ namespace SharpCryptoExchange.Okx
         public virtual WebCallResult<IEnumerable<OkxInterestVolumeExpiry>> GetRubikInterestVolumeExpiry(
             string currency,
             OkxPeriod period = OkxPeriod.FiveMinutes,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetRubikInterestVolumeExpiryAsync(currency, period, ct).Result;
         /// <summary>
         /// This shows the volume and open interest for each upcoming expiration. You can use this to see which expirations are currently the most popular to trade.
@@ -346,7 +345,7 @@ namespace SharpCryptoExchange.Okx
             string currency,
             string expiryTime,
             OkxPeriod period = OkxPeriod.FiveMinutes,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetRubikInterestVolumeStrikeAsync(currency, expiryTime, period, ct).Result;
         /// <summary>
         /// This shows what option strikes are the most popular for each expiration.
@@ -385,7 +384,7 @@ namespace SharpCryptoExchange.Okx
         public virtual WebCallResult<OkxTakerFlow> GetRubikTakerFlow(
             string currency,
             OkxPeriod period = OkxPeriod.FiveMinutes,
-            CancellationToken ct = default) 
+            CancellationToken ct = default)
             => GetRubikTakerFlowAsync(currency, period, ct).Result;
         /// <summary>
         /// This shows the relative buy/sell volume for calls and puts. It shows whether traders are bullish or bearish on price and volatility.
