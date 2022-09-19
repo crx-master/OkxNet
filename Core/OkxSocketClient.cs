@@ -26,7 +26,7 @@ namespace SharpCryptoExchange.Okx
         {
             get
             {
-                return base.socketConnections.Values.Where(c => c.Connected).Count() > 0;
+                return SocketConnections.Values.Where(c => c.Connected).Any();
             }
         }
         #endregion
