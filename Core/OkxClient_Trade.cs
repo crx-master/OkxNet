@@ -1,10 +1,11 @@
 ﻿using Newtonsoft.Json;
+using SharpCryptoExchange.CommonObjects;
 using SharpCryptoExchange.Objects;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Helpers;
-using SharpCryptoExchange.Okx.Objects.Core;
-using SharpCryptoExchange.Okx.Objects.Trade;
+using SharpCryptoExchange.Okx.Models.Core;
+using SharpCryptoExchange.Okx.Models.Trade;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -110,7 +111,7 @@ namespace SharpCryptoExchange.Okx
             if (quantityType.HasValue)
                 parameters.AddOptionalParameter("tgtCcy", JsonConvert.SerializeObject(quantityType, new QuantityTypeConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrderPlaceResponse>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_Order), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrderPlaceResponse>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.Order), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxOrderPlaceResponse>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxOrderPlaceResponse>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -138,7 +139,7 @@ namespace SharpCryptoExchange.Okx
                 { BodyParameterKey, orders },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrderPlaceResponse>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_BatchOrders), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrderPlaceResponse>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.BatchOrders), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxOrderPlaceResponse>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxOrderPlaceResponse>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -171,7 +172,7 @@ namespace SharpCryptoExchange.Okx
             parameters.AddOptionalParameter("ordId", orderId?.ToString(OkxGlobals.OkxCultureInfo));
             parameters.AddOptionalParameter("clOrdId", clientOrderId);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrderCancelResponse>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_CancelOrder), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrderCancelResponse>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.CancelOrder), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxOrderCancelResponse>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxOrderCancelResponse>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -198,7 +199,7 @@ namespace SharpCryptoExchange.Okx
                 { BodyParameterKey, orders },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrderCancelResponse>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_CancelBatchOrders), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrderCancelResponse>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.CancelBatchOrders), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxOrderCancelResponse>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxOrderCancelResponse>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -260,7 +261,7 @@ namespace SharpCryptoExchange.Okx
             parameters.AddOptionalParameter("newSz", newQuantity?.ToString(OkxGlobals.OkxCultureInfo));
             parameters.AddOptionalParameter("newPx", newPrice?.ToString(OkxGlobals.OkxCultureInfo));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrderAmendResponse>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_AmendOrder), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrderAmendResponse>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.AmendOrder), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxOrderAmendResponse>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxOrderAmendResponse>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -287,7 +288,7 @@ namespace SharpCryptoExchange.Okx
                 { BodyParameterKey, orders },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrderAmendResponse>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_AmendBatchOrders), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrderAmendResponse>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.AmendBatchOrders), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxOrderAmendResponse>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxOrderAmendResponse>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -334,7 +335,7 @@ namespace SharpCryptoExchange.Okx
                 parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new PositionSideConverter(false)));
             parameters.AddOptionalParameter("ccy", currency);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxClosePositionResponse>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_ClosePosition), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxClosePositionResponse>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.ClosePosition), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxClosePositionResponse>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxClosePositionResponse>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -372,10 +373,10 @@ namespace SharpCryptoExchange.Okx
             var parameters = new Dictionary<string, object> {
                 {"instId", instrumentId },
             };
-            parameters.AddOptionalParameter("ordId", orderId?.ToString());
+            parameters.AddOptionalParameter("ordId", $"{orderId}");
             parameters.AddOptionalParameter("clOrdId", clientOrderId);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrder>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_Order), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrder>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.Order), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxOrder>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxOrder>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -445,9 +446,9 @@ namespace SharpCryptoExchange.Okx
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("instId", instrumentId);
             parameters.AddOptionalParameter("uly", underlying);
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             if (instrumentType.HasValue)
                 parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
@@ -458,7 +459,7 @@ namespace SharpCryptoExchange.Okx
             if (state.HasValue)
                 parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new OrderStateConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrder>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_OrdersPending), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrder>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.OrdersPending), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxOrder>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxOrder>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -536,9 +537,9 @@ namespace SharpCryptoExchange.Okx
             };
             parameters.AddOptionalParameter("instId", instrumentId);
             parameters.AddOptionalParameter("uly", underlying);
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             if (orderType.HasValue)
                 parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(orderType, new OrderTypeConverter(false)));
@@ -549,7 +550,7 @@ namespace SharpCryptoExchange.Okx
             if (category.HasValue)
                 parameters.AddOptionalParameter("category", JsonConvert.SerializeObject(category, new OrderCategoryConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrder>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_OrdersHistory), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrder>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.OrdersHistory), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxOrder>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxOrder>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -627,9 +628,9 @@ namespace SharpCryptoExchange.Okx
             };
             parameters.AddOptionalParameter("instId", instrumentId);
             parameters.AddOptionalParameter("uly", underlying);
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             if (orderType.HasValue)
                 parameters.AddOptionalParameter("ordType", JsonConvert.SerializeObject(orderType, new OrderTypeConverter(false)));
@@ -640,7 +641,7 @@ namespace SharpCryptoExchange.Okx
             if (category.HasValue)
                 parameters.AddOptionalParameter("category", JsonConvert.SerializeObject(category, new OrderCategoryConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrder>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_OrdersHistoryArchive), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrder>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.OrdersHistoryArchive), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxOrder>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxOrder>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -707,12 +708,12 @@ namespace SharpCryptoExchange.Okx
                 parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
             parameters.AddOptionalParameter("instId", instrumentId);
             parameters.AddOptionalParameter("uly", underlying);
-            parameters.AddOptionalParameter("ordId", orderId?.ToString());
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("ordId", $"{orderId}");
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxTransaction>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_Fills), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxTransaction>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.Fills), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxTransaction>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxTransaction>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -778,12 +779,12 @@ namespace SharpCryptoExchange.Okx
             parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
             parameters.AddOptionalParameter("instId", instrumentId);
             parameters.AddOptionalParameter("uly", underlying);
-            parameters.AddOptionalParameter("ordId", orderId?.ToString());
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("ordId", $"{orderId}");
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxTransaction>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_FillsHistory), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxTransaction>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.FillsHistory), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxTransaction>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxTransaction>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -980,7 +981,7 @@ namespace SharpCryptoExchange.Okx
             /* TWAP Order */
             parameters.AddOptionalParameter("timeInterval", timeInterval?.ToString(OkxGlobals.OkxCultureInfo));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAlgoOrderResponse>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_OrderAlgo), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAlgoOrderResponse>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.OrderAlgo), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxAlgoOrderResponse>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxAlgoOrderResponse>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -1007,7 +1008,7 @@ namespace SharpCryptoExchange.Okx
                 {BodyParameterKey, orders },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAlgoOrderResponse>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_CancelAlgos), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAlgoOrderResponse>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.CancelAlgos), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxAlgoOrderResponse>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxAlgoOrderResponse>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -1034,7 +1035,7 @@ namespace SharpCryptoExchange.Okx
                 {BodyParameterKey, orders },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAlgoOrderResponse>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_CancelAdvanceAlgos), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAlgoOrderResponse>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.CancelAdvanceAlgos), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxAlgoOrderResponse>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxAlgoOrderResponse>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -1102,14 +1103,15 @@ namespace SharpCryptoExchange.Okx
             };
             parameters.AddOptionalParameter("algoId", algoId?.ToString(OkxGlobals.OkxCultureInfo));
             parameters.AddOptionalParameter("instId", instrumentId);
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             if (instrumentType.HasValue)
                 parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAlgoOrder>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_OrdersAlgoPending), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAlgoOrder>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.OrdersAlgoPending), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxAlgoOrder>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxAlgoOrder>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -1182,9 +1184,9 @@ namespace SharpCryptoExchange.Okx
             };
             parameters.AddOptionalParameter("algoId", algoId?.ToString(OkxGlobals.OkxCultureInfo));
             parameters.AddOptionalParameter("instId", instrumentId);
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             if (algoOrderState.HasValue)
                 parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(algoOrderState, new AlgoOrderStateConverter(false)));
@@ -1192,7 +1194,7 @@ namespace SharpCryptoExchange.Okx
             if (instrumentType.HasValue)
                 parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAlgoOrder>>>(UnifiedApi.GetUri(Endpoints_V5_Trade_OrdersAlgoHistory), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAlgoOrder>>>(UnifiedApi.GetUri(Endpoints.V5.Trade.OrdersAlgoHistory), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxAlgoOrder>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxAlgoOrder>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 

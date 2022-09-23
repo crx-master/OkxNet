@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
 	  <TargetFramework>net6.0</TargetFramework>
 	  <LangVersion>8.0</LangVersion>
@@ -12,22 +12,26 @@
     <AssemblyVersion>6.0.0</AssemblyVersion>
     <Description>#OKX is a .NET 6 wrapper for the OKX API. It includes all features the API provides, REST API and Websocket, using clear and readable objects including but not limited to Reading market info, Placing and managing orders and Reading balances and funds</Description>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <PackageTags>SharpCryptoExchange Sharp OKX OKEx OkxNet C# .NET Bitcoin BTC Cryptocurrency Exchange REST API WebSocket API Wrapper</PackageTags>
+    <PackageTags>SharpCryptoExchange Sharp #OKX OKX OKEx OkxNet C# .NET Bitcoin BTC Cryptocurrency Exchange REST API WebSocket API Wrapper</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>icon.png</PackageIcon>
     <NeutralLanguage>en</NeutralLanguage>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>
-		Version 6.0.0 - 12 Sep 2022
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PackageReleaseNotes>		Version 6.0.0 - 12 Sep 2022
 		* Forked from https://github.com/burakoner/OKEx.Net v5.2.5
 		* Renamed / reorganized namespaces and files
 		* Rebranded from OKEx to OKX
 		* Fixed minor bugs
-	</PackageReleaseNotes>
+</PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup>
-    <PackageProjectUrl>https://github.com/burakoner/OKEx.Net</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/burakoner/OKEx.Net</RepositoryUrl>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl></RepositoryUrl>
+    <IsPublishable>False</IsPublishable>
+    <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+    <Title>#OKX</Title>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <AnalysisLevel>6.0-recommended</AnalysisLevel>
   </PropertyGroup>
   <ItemGroup>
 	  <None Include="Icon\icon.png" Pack="true" PackagePath="" />

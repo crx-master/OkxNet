@@ -5,7 +5,7 @@ namespace SharpCryptoExchange.Okx.Helpers
     public static class OkxGlobals
     {
         // Local Settings
-        public static CultureInfo OkxCultureInfo = new CultureInfo("en-US");
-        public static string OkxDatetimeFormat = "yyyy-MM-ddTHH:mm:ss.fffZ";
+        public readonly static CultureInfo OkxCultureInfo = new CultureInfo("en-US");
+        public readonly static string OkxDatetimeFormat = "yyyy-MM-ddTHH:mm:ss.fffZ";
     }
 }

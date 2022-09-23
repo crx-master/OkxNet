@@ -3,8 +3,8 @@ using SharpCryptoExchange.Objects;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Helpers;
-using SharpCryptoExchange.Okx.Objects.Account;
-using SharpCryptoExchange.Okx.Objects.Core;
+using SharpCryptoExchange.Okx.Models.Account;
+using SharpCryptoExchange.Okx.Models.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,19 +24,19 @@ namespace SharpCryptoExchange.Okx
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual WebCallResult<OkxAccountBalance> GetAccountBalance(string currency = null, CancellationToken ct = default)
-            => GetAccountBalance_Async(currency, ct).Result;
+            => GetAccountBalanceAsync(currency, ct).Result;
         /// <summary>
         /// Retrieve a list of assets (with non-zero balance), remaining balance, and available amount in the account.
         /// </summary>
         /// <param name="currency">Currency</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<OkxAccountBalance>> GetAccountBalance_Async(string currency = null, CancellationToken ct = default)
+        public virtual async Task<WebCallResult<OkxAccountBalance>> GetAccountBalanceAsync(string currency = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("ccy", currency);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountBalance>>>(UnifiedApi.GetUri(Endpoints_V5_Account_Balance), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountBalance>>>(UnifiedApi.GetUri(Endpoints.V5.Account.Balance), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxAccountBalance>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxAccountBalance>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -56,7 +56,7 @@ namespace SharpCryptoExchange.Okx
             string instrumentId = null,
             string positionId = null,
             CancellationToken ct = default)
-            => GetAccountPositions_Async(instrumentType, instrumentId, positionId, ct).Result;
+            => GetAccountPositionsAsync(instrumentType, instrumentId, positionId, ct).Result;
         /// <summary>
         /// Retrieve information on your positions. When the account is in net mode, net positions will be displayed, and when the account is in long/short mode, long or short positions will be displayed.
         /// </summary>
@@ -65,7 +65,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="positionId">Position ID</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxPosition>>> GetAccountPositions_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxPosition>>> GetAccountPositionsAsync(
             OkxInstrumentType? instrumentType = null,
             string instrumentId = null,
             string positionId = null,
@@ -77,7 +77,7 @@ namespace SharpCryptoExchange.Okx
             parameters.AddOptionalParameter("instId", instrumentId);
             parameters.AddOptionalParameter("posId", positionId);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxPosition>>>(UnifiedApi.GetUri(Endpoints_V5_Account_Positions), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxPosition>>>(UnifiedApi.GetUri(Endpoints.V5.Account.Positions), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxPosition>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxPosition>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -95,20 +95,20 @@ namespace SharpCryptoExchange.Okx
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual WebCallResult<IEnumerable<OkxPositionRisk>> GetAccountPositionRisk(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
-            => GetAccountPositionRisk_Async(instrumentType, ct).Result;
+            => GetAccountPositionRiskAsync(instrumentType, ct).Result;
         /// <summary>
         /// Get account and position risk
         /// </summary>
         /// <param name="instrumentType">Instrument Type</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxPositionRisk>>> GetAccountPositionRisk_Async(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
+        public virtual async Task<WebCallResult<IEnumerable<OkxPositionRisk>>> GetAccountPositionRiskAsync(OkxInstrumentType? instrumentType = null, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             if (instrumentType.HasValue)
                 parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxPositionRisk>>>(UnifiedApi.GetUri(Endpoints_V5_Account_PositionRisk), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxPositionRisk>>>(UnifiedApi.GetUri(Endpoints.V5.Account.PositionRisk), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxPositionRisk>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxPositionRisk>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -140,7 +140,7 @@ namespace SharpCryptoExchange.Okx
             long? before = null,
             int limit = 100,
             CancellationToken ct = default)
-            => GetBillHistory_Async(
+            => GetBillHistoryAsync(
             instrumentType,
             currency,
             marginMode,
@@ -165,7 +165,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxAccountBill>>> GetBillHistory_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxAccountBill>>> GetBillHistoryAsync(
             OkxInstrumentType? instrumentType = null,
             string currency = null,
             OkxMarginMode? marginMode = null,
@@ -182,9 +182,10 @@ namespace SharpCryptoExchange.Okx
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("ccy", currency);
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             if (instrumentType.HasValue)
                 parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
@@ -197,7 +198,7 @@ namespace SharpCryptoExchange.Okx
             if (billSubType.HasValue)
                 parameters.AddOptionalParameter("subType", JsonConvert.SerializeObject(billSubType, new AccountBillSubTypeConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountBill>>>(UnifiedApi.GetUri(Endpoints_V5_Account_Bills), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountBill>>>(UnifiedApi.GetUri(Endpoints.V5.Account.Bills), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxAccountBill>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxAccountBill>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -229,7 +230,7 @@ namespace SharpCryptoExchange.Okx
             long? before = null,
             int limit = 100,
             CancellationToken ct = default)
-            => GetBillArchive_Async(
+            => GetBillArchiveAsync(
             instrumentType,
             currency,
             marginMode,
@@ -254,7 +255,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxAccountBill>>> GetBillArchive_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxAccountBill>>> GetBillArchiveAsync(
             OkxInstrumentType? instrumentType = null,
             string currency = null,
             OkxMarginMode? marginMode = null,
@@ -271,9 +272,9 @@ namespace SharpCryptoExchange.Okx
 
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("ccy", currency);
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             if (instrumentType.HasValue)
                 parameters.AddOptionalParameter("instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)));
@@ -286,7 +287,7 @@ namespace SharpCryptoExchange.Okx
             if (billSubType.HasValue)
                 parameters.AddOptionalParameter("subType", JsonConvert.SerializeObject(billSubType, new AccountBillSubTypeConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountBill>>>(UnifiedApi.GetUri(Endpoints_V5_Account_BillsArchive), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountBill>>>(UnifiedApi.GetUri(Endpoints.V5.Account.BillsArchive), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxAccountBill>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxAccountBill>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -299,15 +300,15 @@ namespace SharpCryptoExchange.Okx
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual WebCallResult<OkxAccountConfiguration> GetAccountConfiguration(CancellationToken ct = default)
-            => GetAccountConfiguration_Async(ct).Result;
+            => GetAccountConfigurationAsync(ct).Result;
         /// <summary>
         /// Retrieve current account configuration.
         /// </summary>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<OkxAccountConfiguration>> GetAccountConfiguration_Async(CancellationToken ct = default)
+        public virtual async Task<WebCallResult<OkxAccountConfiguration>> GetAccountConfigurationAsync(CancellationToken ct = default)
         {
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountConfiguration>>>(UnifiedApi.GetUri(Endpoints_V5_Account_Config), HttpMethod.Get, ct, null, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountConfiguration>>>(UnifiedApi.GetUri(Endpoints.V5.Account.Config), HttpMethod.Get, ct, null, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxAccountConfiguration>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxAccountConfiguration>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -321,20 +322,20 @@ namespace SharpCryptoExchange.Okx
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual WebCallResult<OkxAccountPositionMode> SetAccountPositionMode(Enums.OkxPositionMode positionMode, CancellationToken ct = default)
-            => SetAccountPositionMode_Async(positionMode, ct).Result;
+            => SetAccountPositionModeAsync(positionMode, ct).Result;
         /// <summary>
         /// FUTURES and SWAP support both long/short mode and net mode. In net mode, users can only have positions in one direction; In long/short mode, users can hold positions in long and short directions.
         /// </summary>
         /// <param name="positionMode"></param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<OkxAccountPositionMode>> SetAccountPositionMode_Async(Enums.OkxPositionMode positionMode, CancellationToken ct = default)
+        public virtual async Task<WebCallResult<OkxAccountPositionMode>> SetAccountPositionModeAsync(Enums.OkxPositionMode positionMode, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object> {
                 {"posMode", JsonConvert.SerializeObject(positionMode, new PositionModeConverter(false)) },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountPositionMode>>>(UnifiedApi.GetUri(Endpoints_V5_Account_SetPositionMode), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountPositionMode>>>(UnifiedApi.GetUri(Endpoints.V5.Account.SetPositionMode), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxAccountPositionMode>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxAccountPositionMode>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -352,7 +353,7 @@ namespace SharpCryptoExchange.Okx
             string instrumentIds,
             OkxMarginMode marginMode,
             CancellationToken ct = default)
-            => GetAccountLeverage_Async(instrumentIds, marginMode, ct).Result;
+            => GetAccountLeverageAsync(instrumentIds, marginMode, ct).Result;
         /// <summary>
         /// Get Leverage
         /// </summary>
@@ -360,7 +361,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="marginMode">Margin Mode</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxLeverage>>> GetAccountLeverage_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxLeverage>>> GetAccountLeverageAsync(
             string instrumentIds,
             OkxMarginMode marginMode,
             CancellationToken ct = default)
@@ -370,7 +371,7 @@ namespace SharpCryptoExchange.Okx
                 {"mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)) },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxLeverage>>>(UnifiedApi.GetUri(Endpoints_V5_Account_LeverageInfo), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxLeverage>>>(UnifiedApi.GetUri(Endpoints.V5.Account.LeverageInfo), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxLeverage>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxLeverage>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -398,7 +399,7 @@ namespace SharpCryptoExchange.Okx
             OkxMarginMode? marginMode = null,
             OkxPositionSide? positionSide = null,
             CancellationToken ct = default)
-            => SetAccountLeverage_Async(leverage, currency, instrumentId, marginMode, positionSide, ct).Result;
+            => SetAccountLeverageAsync(leverage, currency, instrumentId, marginMode, positionSide, ct).Result;
         /// <summary>
         /// The following are the setting leverage cases for an instrument:
         /// Set leverage for isolated MARGIN at pairs level.
@@ -413,7 +414,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="positionSide">Position Side</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxLeverage>>> SetAccountLeverage_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxLeverage>>> SetAccountLeverageAsync(
             int leverage,
             string currency = null,
             string instrumentId = null,
@@ -431,7 +432,7 @@ namespace SharpCryptoExchange.Okx
                 throw new ArgumentException("marginMode is required");
 
             var parameters = new Dictionary<string, object> {
-                {"lever", leverage.ToString() },
+                {"lever", $"{leverage}" },
                 {"mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)) },
             };
             parameters.AddOptionalParameter("ccy", currency);
@@ -439,7 +440,7 @@ namespace SharpCryptoExchange.Okx
             if (positionSide.HasValue)
                 parameters.AddOptionalParameter("posSide", JsonConvert.SerializeObject(positionSide, new PositionSideConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxLeverage>>>(UnifiedApi.GetUri(Endpoints_V5_Account_SetLeverage), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxLeverage>>>(UnifiedApi.GetUri(Endpoints.V5.Account.SetLeverage), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxLeverage>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxLeverage>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -461,7 +462,7 @@ namespace SharpCryptoExchange.Okx
             string currency = null,
             decimal? price = null,
             CancellationToken ct = default)
-            => GetMaximumAmount_Async(instrumentId, tradeMode, currency, price, ct).Result;
+            => GetMaximumAmountAsync(instrumentId, tradeMode, currency, price, ct).Result;
         /// <summary>
         /// Get maximum buy/sell amount or open amount
         /// </summary>
@@ -471,7 +472,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="price">Price</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxMaximumAmount>>> GetMaximumAmount_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxMaximumAmount>>> GetMaximumAmountAsync(
             string instrumentId,
             OkxTradeMode tradeMode,
             string currency = null,
@@ -485,7 +486,7 @@ namespace SharpCryptoExchange.Okx
             parameters.AddOptionalParameter("ccy", currency);
             parameters.AddOptionalParameter("px", price?.ToString(OkxGlobals.OkxCultureInfo));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxMaximumAmount>>>(UnifiedApi.GetUri(Endpoints_V5_Account_MaxSize), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxMaximumAmount>>>(UnifiedApi.GetUri(Endpoints.V5.Account.MaxSize), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxMaximumAmount>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxMaximumAmount>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -507,7 +508,7 @@ namespace SharpCryptoExchange.Okx
             string currency = null,
             bool? reduceOnly = null,
             CancellationToken ct = default)
-            => GetMaximumAvailableAmount_Async(instrumentId, tradeMode, currency, reduceOnly, ct).Result;
+            => GetMaximumAvailableAmountAsync(instrumentId, tradeMode, currency, reduceOnly, ct).Result;
         /// <summary>
         /// Get Maximum Available Tradable Amount
         /// </summary>
@@ -517,7 +518,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="reduceOnly">Reduce Only</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxMaximumAvailableAmount>>> GetMaximumAvailableAmount_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxMaximumAvailableAmount>>> GetMaximumAvailableAmountAsync(
             string instrumentId,
             OkxTradeMode tradeMode,
             string currency = null,
@@ -531,7 +532,7 @@ namespace SharpCryptoExchange.Okx
             parameters.AddOptionalParameter("ccy", currency);
             parameters.AddOptionalParameter("reduceOnly", reduceOnly);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxMaximumAvailableAmount>>>(UnifiedApi.GetUri(Endpoints_V5_Account_MaxAvailSize), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxMaximumAvailableAmount>>>(UnifiedApi.GetUri(Endpoints.V5.Account.MaxAvailSize), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxMaximumAvailableAmount>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxMaximumAvailableAmount>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -553,7 +554,7 @@ namespace SharpCryptoExchange.Okx
             OkxMarginAddReduce marginAddReduce,
             decimal amount,
             CancellationToken ct = default)
-            => SetMarginAmount_Async(instrumentId, positionSide, marginAddReduce, amount, ct).Result;
+            => SetMarginAmountAsync(instrumentId, positionSide, marginAddReduce, amount, ct).Result;
         /// <summary>
         /// Increase or decrease the margin of the isolated position.
         /// </summary>
@@ -563,7 +564,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="amount">Amount</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxMarginAmount>>> SetMarginAmount_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxMarginAmount>>> SetMarginAmountAsync(
             string instrumentId,
             OkxPositionSide positionSide,
             OkxMarginAddReduce marginAddReduce,
@@ -577,7 +578,7 @@ namespace SharpCryptoExchange.Okx
                 {"amt", amount.ToString(OkxGlobals.OkxCultureInfo) },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxMarginAmount>>>(UnifiedApi.GetUri(Endpoints_V5_Account_PositionMarginBalance), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxMarginAmount>>>(UnifiedApi.GetUri(Endpoints.V5.Account.PositionMarginBalance), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxMarginAmount>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxMarginAmount>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -597,7 +598,7 @@ namespace SharpCryptoExchange.Okx
             OkxMarginMode marginMode,
             string marginCurrency = null,
             CancellationToken ct = default)
-            => GetMaximumLoanAmount_Async(instrumentId, marginMode, marginCurrency, ct).Result;
+            => GetMaximumLoanAmountAsync(instrumentId, marginMode, marginCurrency, ct).Result;
         /// <summary>
         /// Get the maximum loan of instrument
         /// </summary>
@@ -606,7 +607,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="marginCurrency">Margin Currency</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxMaximumLoanAmount>>> GetMaximumLoanAmount_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxMaximumLoanAmount>>> GetMaximumLoanAmountAsync(
             string instrumentId,
             OkxMarginMode marginMode,
             string marginCurrency = null,
@@ -618,7 +619,7 @@ namespace SharpCryptoExchange.Okx
             };
             parameters.AddOptionalParameter("mgnCcy", marginCurrency);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxMaximumLoanAmount>>>(UnifiedApi.GetUri(Endpoints_V5_Account_MaxLoan), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxMaximumLoanAmount>>>(UnifiedApi.GetUri(Endpoints.V5.Account.MaxLoan), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxMaximumLoanAmount>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxMaximumLoanAmount>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -640,7 +641,7 @@ namespace SharpCryptoExchange.Okx
             string underlying = null,
             OkxFeeRateCategory? category = null,
             CancellationToken ct = default)
-            => GetFeeRates_Async(instrumentType, instrumentId, underlying, category, ct).Result;
+            => GetFeeRatesAsync(instrumentType, instrumentId, underlying, category, ct).Result;
         /// <summary>
         /// Get Fee Rates
         /// </summary>
@@ -650,7 +651,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="category">Category</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<OkxFeeRate>> GetFeeRates_Async(
+        public virtual async Task<WebCallResult<OkxFeeRate>> GetFeeRatesAsync(
             OkxInstrumentType instrumentType,
             string instrumentId = null,
             string underlying = null,
@@ -664,7 +665,7 @@ namespace SharpCryptoExchange.Okx
             parameters.AddOptionalParameter("uly", underlying);
             parameters.AddOptionalParameter("category", JsonConvert.SerializeObject(category, new FeeRateCategoryConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxFeeRate>>>(UnifiedApi.GetUri(Endpoints_V5_Account_TradeFee), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxFeeRate>>>(UnifiedApi.GetUri(Endpoints.V5.Account.TradeFee), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxFeeRate>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxFeeRate>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -690,7 +691,7 @@ namespace SharpCryptoExchange.Okx
             long? before = null,
             int limit = 100,
             CancellationToken ct = default)
-            => GetInterestAccrued_Async(
+            => GetInterestAccruedAsync(
             instrumentId,
             currency,
             marginMode,
@@ -709,7 +710,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxInterestAccrued>>> GetInterestAccrued_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxInterestAccrued>>> GetInterestAccruedAsync(
             string instrumentId = null,
             string currency = null,
             OkxMarginMode? marginMode = null,
@@ -724,14 +725,14 @@ namespace SharpCryptoExchange.Okx
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("instId", instrumentId);
             parameters.AddOptionalParameter("ccy", currency);
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             if (marginMode.HasValue)
                 parameters.AddOptionalParameter("mgnMode", JsonConvert.SerializeObject(marginMode, new MarginModeConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxInterestAccrued>>>(UnifiedApi.GetUri(Endpoints_V5_Account_InterestAccrued), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxInterestAccrued>>>(UnifiedApi.GetUri(Endpoints.V5.Account.InterestAccrued), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxInterestAccrued>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxInterestAccrued>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -747,7 +748,7 @@ namespace SharpCryptoExchange.Okx
         public virtual WebCallResult<IEnumerable<OkxInterestRate>> GetInterestRate(
             string currency = null,
             CancellationToken ct = default)
-            => GetInterestRate_Async(
+            => GetInterestRateAsync(
             currency,
             ct).Result;
         /// <summary>
@@ -756,14 +757,14 @@ namespace SharpCryptoExchange.Okx
         /// <param name="currency">Currency</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxInterestRate>>> GetInterestRate_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxInterestRate>>> GetInterestRateAsync(
             string currency = null,
             CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("ccy", currency);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxInterestRate>>>(UnifiedApi.GetUri(Endpoints_V5_Account_InterestRate), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxInterestRate>>>(UnifiedApi.GetUri(Endpoints.V5.Account.InterestRate), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxInterestRate>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxInterestRate>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -779,20 +780,20 @@ namespace SharpCryptoExchange.Okx
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual WebCallResult<OkxAccountGreeksType> SetGreeks(Enums.OkxGreeksType greeksType, CancellationToken ct = default)
-            => SetGreeks_Async(greeksType, ct).Result;
+            => SetGreeksAsync(greeksType, ct).Result;
         /// <summary>
         /// Set the display type of Greeks.
         /// </summary>
         /// <param name="greeksType">Display type of Greeks.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<OkxAccountGreeksType>> SetGreeks_Async(Enums.OkxGreeksType greeksType, CancellationToken ct = default)
+        public virtual async Task<WebCallResult<OkxAccountGreeksType>> SetGreeksAsync(Enums.OkxGreeksType greeksType, CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object> {
                 {"greeksType", JsonConvert.SerializeObject(greeksType, new GreeksTypeConverter(false)) },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountGreeksType>>>(UnifiedApi.GetUri(Endpoints_V5_Account_SetGreeks), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxAccountGreeksType>>>(UnifiedApi.GetUri(Endpoints.V5.Account.SetGreeks), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxAccountGreeksType>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxAccountGreeksType>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -810,7 +811,7 @@ namespace SharpCryptoExchange.Okx
         public virtual WebCallResult<IEnumerable<OkxWithdrawalAmount>> GetMaximumWithdrawals(
             string currency = null,
             CancellationToken ct = default)
-            => GetMaximumWithdrawals_Async(
+            => GetMaximumWithdrawalsAsync(
             currency,
             ct).Result;
         /// <summary>
@@ -819,14 +820,14 @@ namespace SharpCryptoExchange.Okx
         /// <param name="currency">Currency</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxWithdrawalAmount>>> GetMaximumWithdrawals_Async(
+        public virtual async Task<WebCallResult<IEnumerable<OkxWithdrawalAmount>>> GetMaximumWithdrawalsAsync(
             string currency = null,
             CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("ccy", currency);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxWithdrawalAmount>>>(UnifiedApi.GetUri(Endpoints_V5_Account_MaxWithdrawal), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxWithdrawalAmount>>>(UnifiedApi.GetUri(Endpoints.V5.Account.MaxWithdrawal), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxWithdrawalAmount>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxWithdrawalAmount>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 

@@ -11,7 +11,7 @@ namespace SharpCryptoExchange.Okx.Converters
 
         protected override List<KeyValuePair<OkxWithdrawalDestination, string>> Mapping => new List<KeyValuePair<OkxWithdrawalDestination, string>>
         {
-            new KeyValuePair<OkxWithdrawalDestination, string>(OkxWithdrawalDestination.OKEx, "3"),
+            new KeyValuePair<OkxWithdrawalDestination, string>(OkxWithdrawalDestination.Okx, "3"),
             new KeyValuePair<OkxWithdrawalDestination, string>(OkxWithdrawalDestination.DigitalCurrencyAddress, "4"),
 
         };

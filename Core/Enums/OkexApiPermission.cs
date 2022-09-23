@@ -1,6 +1,6 @@
 ﻿namespace SharpCryptoExchange.Okx.Enums
 {
-    public enum OkxApiPermission
+    public enum OkxApiPermissions
     {
         ReadOnly,
         Trade,

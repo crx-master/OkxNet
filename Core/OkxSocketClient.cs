@@ -5,7 +5,7 @@ using SharpCryptoExchange.Authentication;
 using SharpCryptoExchange.Logging;
 using SharpCryptoExchange.Objects;
 using SharpCryptoExchange.Okx.Helpers;
-using SharpCryptoExchange.Okx.Objects.Core;
+using SharpCryptoExchange.Okx.Models.Core;
 using SharpCryptoExchange.Sockets;
 using System;
 using System.Globalization;
@@ -120,9 +120,9 @@ namespace SharpCryptoExchange.Okx
         {
             return SubscribeAsync(UnifiedSocket, request, identifier, authenticated, dataHandler, ct);
         }
-        protected override bool HandleQueryResponse<T>(SocketConnection s, object request, JToken data, out CallResult<T> callResult)
+        protected override bool HandleQueryResponse<T>(SocketConnection socketConnection, object request, JToken data, out CallResult<T> callResult)
         {
-            return OkxHandleQueryResponse<T>(s, request, data, out callResult);
+            return OkxHandleQueryResponse<T>(socketConnection, request, data, out callResult);
         }
         protected virtual bool OkxHandleQueryResponse<T>(SocketConnection s, object request, JToken data, out CallResult<T> callResult)
         {
@@ -158,34 +158,34 @@ namespace SharpCryptoExchange.Okx
 
             return false;
         }
-        protected override bool HandleSubscriptionResponse(SocketConnection s, SocketSubscription subscription, object request, JToken message, out CallResult<object> callResult)
+        protected override bool HandleSubscriptionResponse(SocketConnection socketConnection, SocketSubscription subscription, object request, JToken data, out CallResult<object> callResult)
         {
-            return OkxHandleSubscriptionResponse(s, subscription, request, message, out callResult);
+            return OkxHandleSubscriptionResponse(socketConnection, subscription, request, data, out callResult);
         }
-        protected virtual bool OkxHandleSubscriptionResponse(SocketConnection s, SocketSubscription subscription, object request, JToken message, out CallResult<object> callResult)
+        protected virtual bool OkxHandleSubscriptionResponse(SocketConnection s, SocketSubscription subscription, object request, JToken data, out CallResult<object> callResult)
         {
             callResult = null;
 
             // Ping-Pong
-            var json = message.ToString();
+            var json = data.ToString();
             if (json == "pong")
                 return false;
 
             // Check for Error
             // 30040: {0} Channel : {1} doesn't exist
-            if (message.HasValues && message["event"] != null && (string)message["event"]! == "error" && message["errorCode"] != null && (string)message["errorCode"]! == "30040")
+            if (data.HasValues && data["event"] != null && (string)data["event"]! == "error" && data["errorCode"] != null && (string)data["errorCode"]! == "30040")
             {
-                Log.Write(LogLevel.Warning, "Subscription failed: " + (string)message["message"]!);
-                callResult = new CallResult<object>(new ServerError($"{(string)message["errorCode"]!}, {(string)message["message"]!}"));
+                Log.Write(LogLevel.Warning, "Subscription failed: " + (string)data["message"]!);
+                callResult = new CallResult<object>(new ServerError($"{(string)data["errorCode"]!}, {(string)data["message"]!}"));
                 return true;
             }
 
             // Check for Success
-            if (message.HasValues && message["event"] != null && (string)message["event"]! == "subscribe" && message["arg"]["channel"] != null)
+            if (data.HasValues && data["event"] != null && (string)data["event"]! == "subscribe" && data["arg"]["channel"] != null)
             {
                 if (request is OkxSocketRequest socRequest)
                 {
-                    if (socRequest.Arguments.FirstOrDefault().Channel == (string)message["arg"]["channel"]!)
+                    if (socRequest.Arguments.FirstOrDefault().Channel == (string)data["arg"]["channel"]!)
                     {
                         Log.Write(LogLevel.Debug, "Subscription completed");
                         callResult = new CallResult<object>(true);
@@ -196,9 +196,9 @@ namespace SharpCryptoExchange.Okx
 
             return false;
         }
-        protected override bool MessageMatchesHandler(SocketConnection s, JToken message, object request)
+        protected override bool MessageMatchesHandler(SocketConnection socketConnection, JToken message, object request)
         {
-            return OkxMessageMatchesHandler(s, message, request);
+            return OkxMessageMatchesHandler(socketConnection, message, request);
         }
         protected virtual bool OkxMessageMatchesHandler(SocketConnection s, JToken message, object request)
         {
@@ -241,17 +241,17 @@ namespace SharpCryptoExchange.Okx
 
             return false;
         }
-        protected override bool MessageMatchesHandler(SocketConnection s, JToken message, string identifier)
+        protected override bool MessageMatchesHandler(SocketConnection socketConnection, JToken message, string identifier)
         {
-            return OkxMessageMatchesHandler(s, message, identifier);
+            return OkxMessageMatchesHandler(socketConnection, message, identifier);
         }
-        protected virtual bool OkxMessageMatchesHandler(SocketConnection s, JToken message, string identifier)
+        protected virtual bool OkxMessageMatchesHandler(SocketConnection socketConnection, JToken message, string identifier)
         {
             return true;
         }
-        protected override async Task<CallResult<bool>> AuthenticateSocketAsync(SocketConnection s)
+        protected override async Task<CallResult<bool>> AuthenticateSocketAsync(SocketConnection socketConnection)
         {
-            return await OkxAuthenticateSocket(s);
+            return await OkxAuthenticateSocket(socketConnection);
         }
         protected virtual async Task<CallResult<bool>> OkxAuthenticateSocket(SocketConnection s)
         {
@@ -316,16 +316,16 @@ namespace SharpCryptoExchange.Okx
 
             return result;
         }
-        protected override async Task<bool> UnsubscribeAsync(SocketConnection connection, SocketSubscription s)
+        protected override Task<bool> UnsubscribeAsync(SocketConnection connection, SocketSubscription subscriptionToUnsub)
         {
-            return await OkxUnsubscribeAsync(connection, s);
+            return OkxUnsubscribeAsync(connection, subscriptionToUnsub);
         }
-        protected virtual async Task<bool> OkxUnsubscribeAsync(SocketConnection connection, SocketSubscription s)
+        protected virtual async Task<bool> OkxUnsubscribeAsync(SocketConnection connection, SocketSubscription subscriptionToUnsub)
         {
-            if (s == null || s.Request == null)
+            if (subscriptionToUnsub == null || subscriptionToUnsub.Request == null)
                 return false;
 
-            var request = new OkxSocketRequest(OkxSocketOperation.Unsubscribe, ((OkxSocketRequest)s.Request).Arguments);
+            var request = new OkxSocketRequest(OkxSocketOperation.Unsubscribe, ((OkxSocketRequest)subscriptionToUnsub.Request).Arguments);
             await connection.SendAndWaitAsync(request, TimeSpan.FromSeconds(10), data =>
             {
                 if (data.Type != JTokenType.Object)

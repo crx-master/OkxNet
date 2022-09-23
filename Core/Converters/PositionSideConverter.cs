@@ -11,9 +11,9 @@ namespace SharpCryptoExchange.Okx.Converters
 
         protected override List<KeyValuePair<OkxPositionSide, string>> Mapping => new List<KeyValuePair<OkxPositionSide, string>>
         {
-            new KeyValuePair<OkxPositionSide, string>(OkxPositionSide.Long, "long"),
-            new KeyValuePair<OkxPositionSide, string>(OkxPositionSide.Short, "short"),
-            new KeyValuePair<OkxPositionSide, string>(OkxPositionSide.Net, "net"),
+            new KeyValuePair<OkxPositionSide, string>(OkxPositionSide.LongPos, "long"),
+            new KeyValuePair<OkxPositionSide, string>(OkxPositionSide.ShortPos, "short"),
+            new KeyValuePair<OkxPositionSide, string>(OkxPositionSide.NetPos, "net"),
         };
     }
 }

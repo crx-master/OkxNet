@@ -3,8 +3,8 @@ using SharpCryptoExchange.Objects;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Helpers;
-using SharpCryptoExchange.Okx.Objects.Core;
-using SharpCryptoExchange.Okx.Objects.Trading;
+using SharpCryptoExchange.Okx.Models.Core;
+using SharpCryptoExchange.Okx.Models.Trading;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading;
@@ -42,34 +42,35 @@ namespace SharpCryptoExchange.Okx
         /// <param name="currency">Currency</param>
         /// <param name="instrumentType">Instrument Type</param>
         /// <param name="period">period, the default is 5m, e.g. [5m/1H/1D]</param>
-        /// <param name="begin">begin, e.g. 1597026383085</param>
-        /// <param name="end">end, e.g. 1597026383011</param>
+        /// <param name="beginTS">begin timestamp, e.g. 1597026383085</param>
+        /// <param name="endTS">end timestamp, e.g. 1597026383011</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual WebCallResult<IEnumerable<OkxTakerVolume>> GetRubikTakerVolume(
             string currency,
             OkxInstrumentType instrumentType,
             OkxPeriod period = OkxPeriod.FiveMinutes,
-            long? begin = null,
-            long? end = null,
+            long? beginTS = null,
+            long? endTS = null,
             CancellationToken ct = default)
-            => GetRubikTakerVolumeAsync(currency, instrumentType, period, begin, end, ct).Result;
+            => GetRubikTakerVolumeAsync(currency, instrumentType, period, beginTS, endTS, ct).Result;
+
         /// <summary>
         /// This is the taker volume for both buyers and sellers. This shows the influx and exit of funds in and out of {coin}.
         /// </summary>
         /// <param name="currency">Currency</param>
         /// <param name="instrumentType">Instrument Type</param>
         /// <param name="period">period, the default is 5m, e.g. [5m/1H/1D]</param>
-        /// <param name="begin">begin, e.g. 1597026383085</param>
-        /// <param name="end">end, e.g. 1597026383011</param>
+        /// <param name="beginTS">begin timestamp, e.g. 1597026383085</param>
+        /// <param name="endTS">end timestamp, e.g. 1597026383011</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual async Task<WebCallResult<IEnumerable<OkxTakerVolume>>> GetRubikTakerVolumeAsync(
             string currency,
             OkxInstrumentType instrumentType,
             OkxPeriod period = OkxPeriod.FiveMinutes,
-            long? begin = null,
-            long? end = null,
+            long? beginTS = null,
+            long? endTS = null,
             CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object> {
@@ -77,8 +78,8 @@ namespace SharpCryptoExchange.Okx
                 { "instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)) },
                 { "period", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
             };
-            parameters.AddOptionalParameter("begin", begin?.ToString(OkxGlobals.OkxCultureInfo));
-            parameters.AddOptionalParameter("end", end?.ToString(OkxGlobals.OkxCultureInfo));
+            parameters.AddOptionalParameter("begin", $"{beginTS}");
+            parameters.AddOptionalParameter("end", $"{endTS}");
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxTakerVolume>>>(UnifiedApi.GetUri(Endpoints_V5_RubikStat_TakerVolume), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxTakerVolume>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
@@ -92,39 +93,39 @@ namespace SharpCryptoExchange.Okx
         /// </summary>
         /// <param name="currency">Currency</param>
         /// <param name="period">period, the default is 5m, e.g. [5m/1H/1D]</param>
-        /// <param name="begin">begin, e.g. 1597026383085</param>
-        /// <param name="end">end, e.g. 1597026383085</param>
+        /// <param name="beginTS">begin timestamp, e.g. 1597026383085</param>
+        /// <param name="endTS">end timestamp, e.g. 1597026383085</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual WebCallResult<IEnumerable<OkxRatio>> GetRubikMarginLendingRatio(
             string currency,
             OkxPeriod period = OkxPeriod.FiveMinutes,
-            long? begin = null,
-            long? end = null,
+            long? beginTS = null,
+            long? endTS = null,
             CancellationToken ct = default)
-            => GetRubikMarginLendingRatioAsync(currency, period, begin, end, ct).Result;
+            => GetRubikMarginLendingRatioAsync(currency, period, beginTS, endTS, ct).Result;
         /// <summary>
         /// This indicator shows the ratio of cumulative data value between currency pair leverage quote currency and underlying asset over a given period of time.
         /// </summary>
         /// <param name="currency">Currency</param>
         /// <param name="period">period, the default is 5m, e.g. [5m/1H/1D]</param>
-        /// <param name="begin">begin, e.g. 1597026383085</param>
-        /// <param name="end">end, e.g. 1597026383085</param>
+        /// <param name="beginTS">begin timestamp, e.g. 1597026383085</param>
+        /// <param name="endTS">end timestamp, e.g. 1597026383085</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual async Task<WebCallResult<IEnumerable<OkxRatio>>> GetRubikMarginLendingRatioAsync(
             string currency,
             OkxPeriod period = OkxPeriod.FiveMinutes,
-            long? begin = null,
-            long? end = null,
+            long? beginTS = null,
+            long? endTS = null,
             CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object> {
                 { "ccy", currency},
                 { "period", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
             };
-            parameters.AddOptionalParameter("begin", begin?.ToString(OkxGlobals.OkxCultureInfo));
-            parameters.AddOptionalParameter("end", end?.ToString(OkxGlobals.OkxCultureInfo));
+            parameters.AddOptionalParameter("begin", beginTS?.ToString(OkxGlobals.OkxCultureInfo));
+            parameters.AddOptionalParameter("end", endTS?.ToString(OkxGlobals.OkxCultureInfo));
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxRatio>>>(UnifiedApi.GetUri(Endpoints_V5_RubikStat_MarginLoanRatio), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxRatio>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
@@ -138,39 +139,40 @@ namespace SharpCryptoExchange.Okx
         /// </summary>
         /// <param name="currency">Currency</param>
         /// <param name="period">period, the default is 5m, e.g. [5m/1H/1D]</param>
-        /// <param name="begin">begin, e.g. 1597026383085</param>
-        /// <param name="end">end, e.g. 1597026383011</param>
+        /// <param name="beginTS">begin timestamp, e.g. 1597026383085</param>
+        /// <param name="endTS">end timestamp, e.g. 1597026383011</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual WebCallResult<IEnumerable<OkxRatio>> GetRubikLongShortRatio(
             string currency,
             OkxPeriod period = OkxPeriod.FiveMinutes,
-            long? begin = null,
-            long? end = null,
+            long? beginTS = null,
+            long? endTS = null,
             CancellationToken ct = default)
-            => GetRubikLongShortRatioAsync(currency, period, begin, end, ct).Result;
+            => GetRubikLongShortRatioAsync(currency, period, beginTS, endTS, ct).Result;
+
         /// <summary>
         /// This is the ratio of users with net long vs short positions. It includes data from futures and perpetual swaps.
         /// </summary>
         /// <param name="currency">Currency</param>
         /// <param name="period">period, the default is 5m, e.g. [5m/1H/1D]</param>
-        /// <param name="begin">begin, e.g. 1597026383085</param>
-        /// <param name="end">end, e.g. 1597026383011</param>
+        /// <param name="beginTS">begin, e.g. 1597026383085</param>
+        /// <param name="endTS">end, e.g. 1597026383011</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual async Task<WebCallResult<IEnumerable<OkxRatio>>> GetRubikLongShortRatioAsync(
             string currency,
             OkxPeriod period = OkxPeriod.FiveMinutes,
-            long? begin = null,
-            long? end = null,
+            long? beginTS = null,
+            long? endTS = null,
             CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object> {
                 { "ccy", currency},
                 { "period", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
             };
-            parameters.AddOptionalParameter("begin", begin?.ToString(OkxGlobals.OkxCultureInfo));
-            parameters.AddOptionalParameter("end", end?.ToString(OkxGlobals.OkxCultureInfo));
+            parameters.AddOptionalParameter("begin", beginTS?.ToString(OkxGlobals.OkxCultureInfo));
+            parameters.AddOptionalParameter("end", endTS?.ToString(OkxGlobals.OkxCultureInfo));
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxRatio>>>(UnifiedApi.GetUri(Endpoints_V5_RubikStat_ContractsLongShortAccountRatio), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxRatio>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
@@ -184,39 +186,39 @@ namespace SharpCryptoExchange.Okx
         /// </summary>
         /// <param name="currency">Currency</param>
         /// <param name="period">period, the default is 5m, e.g. [5m/1H/1D]</param>
-        /// <param name="begin">begin, e.g. 1597026383085</param>
-        /// <param name="end">end, e.g. 1597026383011</param>
+        /// <param name="beginTS">begin timestamp, e.g. 1597026383085</param>
+        /// <param name="endTS">end timestamp, e.g. 1597026383011</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual WebCallResult<IEnumerable<OkxInterestVolume>> GetRubikContractSummary(
             string currency,
             OkxPeriod period = OkxPeriod.FiveMinutes,
-            long? begin = null,
-            long? end = null,
+            long? beginTS = null,
+            long? endTS = null,
             CancellationToken ct = default)
-            => GetRubikContractSummaryAsync(currency, period, begin, end, ct).Result;
+            => GetRubikContractSummaryAsync(currency, period, beginTS, endTS, ct).Result;
         /// <summary>
         /// Open interest is the sum of all long and short futures and perpetual swap positions.
         /// </summary>
         /// <param name="currency">Currency</param>
         /// <param name="period">period, the default is 5m, e.g. [5m/1H/1D]</param>
-        /// <param name="begin">begin, e.g. 1597026383085</param>
-        /// <param name="end">end, e.g. 1597026383011</param>
+        /// <param name="beginTS">begin timestamp, e.g. 1597026383085</param>
+        /// <param name="endTS">end timestamp, e.g. 1597026383011</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
         public virtual async Task<WebCallResult<IEnumerable<OkxInterestVolume>>> GetRubikContractSummaryAsync(
             string currency,
             OkxPeriod period = OkxPeriod.FiveMinutes,
-            long? begin = null,
-            long? end = null,
+            long? beginTS = null,
+            long? endTS = null,
             CancellationToken ct = default)
         {
             var parameters = new Dictionary<string, object> {
                 { "ccy", currency},
                 { "period", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
             };
-            parameters.AddOptionalParameter("begin", begin?.ToString(OkxGlobals.OkxCultureInfo));
-            parameters.AddOptionalParameter("end", end?.ToString(OkxGlobals.OkxCultureInfo));
+            parameters.AddOptionalParameter("begin", beginTS?.ToString(OkxGlobals.OkxCultureInfo));
+            parameters.AddOptionalParameter("end", endTS?.ToString(OkxGlobals.OkxCultureInfo));
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxInterestVolume>>>(UnifiedApi.GetUri(Endpoints_V5_RubikStat_ContractsOpenInterestVolume), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxInterestVolume>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));

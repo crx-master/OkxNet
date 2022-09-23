@@ -2,8 +2,8 @@
 using SharpCryptoExchange.Objects;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
-using SharpCryptoExchange.Okx.Objects.Core;
-using SharpCryptoExchange.Okx.Objects.Market;
+using SharpCryptoExchange.Okx.Models.Core;
+using SharpCryptoExchange.Okx.Models.Market;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -132,7 +132,7 @@ namespace SharpCryptoExchange.Okx
             };
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOrderBook>>>(UnifiedApi.GetUri(Endpoints_V5_Market_Books), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
-            if (!result.Success || result.Data.Data.Count() == 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
+            if (!result.Success || result.Data.Data.Any()) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxOrderBook>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
             var orderbook = result.Data.Data.FirstOrDefault();
@@ -172,9 +172,9 @@ namespace SharpCryptoExchange.Okx
                 { "instId", instrumentId },
                 { "bar", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
             };
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxCandlestick>>>(UnifiedApi.GetUri(Endpoints_V5_Market_Candles), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxCandlestick>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
@@ -216,9 +216,9 @@ namespace SharpCryptoExchange.Okx
                 { "instId", instrumentId },
                 { "bar", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
             };
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxCandlestick>>>(UnifiedApi.GetUri(Endpoints_V5_Market_HistoryCandles), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxCandlestick>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
@@ -260,9 +260,9 @@ namespace SharpCryptoExchange.Okx
                 { "instId", instrumentId },
                 { "bar", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
             };
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxCandlestick>>>(UnifiedApi.GetUri(Endpoints_V5_Market_IndexCandles), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxCandlestick>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
@@ -304,9 +304,9 @@ namespace SharpCryptoExchange.Okx
                 { "instId", instrumentId },
                 { "bar", JsonConvert.SerializeObject(period, new PeriodConverter(false)) },
             };
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxCandlestick>>>(UnifiedApi.GetUri(Endpoints_V5_Market_MarkPriceCandles), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxCandlestick>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
@@ -341,7 +341,7 @@ namespace SharpCryptoExchange.Okx
             {
                 { "instId", instrumentId },
             };
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxTrade>>>(UnifiedApi.GetUri(Endpoints_V5_Market_Trades), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxTrade>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
@@ -387,9 +387,9 @@ namespace SharpCryptoExchange.Okx
             };
 
             parameters.AddOptionalParameter("type", JsonConvert.SerializeObject(type, new TradeHistoryPaginationTypeConverter(false)));
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxTrade>>>(UnifiedApi.GetUri(Endpoints_V5_Market_TradesHistory), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxTrade>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));

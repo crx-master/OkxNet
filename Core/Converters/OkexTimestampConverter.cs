@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Globalization;
 
 namespace SharpCryptoExchange.Okx.Converters
 {
@@ -25,13 +26,13 @@ namespace SharpCryptoExchange.Okx.Converters
                 if (reader.Value is string s && string.IsNullOrWhiteSpace(s))
                     return null;
 
-                var t = long.Parse(reader.Value.ToString());
+                var t = long.Parse(reader.Value.ToString(), CultureInfo.InvariantCulture); ;
                 return DateTimeOffset.FromUnixTimeMilliseconds(t);
                 //return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(t);
             }
             catch (Exception ex)
             {
-                throw new ApplicationException($"Cannot convert value '{reader.Value}' to type {nameof(DateTimeOffset)}.", ex);
+                throw new SharpCryptoExchangeException($"Cannot convert value '{reader.Value}' to type {nameof(DateTimeOffset)}.", ex);
             }
         }
 

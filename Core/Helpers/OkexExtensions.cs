@@ -165,12 +165,12 @@ namespace SharpCryptoExchange.Okx.Helpers
         #region ISO 8601 DateTime
         public static string DateTimeToIso8601String(this DateTime @this)
         {
-            return @this.ToString(OkxGlobals.OkxDatetimeFormat);
+            return @this.ToString(OkxGlobals.OkxDatetimeFormat, OkxGlobals.OkxCultureInfo);
         }
 
         public static DateTime Iso8601StringToDateTime(this string @this)
         {
-            return DateTime.ParseExact(@this, OkxGlobals.OkxDatetimeFormat, CultureInfo.InvariantCulture);
+            return DateTime.ParseExact(@this, OkxGlobals.OkxDatetimeFormat, OkxGlobals.OkxCultureInfo);
         }
         #endregion
 

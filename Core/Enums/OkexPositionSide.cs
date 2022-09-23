@@ -2,8 +2,8 @@
 {
     public enum OkxPositionSide
     {
-        Long,
-        Short,
-        Net,
+        LongPos,
+        ShortPos,
+        NetPos
     }
 }

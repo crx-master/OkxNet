@@ -2,7 +2,7 @@
 {
     public enum OkxWithdrawalDestination
     {
-        OKEx,
+        Okx,
         DigitalCurrencyAddress,
     }
 }

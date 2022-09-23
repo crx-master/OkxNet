@@ -2,10 +2,10 @@
 {
     public enum OkxOrderBookType
     {
-        OrderBook,
-        OrderBook_5,
-        OrderBook_50_l2_TBT,
-        OrderBook_l2_TBT,
+        Books,
+        Books5,
+        Books50L2Tbt,
+        BooksL2Tbt,
     }
 
 }

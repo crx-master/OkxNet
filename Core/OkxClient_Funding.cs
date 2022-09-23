@@ -3,8 +3,8 @@ using SharpCryptoExchange.Objects;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Helpers;
-using SharpCryptoExchange.Okx.Objects.Core;
-using SharpCryptoExchange.Okx.Objects.Funding;
+using SharpCryptoExchange.Okx.Models.Core;
+using SharpCryptoExchange.Okx.Models.Funding;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +31,7 @@ namespace SharpCryptoExchange.Okx
         /// <returns></returns>
         public virtual async Task<WebCallResult<IEnumerable<OkxCurrency>>> GetCurrenciesAsync(CancellationToken ct = default)
         {
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxCurrency>>>(UnifiedApi.GetUri(Endpoints_V5_Asset_Currencies), HttpMethod.Get, ct, null, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxCurrency>>>(UnifiedApi.GetUri(Endpoints.V5.Asset.Currencies), HttpMethod.Get, ct, null, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxCurrency>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxCurrency>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -57,7 +57,7 @@ namespace SharpCryptoExchange.Okx
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("ccy", currency);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxFundingBalance>>>(UnifiedApi.GetUri(Endpoints_V5_Asset_Balances), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxFundingBalance>>>(UnifiedApi.GetUri(Endpoints.V5.Asset.Balances), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxFundingBalance>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxFundingBalance>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -134,7 +134,7 @@ namespace SharpCryptoExchange.Okx
             parameters.AddOptionalParameter("instId", fromInstrumentId);
             parameters.AddOptionalParameter("toInstId", toInstrumentId);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxTransferResponse>>>(UnifiedApi.GetUri(Endpoints_V5_Asset_Transfer), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxTransferResponse>>>(UnifiedApi.GetUri(Endpoints.V5.Asset.Transfer), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxTransferResponse>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxTransferResponse>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -196,7 +196,7 @@ namespace SharpCryptoExchange.Okx
             parameters.AddOptionalParameter("before", before?.ToString(OkxGlobals.OkxCultureInfo));
             parameters.AddOptionalParameter("limit", limit.ToString(OkxGlobals.OkxCultureInfo));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxFundingBill>>>(UnifiedApi.GetUri(Endpoints_V5_Asset_Bills), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxFundingBill>>>(UnifiedApi.GetUri(Endpoints.V5.Asset.Bills), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxFundingBill>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxFundingBill>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -239,7 +239,7 @@ namespace SharpCryptoExchange.Okx
             if (account.HasValue)
                 parameters.AddOptionalParameter("to", JsonConvert.SerializeObject(account, new LightningDepositAccountConverter(false)));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxLightningDeposit>>>(UnifiedApi.GetUri(Endpoints_V5_Asset_DepositLightning), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxLightningDeposit>>>(UnifiedApi.GetUri(Endpoints.V5.Asset.DepositLightning), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxLightningDeposit>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxLightningDeposit>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -266,7 +266,7 @@ namespace SharpCryptoExchange.Okx
                 { "ccy", currency },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxDepositAddress>>>(UnifiedApi.GetUri(Endpoints_V5_Asset_DepositAddress), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxDepositAddress>>>(UnifiedApi.GetUri(Endpoints.V5.Asset.DepositAddress), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxDepositAddress>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxDepositAddress>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -325,7 +325,7 @@ namespace SharpCryptoExchange.Okx
             parameters.AddOptionalParameter("before", before?.ToString(OkxGlobals.OkxCultureInfo));
             parameters.AddOptionalParameter("limit", limit.ToString(OkxGlobals.OkxCultureInfo));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxDepositHistory>>>(UnifiedApi.GetUri(Endpoints_V5_Asset_DepositHistory), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxDepositHistory>>>(UnifiedApi.GetUri(Endpoints.V5.Asset.DepositHistory), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxDepositHistory>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxDepositHistory>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -394,7 +394,7 @@ namespace SharpCryptoExchange.Okx
             };
             parameters.AddOptionalParameter("chain", chain);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxWithdrawalResponse>>>(UnifiedApi.GetUri(Endpoints_V5_Asset_Withdrawal), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxWithdrawalResponse>>>(UnifiedApi.GetUri(Endpoints.V5.Asset.Withdrawal), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxWithdrawalResponse>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxWithdrawalResponse>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -437,7 +437,7 @@ namespace SharpCryptoExchange.Okx
             if (!string.IsNullOrEmpty(memo))
                 parameters.AddOptionalParameter("memo", memo);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxLightningWithdrawal>>>(UnifiedApi.GetUri(Endpoints_V5_Asset_WithdrawalLightning), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxLightningWithdrawal>>>(UnifiedApi.GetUri(Endpoints.V5.Asset.WithdrawalLightning), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxLightningWithdrawal>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxLightningWithdrawal>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -469,7 +469,7 @@ namespace SharpCryptoExchange.Okx
                 { "wdId",withdrawalId},
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxWithdrawalId>>>(UnifiedApi.GetUri(Endpoints_V5_Asset_WithdrawalCancel), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxWithdrawalId>>>(UnifiedApi.GetUri(Endpoints.V5.Asset.WithdrawalCancel), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxWithdrawalId>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxWithdrawalId>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -528,7 +528,7 @@ namespace SharpCryptoExchange.Okx
             parameters.AddOptionalParameter("before", before?.ToString(OkxGlobals.OkxCultureInfo));
             parameters.AddOptionalParameter("limit", limit.ToString(OkxGlobals.OkxCultureInfo));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxWithdrawalHistory>>>(UnifiedApi.GetUri(Endpoints_V5_Asset_WithdrawalHistory), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxWithdrawalHistory>>>(UnifiedApi.GetUri(Endpoints.V5.Asset.WithdrawalHistory), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxWithdrawalHistory>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxWithdrawalHistory>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -560,7 +560,7 @@ namespace SharpCryptoExchange.Okx
             var parameters = new Dictionary<string, object>();
             parameters.AddOptionalParameter("ccy", currency);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSavingBalance>>>(UnifiedApi.GetUri(Endpoints_V5_Asset_SavingBalance), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSavingBalance>>>(UnifiedApi.GetUri(Endpoints.V5.Asset.SavingBalance), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxSavingBalance>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxSavingBalance>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -593,7 +593,7 @@ namespace SharpCryptoExchange.Okx
             };
             parameters.AddOptionalParameter("rate", rate?.ToString(OkxGlobals.OkxCultureInfo));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSavingActionResponse>>>(UnifiedApi.GetUri(Endpoints_V5_Asset_SavingPurchaseRedempt), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSavingActionResponse>>>(UnifiedApi.GetUri(Endpoints.V5.Asset.SavingPurchaseRedempt), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxSavingActionResponse>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxSavingActionResponse>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 

@@ -37,7 +37,7 @@ namespace SharpCryptoExchange.Okx.Attributes
             return typeof(TObject).IsAssignableFrom(objectType);
         }
 
-        private JsonProperty GetExtensionJsonProperty(JsonObjectContract contract)
+        private static JsonProperty GetExtensionJsonProperty(JsonObjectContract contract)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace SharpCryptoExchange.Okx.Attributes
             }
             catch (InvalidOperationException ex)
             {
-                throw new JsonSerializationException(string.Format("Exactly one property with JsonTypedExtensionDataAttribute is required for type {0}", contract.UnderlyingType), ex);
+                throw new JsonSerializationException($"Exactly one property with JsonTypedExtensionDataAttribute is required for type {contract.UnderlyingType}", ex);
             }
         }
 
@@ -103,10 +103,10 @@ namespace SharpCryptoExchange.Okx.Attributes
         }
 
         [ThreadStatic]
-        private static bool disabled;
+        private static bool _disabled;
 
         // Disables the converter in a thread-safe manner.
-        private bool Disabled { get { return disabled; } set { disabled = value; } }
+        private static bool Disabled { get { return _disabled; } set { _disabled = value; } }
 
         public override bool CanWrite { get { return !Disabled; } }
 
@@ -115,14 +115,13 @@ namespace SharpCryptoExchange.Okx.Attributes
 
     public struct PushValue<T> : IDisposable
     {
-        private readonly Action<T> setValue;
+        private readonly Action<T> _setValue;
         private readonly T oldValue;
 
         public PushValue(T value, Func<T> getValue, Action<T> setValue)
         {
-            if (getValue == null || setValue == null)
-                throw new ArgumentNullException();
-            this.setValue = setValue;
+            if (getValue == null) throw new ArgumentNullException(nameof(getValue));
+            _setValue = setValue ?? throw new ArgumentNullException(nameof(setValue));
             oldValue = getValue();
             setValue(value);
         }
@@ -132,7 +131,7 @@ namespace SharpCryptoExchange.Okx.Attributes
         // By using a disposable struct we avoid the overhead of allocating and freeing an instance of a finalizable class.
         public void Dispose()
         {
-            setValue?.Invoke(oldValue);
+            _setValue?.Invoke(oldValue);
         }
 
         #endregion

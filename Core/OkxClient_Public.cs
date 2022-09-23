@@ -3,8 +3,9 @@ using SharpCryptoExchange.Objects;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Helpers;
-using SharpCryptoExchange.Okx.Objects.Core;
-using SharpCryptoExchange.Okx.Objects.Public;
+using SharpCryptoExchange.Okx.Models;
+using SharpCryptoExchange.Okx.Models.Core;
+using SharpCryptoExchange.Okx.Models.PublicInfo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,9 +87,9 @@ namespace SharpCryptoExchange.Okx
                 { "instType", JsonConvert.SerializeObject(instrumentType, new InstrumentTypeConverter(false)) },
                 { "uly", underlying },
             };
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxDeliveryExerciseHistory>>>(UnifiedApi.GetUri(Endpoints_V5_Public_DeliveryExerciseHistory), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxDeliveryExerciseHistory>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
@@ -185,18 +186,21 @@ namespace SharpCryptoExchange.Okx
         /// <param name="limit">Number of results per request. The maximum is 100; the default is 100.</param>
         /// <param name="ct">Cancellation Token</param>
         /// <returns></returns>
-        public virtual async Task<WebCallResult<IEnumerable<OkxFundingRateHistory>>> GetFundingRateHistoryAsync(string instrumentId, long? after = null, long? before = null, int limit = 100, CancellationToken ct = default)
+        public virtual async Task<WebCallResult<IEnumerable<OkxFundingRateHistory>>> GetFundingRateHistoryAsync(string instrumentId,
+                                                                                                                long? after = null,
+                                                                                                                long? before = null,
+                                                                                                                int limit = 100,
+                                                                                                                CancellationToken ct = default)
         {
-            if (limit < 1 || limit > 100)
-                throw new ArgumentException("Limit can be between 1-100.");
+            if (limit < 1 || limit > 100) throw new ArgumentException("Limit can be between 1-100.");
 
             var parameters = new Dictionary<string, object>
             {
                 { "instId", instrumentId },
             };
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxFundingRateHistory>>>(UnifiedApi.GetUri(Endpoints_V5_Public_FundingRateHistory), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxFundingRateHistory>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
@@ -255,7 +259,7 @@ namespace SharpCryptoExchange.Okx
             {
                 { "uly", underlying },
             };
-            parameters.AddOptionalParameter("expTime", expiryDate?.ToString("yyMMdd"));
+            parameters.AddOptionalParameter("expTime", expiryDate?.ToString("yyMMdd", OkxGlobals.OkxCultureInfo));
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxOptionSummary>>>(UnifiedApi.GetUri(Endpoints_V5_Public_OptionSummary), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxOptionSummary>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
@@ -313,7 +317,7 @@ namespace SharpCryptoExchange.Okx
                 throw new ArgumentException("Limit can be between 1-5.");
 
             var parameters = new Dictionary<string, object>();
-            parameters.AddOptionalParameter("discountLv", discountLevel?.ToString());
+            parameters.AddOptionalParameter("discountLv", $"{discountLevel}");
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxDiscountInfo>>>(UnifiedApi.GetUri(Endpoints_V5_Public_DiscountRateInterestFreeQuota), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxDiscountInfo>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
@@ -359,7 +363,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="instrumentId">Instrument ID</param>
         /// <param name="currency">Currency</param>
         /// <param name="underlying">Underlying</param>
-        /// <param name="alias">Alias</param>
+        /// <param name="instrumentAlias">Alias</param>
         /// <param name="state">State</param>
         /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
         /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
@@ -372,7 +376,7 @@ namespace SharpCryptoExchange.Okx
             string instrumentId = null,
             string currency = null,
             string underlying = null,
-            OkxInstrumentAlias? alias = null,
+            OkxInstrumentAlias? instrumentAlias = null,
             OkxLiquidationState? state = null,
             long? after = null, long? before = null, int limit = 100,
             CancellationToken ct = default)
@@ -382,7 +386,7 @@ namespace SharpCryptoExchange.Okx
             instrumentId,
             currency,
             underlying,
-            alias,
+            instrumentAlias,
             state,
             after, before, limit,
             ct).Result;
@@ -394,7 +398,7 @@ namespace SharpCryptoExchange.Okx
         /// <param name="instrumentId">Instrument ID</param>
         /// <param name="currency">Currency</param>
         /// <param name="underlying">Underlying</param>
-        /// <param name="alias">Alias</param>
+        /// <param name="intrumentAlias">Instrument alias</param>
         /// <param name="state">State</param>
         /// <param name="after">Pagination of data to return records earlier than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
         /// <param name="before">Pagination of data to return records newer than the requested ts, Unix timestamp format in milliseconds, e.g. 1597026383085</param>
@@ -407,7 +411,7 @@ namespace SharpCryptoExchange.Okx
             string instrumentId = null,
             string currency = null,
             string underlying = null,
-            OkxInstrumentAlias? alias = null,
+            OkxInstrumentAlias? intrumentAlias = null,
             OkxLiquidationState? state = null,
             long? after = null, long? before = null, int limit = 100,
             CancellationToken ct = default)
@@ -418,7 +422,7 @@ namespace SharpCryptoExchange.Okx
             if (instrumentType.IsIn(OkxInstrumentType.Futures, OkxInstrumentType.Swap) && state == null)
                 throw new ArgumentException("State is required.");
 
-            if (instrumentType.IsIn(OkxInstrumentType.Futures) && alias == null)
+            if (instrumentType.IsIn(OkxInstrumentType.Futures) && intrumentAlias == null)
                 throw new ArgumentException("Alias is required.");
 
             if (limit < 1 || limit > 100)
@@ -436,14 +440,14 @@ namespace SharpCryptoExchange.Okx
                 parameters.AddOptionalParameter("ccy", currency);
             if (!string.IsNullOrEmpty(underlying))
                 parameters.AddOptionalParameter("uly", underlying);
-            if (alias != null)
-                parameters.AddOptionalParameter("alias", JsonConvert.SerializeObject(alias, new InstrumentAliasConverter(false)));
+            if (intrumentAlias != null)
+                parameters.AddOptionalParameter("alias", JsonConvert.SerializeObject(intrumentAlias, new InstrumentAliasConverter(false)));
             if (state != null)
                 parameters.AddOptionalParameter("state", JsonConvert.SerializeObject(state, new LiquidationStateConverter(false)));
 
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxLiquidationInfo>>>(UnifiedApi.GetUri(Endpoints_V5_Public_LiquidationOrders), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxLiquidationInfo>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
@@ -688,9 +692,9 @@ namespace SharpCryptoExchange.Okx
             if (!string.IsNullOrEmpty(currency))
                 parameters.AddOptionalParameter("ccy", currency);
 
-            parameters.AddOptionalParameter("after", after?.ToString());
-            parameters.AddOptionalParameter("before", before?.ToString());
-            parameters.AddOptionalParameter("limit", limit.ToString());
+            parameters.AddOptionalParameter("after", $"{after}");
+            parameters.AddOptionalParameter("before", $"{before}");
+            parameters.AddOptionalParameter("limit", $"{limit}");
 
             var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxInsuranceFund>>>(UnifiedApi.GetUri(Endpoints_V5_Public_InsuranceFund), HttpMethod.Get, ct, parameters).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxInsuranceFund>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));

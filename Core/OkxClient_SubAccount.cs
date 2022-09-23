@@ -3,8 +3,8 @@ using SharpCryptoExchange.Objects;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
 using SharpCryptoExchange.Okx.Helpers;
-using SharpCryptoExchange.Okx.Objects.Core;
-using SharpCryptoExchange.Okx.Objects.SubAccount;
+using SharpCryptoExchange.Okx.Models.Core;
+using SharpCryptoExchange.Okx.Models.SubAccount;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,7 +63,7 @@ namespace SharpCryptoExchange.Okx
             parameters.AddOptionalParameter("before", before?.ToString(OkxGlobals.OkxCultureInfo));
             parameters.AddOptionalParameter("limit", limit.ToString(OkxGlobals.OkxCultureInfo));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccount>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_List), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccount>>>(UnifiedApi.GetUri(Endpoints.V5.SubAccount.List), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxSubAccount>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxSubAccount>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -125,7 +125,7 @@ namespace SharpCryptoExchange.Okx
             if (permissions.Count > 0)
                 parameters.AddOptionalParameter("perm", string.Join(",", permissions));
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccountApiKey>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_ResetApiKey), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccountApiKey>>>(UnifiedApi.GetUri(Endpoints.V5.SubAccount.ResetApiKey), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxSubAccountApiKey>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxSubAccountApiKey>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -157,7 +157,7 @@ namespace SharpCryptoExchange.Okx
                 {"subAcct", subAccountName },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccountTradingBalance>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_TradingBalances), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccountTradingBalance>>>(UnifiedApi.GetUri(Endpoints.V5.SubAccount.TradingBalances), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxSubAccountTradingBalance>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxSubAccountTradingBalance>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -198,7 +198,7 @@ namespace SharpCryptoExchange.Okx
             if (!string.IsNullOrEmpty(currency))
                 parameters.AddOptionalParameter("ccy", currency);
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccountFundingBalance>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_FundingBalances), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccountFundingBalance>>>(UnifiedApi.GetUri(Endpoints.V5.SubAccount.FundingBalances), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxSubAccountFundingBalance>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxSubAccountFundingBalance>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -257,7 +257,7 @@ namespace SharpCryptoExchange.Okx
             parameters.AddOptionalParameter("limit", limit.ToString(OkxGlobals.OkxCultureInfo));
 
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccountBill>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_Bills), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccountBill>>>(UnifiedApi.GetUri(Endpoints.V5.SubAccount.Bills), HttpMethod.Get, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<IEnumerable<OkxSubAccountBill>>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<IEnumerable<OkxSubAccountBill>>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 
@@ -314,7 +314,7 @@ namespace SharpCryptoExchange.Okx
                 {"toSubAccount", toSubAccountName },
             };
 
-            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccountTransfer>>>(UnifiedApi.GetUri(Endpoints_V5_SubAccount_Transfer), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
+            var result = await UnifiedApi.ExecuteAsync<OkxRestApiResponse<IEnumerable<OkxSubAccountTransfer>>>(UnifiedApi.GetUri(Endpoints.V5.SubAccount.Transfer), HttpMethod.Post, ct, parameters, true).ConfigureAwait(false);
             if (!result.Success) return result.AsError<OkxSubAccountTransfer>(new OkxRestApiError(result.Error.Code, result.Error.Message, result.Error.Data));
             if (result.Data.ErrorCode > 0) return result.AsError<OkxSubAccountTransfer>(new OkxRestApiError(result.Data.ErrorCode, result.Data.ErrorMessage, null));
 

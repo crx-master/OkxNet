@@ -2,10 +2,10 @@
 using SharpCryptoExchange.Objects;
 using SharpCryptoExchange.Okx.Converters;
 using SharpCryptoExchange.Okx.Enums;
-using SharpCryptoExchange.Okx.Objects.Core;
-using SharpCryptoExchange.Okx.Objects.Market;
-using SharpCryptoExchange.Okx.Objects.Public;
-using SharpCryptoExchange.Okx.Objects.System;
+using SharpCryptoExchange.Okx.Models.Core;
+using SharpCryptoExchange.Okx.Models.Market;
+using SharpCryptoExchange.Okx.Models.PublicInfo;
+using SharpCryptoExchange.Okx.Models.System;
 using SharpCryptoExchange.Sockets;
 using System;
 using System.Collections.Generic;
