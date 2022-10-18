@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SharpCryptoExchange.Authentication;
 using SharpCryptoExchange.Interfaces;
-using SharpCryptoExchange.Logging;
 using SharpCryptoExchange.Objects;
 using SharpCryptoExchange.Okx.Models.Core;
 using System;
@@ -168,7 +168,7 @@ namespace SharpCryptoExchange.Okx
         public OkxClient(OkxClientOptions options) : base("OKX REST API", options)
         {
             Options = options;
-            UnifiedApi = AddApiClient(new OkxClientUnifiedApi(Log, this, options));
+            UnifiedApi = AddApiClient(new OkxClientUnifiedApi(Logger, this, options));
         }
         #endregion
 
@@ -269,17 +269,17 @@ namespace SharpCryptoExchange.Okx
     public class OkxClientUnifiedApi : RestApiClient
     {
         #region Internal Fields
-        internal readonly Log _log;
+        internal readonly ILogger _logger;
         internal readonly OkxClient _baseClient;
         internal readonly OkxClientOptions _options;
         internal static TimeSyncState TimeSyncState = new TimeSyncState("Unified Api");
         #endregion
 
-        internal OkxClientUnifiedApi(Log log, OkxClient baseClient, OkxClientOptions options) : base(options, options.UnifiedApiOptions)
+        internal OkxClientUnifiedApi(ILogger logger, OkxClient baseClient, OkxClientOptions options) : base(options, options.UnifiedApiOptions)
         {
             _baseClient = baseClient;
             _options = options;
-            _log = log;
+            _logger = logger;
         }
 
         protected override AuthenticationProvider CreateAuthenticationProvider(ApiCredentials credentials)
@@ -304,7 +304,7 @@ namespace SharpCryptoExchange.Okx
              => _baseClient.GetSystemTimeAsync();
 
         public override TimeSyncInfo GetTimeSyncInfo()
-            => new TimeSyncInfo(_log, _options.UnifiedApiOptions.AutoTimestamp, _options.UnifiedApiOptions.TimestampRecalculationInterval, TimeSyncState);
+            => new TimeSyncInfo(_logger, _options.UnifiedApiOptions.AutoTimestamp, _options.UnifiedApiOptions.TimestampRecalculationInterval, TimeSyncState);
 
         public override TimeSpan GetTimeOffset()
             => TimeSyncState.TimeOffset;
